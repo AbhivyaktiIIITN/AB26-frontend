@@ -1,3 +1,5 @@
+import Product from "./components/Product"
+
 function App() {
 
   return (
@@ -7,6 +9,9 @@ function App() {
       >
         Hello Vite + React!
       </h1>
+      
+      {/* Razorpahy test: For demo of working */}
+      {/* <Product/>   */}
     </>
   )
 }
