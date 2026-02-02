@@ -1,0 +1,128 @@
+.sponsor-hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  /* Background framing */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 52%; 
+    z-index: 1;
+  }  
+  
+  /* Theatre vignette */
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.55) 0%,
+        rgba(0, 0, 0, 0.15) 25%,
+        rgba(0, 0, 0, 0.15) 70%,
+        rgba(0, 0, 0, 0.85) 100%
+      );
+  }
+  
+  .sponsor-hero::before,
+.sponsor-hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 18%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.sponsor-hero::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.sponsor-hero::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0)
+  );
+}
+  
+  .stage-glow {
+    position: absolute;
+    bottom: 90px;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(
+      to top,
+      rgba(255, 200, 120, 0.25),
+      rgba(255, 200, 120, 0)
+    );
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Center text (SPONSORS) */
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-6%);
+  }  
+  
+  /* Sponsors title (keep your existing styling here) */
+  .sponsor-title {
+    font-size: 96px;
+    letter-spacing: 0.23em;
+    color: #ffffff;
+    text-align: center;
+  }
+  
+  /* Bottom Abhivyakti text */
+  .hero-branding {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  
+  .abhivyakti-text {
+    width: 1200px;
+    max-width: 90vw;
+    opacity: 0.75;
+  }  
+  
+  /* Responsive tweaks */
+  @media (max-width: 768px) {
+    .sponsor-title {
+      font-size: 56px;
+      letter-spacing: 0.18em;
+    }
+  
+    .hero-branding {
+      bottom: -20px;
+    }
+  
+    .abhivyakti-text {
+      width: 800px;
+    }
+  }
+  
