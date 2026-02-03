@@ -41,15 +41,50 @@
 .title-gold { color: #d4a574; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); }
 
 /* ========================================
-   CAROUSEL
+   CAROUSEL CONTAINER
    ======================================== */
 .carousel-container { position: relative; display: flex; align-items: center; gap: 20px; padding: 10px 0; }
-.nav-arrow { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; flex-shrink: 0; z-index: 10; backdrop-filter: blur(10px); }
-.nav-arrow:hover { background: rgba(255, 255, 255, 0.15); transform: scale(1.05); border-color: rgba(255, 255, 255, 0.25); }
+
+.nav-arrow {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+.nav-arrow:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+  border-color: #ffffff;
+}
+
 .nav-arrow:active { transform: scale(0.95); }
-.nav-arrow svg { width: 20px; height: 20px; }
-.cards-wrapper { flex: 1; overflow: hidden; position: relative; padding: 40px 30px; box-sizing: border-box; }
-.cards-track { display: flex; gap: 130px; will-change: transform; }
+
+.nav-arrow svg { width: 24px; height: 24px; display: block; }
+
+/* ========================================
+   CARDS WRAPPER
+   ======================================== */
+.cards-wrapper { 
+  flex: 1; 
+  overflow: hidden; 
+  position: relative; 
+  padding: 40px 20px; 
+  box-sizing: border-box; 
+  width: 100%;
+}
+
+.cards-track { display: flex; will-change: transform; }
 .card-item { flex: 0 0 auto; min-width: 0; }
 
 /* ========================================
@@ -75,13 +110,12 @@
 }
 .playing-card:hover .card-inner { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); }
 
-/* Layer 1: Background Template */
 .card-template-bg {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;
 }
 
 /* ========================================
-   LAYER 2: SPEAKER PHOTO
+   SPEAKER PHOTO
    ======================================== */
 .speaker-photo-layer {
   position: absolute;
@@ -92,18 +126,20 @@
 .speaker-photo-layer img {
   width: 100%;
   height: 100%;
-  /* UPDATED: 'cover' makes the image pan out and fill the entire frame */
-  object-fit: cover; 
-  /* UPDATED: Centers the image within the frame */
-  object-position: center center; 
+  object-fit: contain; 
+  object-position: center bottom; 
   display: block;
   transition: transform 0.5s ease;
+  /* Base scale */
+  transform: scale(1.15); 
+  transform-origin: bottom center;
 }
 
-.playing-card:hover .speaker-photo-layer img { transform: scale(1.08); }
+/* UPDATED HOVER: Changed from 1.22 to 1.17 for a much more subtle zoom */
+.playing-card:hover .speaker-photo-layer img { transform: scale(1.17); }
 
 /* ========================================
-   LAYER 3: TYPOGRAPHY
+   TYPOGRAPHY
    ======================================== */
 .designation-text, .guest-name-text {
   position: absolute;
@@ -112,18 +148,45 @@
 }
 
 .designation-text {
-  top: 2.5%; right: 9%; font-size: 1.1rem; font-weight: 800; letter-spacing: 0.2em; text-align: right;
+  top: 1.5%; 
+  right: 9%;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-align: right;
 }
 
 .guest-name-text {
-  bottom: 2.5%; left: 9%; font-size: 1.25rem; font-weight: 900; letter-spacing: 0.15em; text-align: left;
+  bottom: 1.5%; 
+  left: 9%;
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-align: left;
 }
 
 /* ========================================
-   RESPONSIVE
+   RESPONSIVE MEDIA QUERIES
    ======================================== */
 @media (max-width: 1400px) { .section-container { padding: 0 60px; } }
-@media (max-width: 1200px) { .section-container { padding: 0 40px; } .title-white, .title-gold { font-size: 4.5rem; } .cards-track { gap: 80px; } }
-@media (max-width: 1024px) { .guests-speakers-section { padding: 100px 0 120px; } .section-container { padding: 0 30px; } .carousel-container { gap: 25px; } .cards-track { gap: 60px; } .speaker-photo-layer { width: 78%; } }
-@media (max-width: 768px) { .guests-speakers-section { padding: 80px 0 100px; } .section-container { padding: 0 20px; } .cards-track { gap: 50px; } .playing-card { aspect-ratio: 2.5 / 3.8; } }
-@media (max-width: 480px) { .guests-speakers-section { padding: 60px 0 80px; } .cards-track { gap: 40px; } .designation-text { font-size: 0.9rem; } .guest-name-text { font-size: 1rem; } }
+@media (max-width: 1200px) {
+  .section-container { padding: 0 40px; } .title-white, .title-gold { font-size: 4.5rem; } .cards-track { gap: 60px; } 
+}
+@media (max-width: 1024px) {
+  .guests-speakers-section { padding: 100px 0 120px; } .section-container { padding: 0 30px; } .carousel-container { gap: 20px; } .title-white, .title-gold { font-size: 3.5rem; } .speaker-photo-layer { width: 78%; } 
+}
+@media (max-width: 768px) {
+  .guests-speakers-section { padding: 80px 0 100px; } .section-container { padding: 0 10px; }
+  .cards-wrapper { padding: 40px 0; }
+  .cards-track { gap: 20px; } .playing-card { aspect-ratio: 2.5 / 3.8; }
+  .title-white, .title-gold { font-size: 3rem; } .section-title { margin-bottom: 50px; }
+  .nav-arrow { width: 55px; height: 55px; min-width: 55px; } .nav-arrow svg { width: 24px; height: 24px; }
+  .designation-text { font-size: 0.9rem; top: 1.5%; } .guest-name-text { font-size: 1rem; bottom: 1.5%; }
+}
+@media (max-width: 480px) {
+  .guests-speakers-section { padding: 60px 0 80px; } .section-container { padding: 0 10px; }
+  .title-white, .title-gold { font-size: 2.5rem; } .section-title { margin-bottom: 40px; }
+  .carousel-container { gap: 10px; } 
+  .designation-text { font-size: 0.8rem; letter-spacing: 0.15em; top: 2%; }
+  .guest-name-text { font-size: 0.9rem; letter-spacing: 0.1em; bottom: 2%; }
+}
