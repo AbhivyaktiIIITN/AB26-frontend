@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
 import "./HeroSection.css";
 import stageBg from "@/assets/background/background-curtains.png";
-import abhivyaktiText from "@/assets/branding/ABHIVYAKTI_text_red.png";
+import abhivyaktiText from "@/assets/branding/abhivyakti text-yellow.png";
 
 const HeroSection = () => {
   return (
     <section className="sponsor-hero">
-        <div className="stage-glow" />
 
       {/* Background */}
       <div
@@ -14,10 +13,16 @@ const HeroSection = () => {
         style={{ backgroundImage: `url(${stageBg})` }}
       />
 
-      {/* Theatre vignette */}
-      <div className="hero-overlay" />
+      {/* ABHIVYAKTI branding */}
+      <div className="hero-branding">
+        <img
+          src={abhivyaktiText}
+          alt="Abhivyakti"
+          className="abhivyakti-text"
+        />
+      </div>
 
-      {/* Center content */}
+      {/* Center title */}
       <div className="hero-content">
         <motion.h1
           className="sponsor-title"
@@ -29,14 +34,22 @@ const HeroSection = () => {
         </motion.h1>
       </div>
 
-      {/* Bottom Abhivyakti branding */}
-      <div className="hero-branding">
-        <img
-          src={abhivyaktiText}
-          alt="Abhivyakti"
-          className="abhivyakti-text"
-        />
+      {/* CTA */}
+      <div className="hero-cta">
+        <button className="contact-btn">Contact Us</button>
       </div>
+
+      {/* Bottom meta */}
+      <div className="hero-meta-backdrop" />
+      <div className="hero-meta">
+        <span className="meta-left">Abhivyakti’26</span>
+        <span className="meta-center">The Enchanted Circus</span>
+        <span className="meta-right">19–21 March 2026</span>
+      </div>
+
+      {/* Fade to content */}
+      <div className="hero-to-content-gradient" />
+
     </section>
   );
 };
