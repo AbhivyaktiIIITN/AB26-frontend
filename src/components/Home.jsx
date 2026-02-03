@@ -135,8 +135,14 @@ const Home = () => {
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <div className="w-full max-w-[max(700px,45vw)] text-white md:text-2xl text-justify">
-                  Abhivyakti, the annual cultural extravaganza of IIIT Nagpur, is a grand celebration of creativity, artistry, and cultural diversity. True to its name, meaning “expression,” it offers students a vibrant platform to showcase their talents, push boundaries, and foster a spirit of camaraderie and collaboration. As one of the most awaited campus events, it transforms the institute into a lively hub of energy and artistic brilliance. The fest features electrifying concerts, mesmerizing dances, captivating plays, and stunning art exhibitions, inspiring participants to explore their potential and celebrate creativity in unique, memorable ways.
+                <div className="flex flex-col gap-6">
+                  <div className="w-full max-w-[max(700px,45vw)] tracking-wider text-white md:text-xl text-justify">
+                    Abhivyakti, the annual cultural extravaganza of IIIT Nagpur, is a grand celebration of creativity, artistry, and cultural diversity. True to its name, meaning “expression,” it offers students a vibrant platform to showcase their talents, push boundaries, and foster a spirit of camaraderie and collaboration. As one of the most awaited campus events, it transforms the institute into a lively hub of energy and artistic brilliance. The fest features electrifying concerts, mesmerizing dances, captivating plays, and stunning art exhibitions, inspiring participants to explore their potential and celebrate creativity in unique, memorable ways. Abhivyakti, the annual cultural extravaganza of IIIT Nagpur, is a grand celebration of creativity, artistry, and cultural diversity. True to its name, meaning “expression,” it offers students a vibrant platform to showcase their talents, push boundaries, and foster a spirit of camaraderie and collaboration. As one of the most awaited campus events, it transforms the institute into a lively hub of energy and artistic brilliance. The fest features electrifying concerts, mesmerizing dances, captivating plays, and stunning art exhibitions, inspiring participants to explore their potential and celebrate creativity in unique, memorable ways.
+
+                  </div>
+                  
+                  {/* This is the button which will translate to about page */}
+                  <button className="border-2 border-white text-white mt-2 bg-linear-to-b from-black/2  to-red-800 max-w-35 p-2  text-lg  rounded-lg cursor-pointer">Explore Theme</button>
                 </div>
               </div>
             </div>
@@ -207,6 +213,7 @@ const Home = () => {
 
 
         {/*=============== GUEST SECTION IN BETWEEN ================== */}
+
 
         {/* Sponsors Section */}
         <div className="relative mt-32">
