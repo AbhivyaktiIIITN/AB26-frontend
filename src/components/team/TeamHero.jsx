@@ -36,7 +36,8 @@ const TeamHero = () => {
 
       {/* CTA */}
       <div className="hero-cta">
-        <button className="contact-btn">Contact Us</button>
+        <button className="cta-btn">AB Teams</button>
+        <button className="cta-btn">Clubs</button>
       </div>
 
       {/* Bottom meta */}

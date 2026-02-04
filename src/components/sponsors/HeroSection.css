@@ -74,28 +74,27 @@
 }
 
 /* =========================
-   CTA BUTTON
+   CTA BUTTON (shared)
 ========================= */
-.hero-cta {
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 4;
-}
-
-.contact-btn {
+.cta-btn {
   width: 153px;
   height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 
   background: transparent;
   color: #ffffff;
 
-  border: 0.8px solid #FFF1C2;
+  border: 0.8px solid #fff1c2;
   border-radius: 7px;
 
+  font-family: "Gabarito", system-ui, sans-serif;
   font-size: 14px;
   font-weight: 400;
+  letter-spacing: 0.02em;
 
   cursor: pointer;
 
@@ -107,14 +106,42 @@
     transform 0.15s ease;
 }
 
-.contact-btn:hover {
-  background-color: rgba(229, 59, 47, 0.9);
-  box-shadow: 0 0 6.3px rgba(0, 0, 0, 0.35);
+/* Hover — Figma-like */
+.cta-btn:hover {
+  background: rgba(255, 241, 194, 0.08);
+  box-shadow:
+    0 0 10px rgba(255, 241, 194, 0.5),
+    0 0 20px rgba(255, 241, 194, 0.25);
 }
 
-.contact-btn:active {
-  transform: scale(0.98);
+/* Active / click */
+.cta-btn:active {
+  transform: scale(0.97);
 }
+
+/* Focus (keyboard users) */
+.cta-btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(255, 241, 194, 0.6),
+    0 0 12px rgba(255, 241, 194, 0.35);
+}
+
+/* Disabled (future-proof) */
+.cta-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.hero-cta {
+  margin-top: 32px;              /* space from TEAMS text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;                     /* space BETWEEN buttons */
+}
+
 
 /* =========================
    BOTTOM META TEXT
