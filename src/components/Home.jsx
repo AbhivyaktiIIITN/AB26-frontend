@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { motion } from "motion/react"
+import ExploreCard from "./ui/home-page/Explore/ExploreCards";
+import SponsorCard from "./ui/home-page/Sponser-card/sponserCard";
 
 const Home = () => {
 
@@ -32,6 +34,82 @@ const Home = () => {
     handleResize()
     return () => window.removeEventListener("resize", handleResize)
   }, [])
+
+  const topSponsors = [
+    { logo: "/Images/Sponsors/s1.png", alt: "Sponsor 1" },
+    { logo: "/Images/Sponsors/s2.png", alt: "Sponsor 2" },
+    { logo: "/Images/Sponsors/s3.png", alt: "Sponsor 3" },
+    { logo: "/Images/Sponsors/s3.png", alt: "Sponsor 3" },
+    { logo: "/Images/Sponsors/s3.png", alt: "Sponsor 3" },
+    { logo: "/Images/Sponsors/s3.png", alt: "Sponsor 3" },
+    { logo: "/Images/Sponsors/s3.png", alt: "Sponsor 3" },
+    { logo: "/Images/Sponsors/s3.png", alt: "Sponsor 3" },
+  ];
+
+  const bottomSponsors = [
+    { logo: "/Images/Sponsors/s4.png", alt: "Sponsor 4" },
+    { logo: "/Images/Sponsors/s4.png", alt: "Sponsor 4" },
+    { logo: "/Images/Sponsors/s4.png", alt: "Sponsor 4" },
+    { logo: "/Images/Sponsors/s4.png", alt: "Sponsor 4" },
+    { logo: "/Images/Sponsors/s5.png", alt: "Sponsor 5" },
+    { logo: "/Images/Sponsors/s6.png", alt: "Sponsor 6" },
+    { logo: "/Images/Sponsors/s6.png", alt: "Sponsor 6" },
+    { logo: "/Images/Sponsors/s6.png", alt: "Sponsor 6" },
+  ];
+
+  const EventLinks = [
+    {
+      text: 'Dance',
+      link: '/'
+    },
+
+    {
+      text: 'Dramatic',
+      link: '/'
+    },
+    {
+      text: 'Music',
+      link: '/'
+    },
+    {
+      text: 'Speaking Arts',
+      link: '/'
+    },
+    {
+      text: 'Fine Arts',
+      link: '/'
+    },
+    {
+      text: 'Digital Arts',
+      link: '/'
+    },
+    {
+      text: 'Dance',
+      link: '/'
+    },
+
+    {
+      text: 'Dramatic',
+      link: '/'
+    },
+    {
+      text: 'Music',
+      link: '/'
+    },
+    {
+      text: 'Speaking Arts',
+      link: '/'
+    },
+    {
+      text: 'Fine Arts',
+      link: '/'
+    },
+    {
+      text: 'Digital Arts',
+      link: '/'
+    },
+  ]
+
 
   return (
     <div className="w-full h-full">
@@ -93,7 +171,7 @@ const Home = () => {
             </motion.div>
             <div
               className="h-32 w-180 relative"
-              style={{scale: scale}}
+              style={{ scale: scale }}
             >
               <div
                 className="h-full bg-contain bg-center bg-no-repeat"
@@ -252,112 +330,132 @@ const Home = () => {
               </div>
             </div>
           </div>
-        {/* Video section */}
-        <div className="px-8 py-10 grid place-items-center">
-          <div className="w-full max-w-200 border border-white/10 p-6 sm:px-14 sm:py-10 rounded-4xl">
-            <div className="w-full h-100 overflow-hidden rounded-3xl">
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/droNt6x2P7E"
-                title='"The Greatest Show" Background Animation'
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              ></iframe>
+          {/* Video section */}
+          <div className="px-8 py-10 grid place-items-center">
+            <div className="w-full max-w-200 border border-white/10 p-6 sm:px-14 sm:py-10 rounded-4xl">
+              <div className="w-full h-100 overflow-hidden rounded-3xl">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/droNt6x2P7E"
+                  title='"The Greatest Show" Background Animation'
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </section>
 
-      {/* Explore and Sponser Section*/}
+      {/* Explore and Sponsor Section */}
       <section
-        className="relative w-full bg-cover bg-center bg-red-950 bg-no-repeat h-fit"
+        className="relative w-full bg-cover bg-center bg-no-repeat h-fit overflow-x-hidden"
         style={{ backgroundImage: "url('/Images/Home/red-royal-bg.png')" }}
       >
-        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/60 pointer-events-none" />
 
-        <div className="relative px-6 sm:px-10 lg:px-20 py-20 flex flex-col items-center gap-14">
+        <div className="relative px-4 sm:px-10 lg:px-20 py-12 sm:py-20 flex flex-col items-center gap-10 sm:gap-14">
 
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-0.5 bg-white/80 rounded-full" />
-            <span className="text-white text-sm sm:text-base tracking-wide">
+          {/* Subtitle */}
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="w-8 sm:w-12 h-0.5 bg-white/80 rounded-full" />
+            <span className="text-white text-xs sm:text-base tracking-widest uppercase font-light">
               On Stage and Beyond
             </span>
-            <div className="w-12 h-0.5 bg-white/80 rounded-full" />
+            <div className="w-8 sm:w-12 h-0.5 bg-white/80 rounded-full" />
           </div>
 
+          {/* Section Title Image */}
           <div
-            className="w-full max-w-160 h-12 bg-contain bg-center bg-no-repeat"
+            className="w-full h-8 sm:h-12 bg-contain bg-center bg-no-repeat"
             style={{ backgroundImage: "url('/Images/Home/EXPLORE.png')" }}
           />
 
-          <div className="w-full max-w-300 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 place-items-center">
-            {[
-              { img: "/Images/Home/pro-shows.png", title: "Explore Shows" },
-              { img: "/Images/Home/Street-Activities.png", title: "Join The Fun" },
-              { img: "/Images/Home/competition.png", title: "Compete Now" }
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="group w-full max-w-80 rounded-4xl overflow-hidden bg-[#2a0e12]/80 border border-white/20 shadow-xl hover:-translate-y-2 transition-all duration-300"
-              >
-                <div
-                  className="w-full h-56 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${item.img}')` }}
-                />
-                <div className="px-6 py-4 bg-[#7a4a2e] text-center text-white font-semibold tracking-wide">
-                  {item.title}
+          {/* Explore Cards Grid */}
+
+          <div className="w-full max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-y-24 md:gap-10 lg:gap-16 place-items-center mt-10">
+            <ExploreCard
+              bg="/Images/Home/CARD-BACKGROUND.jpg"
+              text="/Images/Home/PRO-SHOW.png"
+              asset="/Images/Home/PRO-SHOW-1.png"
+              cta="Explore Shows"
+              assetClass="bottom-[50px] sm:bottom-[55px] w-[200px] sm:w-[250px]"
+            />
+
+            <ExploreCard
+              bg="/Images/Home/CARD-BACKGROUND.jpg"
+              text="/Images/Home/Competition.png"
+              asset="/Images/Home/dancer.png"
+              cta="Compete Now"
+              assetClass="bottom-[20px] sm:bottom-[25px] w-[110px] sm:w-[130px]"
+            />
+
+            <ExploreCard
+              bg="/Images/Home/CARD-BACKGROUND.jpg"
+              text="/Images/Home/STREET-ACTIVITY.png"
+              asset="/Images/Home/STREET-ACTIVITY-IMAGE.png"
+              cta="Join the Fun"
+              assetClass="bottom-[35px] sm:bottom-[40px] w-[100px] sm:w-[110px]"
+            />
+          </div>
+
+          {/* EVENT MARQUEE  */}
+          <div className="relative w-screen  bg-linear-to-r from-[#5a2a0a] via-[#c66a26] to-[#5a2a0a] py-4 mt-10 overflow-hidden group shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+            <div className="flex w-max animate-[marquee_40s_linear_infinite] group-hover:[animation-play-state:paused] items-center gap-12 text-[#f5e6d8] font-['Playfair_Display'] text-xl tracking-wide">
+              {[...EventLinks, ...EventLinks, ...EventLinks].map((event, index) => (
+                <div key={index} className="flex items-center gap-12">
+                  <span className="cursor-pointer hover:opacity-80 transition whitespace-nowrap">
+                    {event.text}
+                  </span>
+                  <img
+                    src="/Images/Home/sparkel.png"
+                    alt="separator"
+                    className="w-10 h-10 object-contain"
+                  />
                 </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+
+        {/* =====================IN BEWTWEEENNN SECTIONNNs========================= */}
+
+        {/* Sponsors Section */}
+        <div className="relative mt-20 sm:mt-32 pb-20">
+          <div className="w-full px-6 sm:px-10 lg:px-20 mb-8 sm:mb-12">
+            <div
+              className="w-full h-8 sm:h-12 bg-contain bg-no-repeat bg-left"
+              style={{ backgroundImage: "url('/Images/Home/SPONSERS.png')" }}
+            />
+          </div>
+
+          <div className="w-full flex flex-col gap-8 sm:gap-12">
+            {/* Row 1 */}
+            <div className="w-full overflow-hidden">
+              <div className="flex gap-8 sm:gap-15 w-max animate-[marquee-right_30s_linear_infinite]">
+                {[...topSponsors, ...topSponsors].map((s, i) => (
+                  <div key={i} className="scale-75 sm:scale-100">
+                    <SponsorCard logo={s.logo} alt={s.alt} />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-
-
-        {/* GUEST SECTION IN BETWEEN */}
-
-        {/* Sponsers */}
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="relative mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-20">
-
-          <div className="mb-14">
-            <h2 className="text-[#D4AF37] text-3xl tracking-widest font-semibold">
-              SPONSORS
-            </h2>
-          </div>
-
-          {/* Left -> Right */}
-          <div className="overflow-hidden mb-10">
-            <div
-              className="flex gap-6 w-max animate-[marquee-right_25s_linear_infinite]"
-            >
-              {[...Array(10), ...Array(10)].map((_, i) => (
-                <div
-                  key={`top-${i}`}
-                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20"
-                />
-              ))}
             </div>
-          </div>
-
-          {/* Right → Left */}
-          <div className="overflow-hidden">
-            <div
-              className="flex gap-6 w-max animate-[marquee-left_25s_linear_infinite]"
-            >
-              {[...Array(10), ...Array(10)].map((_, i) => (
-                <div
-                  key={`bottom-${i}`}
-                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20"
-                />
-              ))}
+            {/* Row 2 */}
+            <div className="w-full overflow-hidden">
+              <div className="flex gap-8 sm:gap-10 w-max animate-[marquee-left_30s_linear_infinite]">
+                {[...bottomSponsors, ...bottomSponsors].map((s, i) => (
+                  <div key={i} className="scale-75 sm:scale-100">
+                    <SponsorCard logo={s.logo} alt={s.alt} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-
       </section>
     </div>
   )

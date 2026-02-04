@@ -1,8 +1,8 @@
-export const SponsorCard = ({ logo, alt }) => {
+const SponsorCard = ({ logo, alt }) => {
     return (
         <div
             className="
-        w-36 h-24 sm:w-36 sm:h-36
+        w-24 h-24 sm:w-36 sm:h-36
         rounded-3xl
         bg-white/10
         backdrop-blur-md
@@ -19,3 +19,5 @@ export const SponsorCard = ({ logo, alt }) => {
         </div>
     );
 };
+
+export default SponsorCard;
