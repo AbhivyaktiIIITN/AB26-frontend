@@ -1,11 +1,11 @@
 
 @import "tailwindcss";
 
-
 @import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@500&display=swap');
-
-
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap');
+
+
+
 
 @font-face {
   font-family: 'Adqila';
@@ -14,17 +14,18 @@
   font-style: normal;
 }
 
+@theme {
+  --font-family-sans:
+    "Gabarito", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 html,
 body,
 #root {
   font-family: "Gabarito", ui-sans-serif, system-ui, sans-serif;
 }
 
-@theme {
-  --font-family-sans:
-    "Gabarito", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
 
 @keyframes marquee-left {
   0% {
