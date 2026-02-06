@@ -1,0 +1,192 @@
+/* ========================================
+   FONT IMPORTS
+   ======================================== */
+@font-face {
+  font-family: 'Besta Baru';
+  src: url('/fonts/BestaBaru.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ========================================
+   SECTION & CONTAINER
+   ======================================== */
+.guests-speakers-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 120px 0 150px;
+  overflow: hidden;
+  background-color: #0a0a0a;
+}
+
+.background-overlay {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; min-height: 100vh;
+  background-image: url('/images/background.png'); background-size: cover; background-position: center; z-index: 0;
+}
+
+.guests-speakers-section::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(26, 10, 10, 0.95) 0%, rgba(45, 24, 16, 0.95) 100%); z-index: 0;
+}
+
+.section-container { position: relative; z-index: 1; max-width: 1600px; margin: 0 auto; padding: 0 50px; }
+.section-title { text-align: left; margin-bottom: 80px; padding-left: 0; }
+
+.subtitle-line { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+.subtitle-line .line { width: 60px; height: 2px; background-color: #ffffff; }
+.subtitle-text { font-size: 0.85rem; font-weight: 400; letter-spacing: 0.15em; color: #ffffff; font-family: 'Arial', sans-serif; opacity: 0.9; }
+
+.title-white, .title-gold { margin: 0; font-size: 5.5rem; font-weight: 700; line-height: 0.95; letter-spacing: 0.02em; font-family: 'Playfair Display', 'Georgia', serif; text-transform: uppercase; }
+.title-white { color: #ffffff; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); margin-bottom: 5px; }
+.title-gold { color: #d4a574; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); }
+
+/* ========================================
+   CAROUSEL CONTAINER
+   ======================================== */
+.carousel-container { position: relative; display: flex; align-items: center; gap: 20px; padding: 10px 0; }
+
+.nav-arrow {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+.nav-arrow:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+  border-color: #ffffff;
+}
+
+.nav-arrow:active { transform: scale(0.95); }
+
+.nav-arrow svg { width: 24px; height: 24px; display: block; }
+
+/* ========================================
+   CARDS WRAPPER
+   ======================================== */
+.cards-wrapper { 
+  flex: 1; 
+  overflow: hidden; 
+  position: relative; 
+  padding: 40px 20px; 
+  box-sizing: border-box; 
+  width: 100%;
+}
+
+.cards-track { display: flex; will-change: transform; }
+.card-item { flex: 0 0 auto; min-width: 0; }
+
+/* ========================================
+   PLAYING CARD
+   ======================================== */
+.playing-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2.6 / 3.8;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.playing-card:hover { transform: translateY(-20px) scale(1.03); }
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: all 0.5s ease;
+}
+.playing-card:hover .card-inner { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); }
+
+.card-template-bg {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;
+}
+
+/* ========================================
+   SPEAKER PHOTO
+   ======================================== */
+.speaker-photo-layer {
+  position: absolute;
+  top: 17%; left: 12%; width: 76%; height: 65%;
+  overflow: hidden; border-radius: 6px; z-index: 5;
+}
+
+.speaker-photo-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+  object-position: center bottom; 
+  display: block;
+  transition: transform 0.5s ease;
+  /* Base scale */
+  transform: scale(1.15); 
+  transform-origin: bottom center;
+}
+
+/* UPDATED HOVER: Changed from 1.22 to 1.17 for a much more subtle zoom */
+.playing-card:hover .speaker-photo-layer img { transform: scale(1.17); }
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+.designation-text, .guest-name-text {
+  position: absolute;
+  font-family: 'Besta Baru', 'Arial Black', sans-serif;
+  color: #000000; text-transform: uppercase; white-space: nowrap; z-index: 10;
+}
+
+.designation-text {
+  top: 1.5%; 
+  right: 9%;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-align: right;
+}
+
+.guest-name-text {
+  bottom: 1.5%; 
+  left: 9%;
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-align: left;
+}
+
+/* ========================================
+   RESPONSIVE MEDIA QUERIES
+   ======================================== */
+@media (max-width: 1400px) { .section-container { padding: 0 60px; } }
+@media (max-width: 1200px) {
+  .section-container { padding: 0 40px; } .title-white, .title-gold { font-size: 4.5rem; } .cards-track { gap: 60px; } 
+}
+@media (max-width: 1024px) {
+  .guests-speakers-section { padding: 100px 0 120px; } .section-container { padding: 0 30px; } .carousel-container { gap: 20px; } .title-white, .title-gold { font-size: 3.5rem; } .speaker-photo-layer { width: 78%; } 
+}
+@media (max-width: 768px) {
+  .guests-speakers-section { padding: 80px 0 100px; } .section-container { padding: 0 10px; }
+  .cards-wrapper { padding: 40px 0; }
+  .cards-track { gap: 20px; } .playing-card { aspect-ratio: 2.5 / 3.8; }
+  .title-white, .title-gold { font-size: 3rem; } .section-title { margin-bottom: 50px; }
+  .nav-arrow { width: 55px; height: 55px; min-width: 55px; } .nav-arrow svg { width: 24px; height: 24px; }
+  .designation-text { font-size: 0.9rem; top: 1.5%; } .guest-name-text { font-size: 1rem; bottom: 1.5%; }
+}
+@media (max-width: 480px) {
+  .guests-speakers-section { padding: 60px 0 80px; } .section-container { padding: 0 10px; }
+  .title-white, .title-gold { font-size: 2.5rem; } .section-title { margin-bottom: 40px; }
+  .carousel-container { gap: 10px; } 
+  .designation-text { font-size: 0.8rem; letter-spacing: 0.15em; top: 2%; }
+  .guest-name-text { font-size: 0.9rem; letter-spacing: 0.1em; bottom: 2%; }
+}

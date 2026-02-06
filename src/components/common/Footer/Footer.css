@@ -1,0 +1,713 @@
+@import url("https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700&display=swap");
+
+.footer {
+  font-family: "Gabarito", sans-serif;
+  color: #ffffff;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* First: black background section – reduced height */
+.footer__black {
+  background-color: #0b0b0b; /* soft deep black */
+  background-image: none;
+}
+
+/* Carnival + content overlay wrapper */
+.footer__carnival-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Carnival image – full width */
+.footer__carnival {
+  width: 100%;
+  line-height: 0;
+  display: block;
+}
+
+.footer__carnival-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  vertical-align: bottom;
+  font-size: 0;
+  line-height: 0;
+  max-width: 100%;
+}
+
+/* Hero section: tagline, logo, date */
+.footer__hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  padding-top: 60px;
+  padding-bottom: 0;
+  max-width: 1227px;
+  margin-left: 5%;
+}
+
+.footer__tagline,
+.footer__date {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2em;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.footer__logo {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 35px;
+  width: 100%;
+  max-width: 1227px;
+  min-height: 120px;
+}
+
+.footer__logo-img {
+  max-width: 100%;
+  height: auto;
+  max-height: 150px;
+  object-fit: contain;
+  display: block;
+}
+
+.footer__logo-year {
+  height: auto;
+  max-height: 52px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  align-self: flex-end;
+}
+
+/* Divider (vector line image) */
+.footer__divider {
+  width: 90%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  /* object-position: left; */
+  margin: 5%;
+  margin-bottom: 0;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* Content – starts from top of carnival, transparent overlay */
+.footer__content-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: none;
+  padding: 48px 105px 60px;
+  background: transparent;
+  box-sizing: border-box;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.footer__content-wrap .footer__content {
+  pointer-events: auto;
+}
+
+/* Content section: address + links row */
+.footer__content {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 89px;
+  padding-top: 0;
+  padding-bottom: 0;
+  max-width: 1227px;
+  align-items: flex-start;
+  margin: 0 auto;
+}
+
+/* Address block */
+.footer__address-block {
+  display: flex;
+  flex-direction: column;
+  width: 436px;
+  flex-shrink: 0;
+}
+
+.footer__heading {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2em;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  margin: 0 0 0 0;
+  height: auto;
+  min-height: 28px;
+}
+
+.footer__address {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2em;
+  letter-spacing: 0.1em;
+  color: #dedede;
+  margin: 0;
+  margin-top: 8px;
+  max-width: 436px;
+}
+
+/* Links block: Quick Links, Contact Us, Follow us + copyright */
+.footer__links-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  min-width: 0;
+}
+
+.footer__links-row {
+  display: flex;
+  flex-direction: row;
+  gap: 42px;
+  flex-wrap: wrap;
+}
+
+.footer__link-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.footer__link-group:first-child {
+  width: 127px;
+}
+
+.footer__link-group:nth-child(2) {
+  width: 188px;
+}
+
+.footer__link-group:nth-child(3) {
+  width: 188px;
+}
+
+.footer__nav .footer__link-list,
+.footer__contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer__link {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2em;
+  letter-spacing: 0.1em;
+  color: #dedede;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer__link:hover {
+  color: #ffffff;
+}
+
+.footer__social {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 13px;
+}
+
+.footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #dedede;
+  transition: color 0.2s ease;
+}
+
+.footer__social-link:hover {
+  color: #ffffff;
+}
+
+.footer__social-link svg {
+  width: 24px;
+  height: 24px;
+}
+.footer__copyright-highlight {
+  background: linear-gradient(90deg, #fa1e4a 60.15%, #3c0919 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+.footer__copyright {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2em;
+  color: #dedede;
+  opacity: 0.91;
+  margin: 0;
+  margin-top: 5%;
+  text-align: center;
+  align-self: flex-end;
+}
+
+/* Responsive: large tablet / iPad landscape (1280px and below) */
+@media (max-width: 1280px) {
+  .footer__black {
+    padding-left: 72px;
+    padding-right: 72px;
+  }
+
+  .footer__content-wrap {
+    padding: 44px 72px 52px;
+  }
+
+  .footer__hero {
+    padding-top: 56px;
+    gap: 36px;
+  }
+
+  .footer__logo {
+    min-height: 110px;
+  }
+
+  .footer__logo-img {
+    max-height: 90px;
+  }
+
+  .footer__logo-year {
+    max-height: 48px;
+  }
+
+  .footer__content {
+    gap: 64px;
+  }
+
+  .footer__address-block {
+    max-width: 380px;
+  }
+}
+
+/* Responsive: tablet / iPad (1024px and below) */
+@media (max-width: 1024px) {
+  .footer__black {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+
+  .footer__content-wrap {
+    padding: 40px 48px 48px;
+  }
+
+  .footer__hero {
+    padding-top: 56px;
+    gap: 32px;
+  }
+
+  .footer__content {
+    flex-direction: column;
+    gap: 40px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .footer__address-block {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .footer__links-row {
+    flex-direction: row;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .footer__link-group:first-child,
+  .footer__link-group:nth-child(2),
+  .footer__link-group:nth-child(3) {
+    width: auto;
+    min-width: 140px;
+  }
+
+  /* Same as mobile: carnival image takes full length on iPads/tablets */
+  .footer__carnival-wrapper {
+    position: relative;
+    width: 100%;
+    height: 72vh;
+    min-height: 480px;
+    max-height: none;
+    overflow: hidden;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .footer__carnival {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+  }
+
+  .footer__carnival-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .footer__content-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    height: 100%;
+    min-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Responsive: iPad portrait / small tablet (834px and below) */
+@media (max-width: 834px) {
+  .footer__black {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .footer__content-wrap {
+    padding: 36px 40px 44px;
+  }
+
+  .footer__hero {
+    padding-top: 48px;
+    gap: 28px;
+  }
+
+  .footer__tagline,
+  .footer__date {
+    font-size: 17px;
+  }
+
+  .footer__logo {
+    gap: 20px;
+    min-height: 100px;
+  }
+
+  .footer__logo-img {
+    max-height: 85px;
+  }
+
+  .footer__logo-year {
+    max-height: 48px;
+  }
+
+  .footer__divider {
+    margin-top: 36px;
+  }
+
+  .footer__content {
+    gap: 36px;
+  }
+
+  .footer__links-row {
+    gap: 28px;
+  }
+
+  .footer__link {
+    font-size: 15px;
+  }
+}
+
+/* Responsive: small tablet / large phone (768px and below) */
+@media (max-width: 768px) {
+  .footer__black {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .footer__content-wrap {
+    padding: 36px 32px 40px;
+  }
+
+  .footer__hero {
+    padding-top: 48px;
+    gap: 28px;
+  }
+
+  .footer__tagline,
+  .footer__date {
+    font-size: 16px;
+  }
+
+  .footer__logo {
+    gap: 18px;
+    min-height: 95px;
+  }
+
+  .footer__logo-img {
+    max-height: 80px;
+  }
+
+  .footer__logo-year {
+    max-height: 44px;
+  }
+
+  .footer__divider {
+    margin-top: 36px;
+  }
+
+  .footer__content {
+    gap: 32px;
+  }
+
+  .footer__links-row {
+    gap: 28px;
+  }
+}
+
+/* Responsive: mobile (640px and below) – full-width image, content on top, nothing cut off */
+@media (max-width: 640px) {
+  .footer {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  /* Black section: enough padding so ABHIVYAKTI logo is not cut off */
+  .footer__black {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    overflow: visible;
+  }
+
+  .footer__hero {
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+    box-sizing: border-box;
+  }
+
+  .footer__logo {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    justify-content: flex-start;
+  }
+
+  .footer__logo-img {
+    max-width: 55%;
+    max-height: 72px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .footer__logo-year {
+    flex-shrink: 0;
+  }
+
+  .footer__divider {
+    max-width: 100%;
+  }
+
+  /* Content overlay: full area on top of image, scrollable so nothing is cut off */
+  .footer__content-wrap {
+    padding: 20px 20px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    height: 100%;
+    min-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Carnival wrapper: taller so image fits screen vertically and all content stays on image */
+  .footer__carnival-wrapper {
+    position: relative;
+    width: 100%;
+    height: 72vh;
+    min-height: 420px;
+    max-height: none;
+    overflow: hidden;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .footer__carnival {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+  }
+
+  /* Image: full width, height cut to fit – object-fit cover crops to size */
+  .footer__carnival-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .footer__hero {
+    padding-top: 36px;
+    gap: 20px;
+  }
+
+  .footer__tagline,
+  .footer__date {
+    font-size: 14px;
+  }
+
+  .footer__logo {
+    gap: 10px;
+    min-height: 80px;
+  }
+
+  .footer__logo-year {
+    max-height: 44px;
+    max-width: 50px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .footer__divider {
+    margin-top: 28px;
+  }
+
+  /* Content in single column on mobile – all on top of image */
+  .footer__content {
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .footer__address-block {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .footer__address {
+    font-size: 11px;
+    max-width: 100%;
+    line-height: 1.35;
+  }
+
+  .footer__links-block {
+    gap: 20px;
+  }
+
+  .footer__links-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer__link-group:first-child,
+  .footer__link-group:nth-child(2),
+  .footer__link-group:nth-child(3) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .footer__heading {
+    font-size: 15px;
+  }
+
+  .footer__link {
+    font-size: 13px;
+  }
+
+  .footer__copyright {
+    font-size: 10px;
+    text-align: left;
+    align-self: flex-start;
+    margin-top: 12px;
+  }
+}
+
+/* Responsive: small mobile (400px and below) */
+@media (max-width: 400px) {
+  .footer__black {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .footer__content-wrap {
+    padding: 16px 16px 24px;
+  }
+
+  .footer__carnival-wrapper {
+    height: 75vh;
+    min-height: 380px;
+  }
+
+  .footer__logo-img {
+    max-width: calc(100% - 65px);
+    max-height: 64px;
+  }
+
+  .footer__tagline,
+  .footer__date {
+    font-size: 13px;
+  }
+
+  .footer__logo-img {
+    max-height: 64px;
+  }
+
+  .footer__logo-year {
+    max-height: 38px;
+  }
+
+  .footer__heading {
+    font-size: 14px;
+  }
+
+  .footer__address {
+    font-size: 10px;
+  }
+
+  .footer__link {
+    font-size: 12px;
+  }
+
+  .footer__copyright {
+    font-size: 10px;
+  }
+}
