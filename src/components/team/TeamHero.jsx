@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import "./TeamHero.css";
-import stageBg from "@/assets/background/background-curtains.png";
-import abhivyaktiText from "@/assets/branding/abhivyakti text-yellow.png";
+import stageBg from "@/assets/background/background-curtains.webp";
+import abhivyaktiText from "@/assets/branding/abhivyakti text-yellow.webp";
 
 const TeamHero = () => {
   return (
