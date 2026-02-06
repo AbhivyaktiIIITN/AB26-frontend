@@ -1,5 +1,10 @@
-import "./footer.css";
-import { FaInstagram, FaWhatsapp, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import {
+  FaInstagram,
+  FaLinkedin,
+  FaWhatsapp,
+  FaXTwitter,
+} from "react-icons/fa6";
+import "./Footer.css";
 
 function Footer() {
   const quickLinks = [
