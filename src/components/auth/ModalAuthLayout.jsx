@@ -36,11 +36,10 @@ const ModalAuthLayout = () => {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.97, opacity: 0, y: -10 }}
             transition={{
-              duration: 0.5,
-              ease: "easeOut",
               type: "spring",
               stiffness: 300,
               damping: 30,
+              mass: 0.8,
             }}
             className="relative bg-white rounded-lg shadow-xl w-7xl overflow-y-auto"
             onClick={(e) => e.stopPropagation()}

@@ -12,11 +12,14 @@ const useAuth = () => {
   // open auth preserving current URL
   const openAuth = useCallback(
     (newMode, newStep = 1) => {
-      setSearchParams((prev) => {
-        prev.set("auth", newMode);
-        prev.set("step", newStep.toString());
-        return prev;
-      });
+      setSearchParams(
+        (prev) => {
+          prev.set("auth", newMode);
+          prev.set("step", newStep.toString());
+          return prev;
+        },
+        { replace: true },
+      );
     },
     [setSearchParams],
   );
@@ -31,7 +34,6 @@ const useAuth = () => {
       },
       { replace: true },
     );
-    window.history.go(-1);
   }, [setSearchParams]);
 
   // navigation

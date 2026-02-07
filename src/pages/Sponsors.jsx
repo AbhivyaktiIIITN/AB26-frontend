@@ -1,6 +1,5 @@
 import HeroSection from "../components/sponsors/HeroSection";
 import SponsorsTierSection from "../components/sponsors/SponsorsTierSection";
-import Footer from "../components/Footer/Footer";
 import ComingSoon from "../components/common/ComingSoon/ComingSoon";
 
 const Sponsors = () => {
@@ -25,7 +24,6 @@ const Sponsors = () => {
   <SponsorsTierSection title="PLATINUM SPONSORS" sponsors={tierTwo} />
   <SponsorsTierSection title="GOLD SPONSORS" sponsors={tierThree} /> */}
       <ComingSoon />
-      <Footer />
     </main>
 
   );
