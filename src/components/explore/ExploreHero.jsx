@@ -12,7 +12,7 @@ import img5 from "@/assets/background/card_5.webp";
 
 const cards = [img1, img2, img3, img4, img5];
 
-/* cards enter */
+/* card entry */
 const cardsEnter = {
   hidden: { y: 120, opacity: 0 },
   visible: {
@@ -36,7 +36,7 @@ const float = (i) => ({
   },
 });
 
-/* counter */
+/* animated counter */
 function Counter({ to, delay = 0 }) {
   const ref = useRef(null);
 
@@ -49,7 +49,6 @@ function Counter({ to, delay = 0 }) {
         if (ref.current) ref.current.textContent = Math.round(v);
       },
     });
-
     return () => controls.stop();
   }, [to, delay]);
 
@@ -57,6 +56,9 @@ function Counter({ to, delay = 0 }) {
 }
 
 export default function ExploreHero() {
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const visibleCards = isMobile ? cards.slice(1, 4) : cards;
+
   return (
     <section className="explore-hero">
       {/* background */}
@@ -67,15 +69,18 @@ export default function ExploreHero() {
 
       {/* stage */}
       <div className="explore-stage">
-        {/* cards */}
+        {/* cards + EXPLORE */}
         <motion.div
           className="explore-cards"
           variants={cardsEnter}
           initial="hidden"
           animate="visible"
         >
-          {cards.map((img, i) => (
-            <div className={`card-wrap pos-${i}`} key={i}>
+          {visibleCards.map((img, i) => (
+            <div
+              className={`card-wrap pos-${isMobile ? i + 1 : i}`}
+              key={i}
+            >
               <motion.img
                 src={img}
                 alt=""
