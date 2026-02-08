@@ -5,104 +5,80 @@
     overflow: hidden;
   }
   
-  /* =========================
-     BACKGROUND
-  ========================= */
+  /* background */
   .explore-bg {
     position: absolute;
     inset: 0;
     background-size: cover;
     background-position: center top;
-    z-index: 1;
+    z-index: 0;
   }
   
-  /* =========================
-     STAGE (cards + EXPLORE)
-  ========================= */
+  /* stage */
   .explore-stage {
-    position: absolute;
-    bottom: 35%;
+    position: relative;
+    z-index: 2;
   
-    /* OPTICAL CENTER — intentional */
-    left: 20%;
-    transform: translateX(-52%);
-  
-    z-index: 3;
-  
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
+    padding-top: clamp(18vh, 22vh, 26vh);
+  
+    gap: clamp(40px, 6vh, 80px);
   }
   
-  /* =========================
-     EXPLORE TITLE
-  ========================= */
+  /* cards */
+  .explore-cards {
+    position: relative;
+  
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(16px, 3vw, 28px);
+  }
+
+  .card-wrap {
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  /* triangle offsets */
+  .pos-0 { transform: translateY(40px); }
+  .pos-1 { transform: translateY(14px); }
+  .pos-2 { transform: translateY(-32px); }
+  .pos-3 { transform: translateY(14px); }
+  .pos-4 { transform: translateY(40px); }
+  
+  .explore-card {
+    height: clamp(260px, 42vh, 420px);
+    aspect-ratio: 9 / 16;
+    border-radius: 18px;
+  }
+  
+  /* EXPLORE overlay */
   .explore-title {
     position: absolute;
+    inset: 0;
   
-    /* place it ON the cards */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    pointer-events: none;
   
     font-family: "BudmoJigglish", serif;
     font-size: clamp(3.2rem, 6.5vw, 7.5rem);
     letter-spacing: 0.26em;
     color: #d4af37;
   
-    text-align: center;
-    z-index: 5;
-  
-    pointer-events: none;
-  
-    text-shadow:
-      0 -2px 6px rgba(212, 175, 55, 0.9);
+    text-shadow: 0 -2px 6px rgba(212, 175, 55, 0.9);
   }
   
-  
-  /* =========================
-     CARDS
-  ========================= */
-  .explore-cards {
-    display: flex;
-    align-items: flex-end;
-    gap: clamp(16px, 3vw, 28px);
-  }
-  
-  .card-wrap {
-    display: flex;
-    align-items: flex-end;
-  }
-  
-  /* triangle formation */
-  .pos-0 { transform: translateY(36px); }
-  .pos-1 { transform: translateY(14px); }
-  .pos-2 { transform: translateY(-32px); }
-  .pos-3 { transform: translateY(14px); }
-  .pos-4 { transform: translateY(36px); }
-  
-  .explore-card {
-    height: clamp(240px, 38vh, 360px);
-    aspect-ratio: 9 / 16;
-    width: auto;
-  
-    border-radius: 18px;
-  }
-  
-  /* =========================
-     STATS
-  ========================= */
+  /* stats */
   .explore-stats {
-    position: absolute;
-    bottom: 12%;
-  
-    left: 50%;
-    transform: translateX(-50%);
-  
     display: flex;
-    gap: clamp(56px, 8vw, 140px);
-  
-    z-index: 4;
+    gap: clamp(48px, 8vw, 140px);
     text-align: center;
   }
   
@@ -112,43 +88,24 @@
   
   .stat-num {
     display: block;
-  
     font-family: "Milker", serif;
-    font-weight: 400;
     font-size: clamp(2.6rem, 5.5vw, 5.25rem);
     letter-spacing: 0.23em;
-    line-height: 1;
-  
-    color: #DDB224;
+    color: #ddb224;
   }
   
   .stat-text {
-    margin-top: 10px;
-  
+    display: block;
+    text-align: center;
+    margin-top: 12px;
     font-family: "Gabarito", system-ui, sans-serif;
-    font-weight: 400;
     font-size: clamp(0.9rem, 1.6vw, 1.125rem);
-    letter-spacing: 0.10em;
-    line-height: 1.25;
-  
-    color: #ffffff;
-    white-space: normal;
+    letter-spacing: 0.1em;
+    color: #fff;
   }
   
-  /* =========================
-     MOBILE / SHORT HEIGHT
-  ========================= */
+  /* mobile */
   @media (max-width: 768px), (max-height: 700px) {
-    .explore-stage {
-      bottom: 38%;
-      transform: translateX(-50%);
-    }
-  
-    .explore-title {
-      font-size: 3rem;
-      margin-bottom: 14px;
-    }
-  
     .explore-cards {
       gap: 12px;
     }
@@ -160,11 +117,6 @@
     .explore-stats {
       flex-direction: column;
       gap: 20px;
-      bottom: 6%;
-    }
-  
-    .stat {
-      width: auto;
     }
   }
   

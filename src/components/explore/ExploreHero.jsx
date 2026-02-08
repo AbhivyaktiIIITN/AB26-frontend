@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, animate } from "framer-motion";
+import { useEffect, useRef } from "react";
 import "./ExploreHero.css";
 
 import bgExplore from "@/assets/background/explore_bg.webp";
@@ -11,9 +12,9 @@ import img5 from "@/assets/background/card_5.webp";
 
 const cards = [img1, img2, img3, img4, img5];
 
-/* cards enter together */
-const enter = {
-  hidden: { y: "120vh", opacity: 0 },
+/* cards enter */
+const cardsEnter = {
+  hidden: { y: 120, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
@@ -35,6 +36,26 @@ const float = (i) => ({
   },
 });
 
+/* counter */
+function Counter({ to, delay = 0 }) {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const controls = animate(0, to, {
+      duration: 1.6,
+      delay,
+      ease: "easeOut",
+      onUpdate: (v) => {
+        if (ref.current) ref.current.textContent = Math.round(v);
+      },
+    });
+
+    return () => controls.stop();
+  }, [to, delay]);
+
+  return <span ref={ref}>0</span>;
+}
+
 export default function ExploreHero() {
   return (
     <section className="explore-hero">
@@ -44,51 +65,66 @@ export default function ExploreHero() {
         style={{ backgroundImage: `url(${bgExplore})` }}
       />
 
-      {/* cards + explore wrapper */}
-      <motion.div
-        className="explore-stage"
-        variants={enter}
-        initial="hidden"
-        animate="visible"
-      >
-        <div className="explore-cards">
-          {cards.map((img, i) => (
-            <motion.img
-              key={i}
-              src={img}
-              alt=""
-              className={`explore-card pos-${i}`}
-              variants={float(i)}
-              animate="animate"
-            />
-          ))}
-        </div>
-
-        {/* EXPLORE text */}
-        <motion.h1
-          className="explore-title"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
+      {/* stage */}
+      <div className="explore-stage">
+        {/* cards */}
+        <motion.div
+          className="explore-cards"
+          variants={cardsEnter}
+          initial="hidden"
+          animate="visible"
         >
-          EXPLORE
-        </motion.h1>
-      </motion.div>
+          {cards.map((img, i) => (
+            <div className={`card-wrap pos-${i}`} key={i}>
+              <motion.img
+                src={img}
+                alt=""
+                className="explore-card"
+                variants={float(i)}
+                animate="animate"
+              />
+            </div>
+          ))}
 
-      {/* stats */}
-      <div className="explore-stats">
-        <div className="stat">
-          <span className="stat-num">10+</span>
-          <span className="stat-text">Guests & Artists</span>
-        </div>
-        <div className="stat">
-          <span className="stat-num">30+</span>
-          <span className="stat-text">Events & Competitions</span>
-        </div>
-        <div className="stat">
-          <span className="stat-num">10+</span>
-          <span className="stat-text">Lakh Prize Pool</span>
-        </div>
+          {/* EXPLORE overlay */}
+          <motion.h1
+            className="explore-title"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.1, duration: 0.6 }}
+          >
+            EXPLORE
+          </motion.h1>
+        </motion.div>
+
+        {/* stats */}
+        <motion.div
+          className="explore-stats"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.4, duration: 0.6 }}
+        >
+          <div className="stat">
+            <span className="stat-num">
+              <Counter to={10} delay={1.5} />+
+            </span>
+            <span className="stat-text">Guests & Artists</span>
+          </div>
+
+          <div className="stat">
+            <span className="stat-num">
+              <Counter to={30} delay={1.6} />+
+            </span>
+            <span className="stat-text">Events & Competitions</span>
+          </div>
+
+          <div className="stat">
+            <span className="stat-num">
+              <Counter to={10} delay={1.7} />+
+            </span>
+            <span className="stat-text">Lakh Prize Pool</span>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
