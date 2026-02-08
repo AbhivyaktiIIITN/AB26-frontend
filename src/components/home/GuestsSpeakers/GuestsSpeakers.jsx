@@ -140,7 +140,6 @@ const GuestsSpeakers = () => {
 
   return (
     <section className="guests-speakers-section">
-      <div className="background-overlay"></div>
 
       <div className="section-container">
         <div className="section-title">

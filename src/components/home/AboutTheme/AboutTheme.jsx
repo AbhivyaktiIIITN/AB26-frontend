@@ -3,11 +3,31 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, Environment } from "@react-three/drei";
 import * as THREE from "three";
 
+// Error Boundary for 3D content
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error("Model loading error:", error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return null;
+    }
+    return this.props.children;
+  }
+}
+
 // ------------------------------------------------------------------
 // 1. MODEL COMPONENT (Dynamic Interactable)
 // ------------------------------------------------------------------
 const MaskModel = (props) => {
-  const { scene } = useGLTF("/3d-Models/gold+masquerade+mask+3d+model.glb");
+  const { scene } = useGLTF("/3d-Models/gold_masquerade_mask.glb");
   const meshRef = useRef();
   const lightRef = useRef(); // Dynamic glossy light
 
@@ -59,9 +79,9 @@ const MaskModel = (props) => {
         object={scene}
         ref={meshRef}
         {...props}
-        // Overwrite props.rotation with initial referenced value if needed,
-        // but useFrame handles the updates.
-        // We set initial rotation solely to avoid jumps before first frame.
+      // Overwrite props.rotation with initial referenced value if needed,
+      // but useFrame handles the updates.
+      // We set initial rotation solely to avoid jumps before first frame.
       />
 
       {/* 
@@ -81,7 +101,7 @@ const MaskModel = (props) => {
   );
 };
 
-useGLTF.preload("/3d-Models/gold+masquerade+mask+3d+model.glb");
+useGLTF.preload("/3d-Models/gold_masquerade_mask.glb");
 
 // ------------------------------------------------------------------
 // 2. MAIN COMPONENT
@@ -97,7 +117,7 @@ const AboutTheme = () => {
   }, []);
 
   return (
-    <section className="relative w-full min-h-screen bg-black text-[#D4AF37] overflow-hidden flex flex-col justify-center px-6 md:px-16 py-8 md:py-12">
+    <section className="relative w-full min-h-screen text-[#D4AF37] overflow-hidden flex flex-col justify-center px-6 md:px-16 py-8 md:py-12">
       <div className="w-full mb-12 md:mb-24 relative z-20">
         <h1
           className="tracking-wide uppercase text-5xl sm:text-6xl md:text-8xl"
@@ -165,56 +185,66 @@ const AboutTheme = () => {
         <div className="hidden md:flex md:col-span-1 md:col-start-2 md:row-start-1 md:row-span-2 2xl:col-span-4 2xl:col-start-auto 2xl:row-start-auto 2xl:row-span-1 relative h-100 md:h-full lg:h-150 w-full items-center">
           {isDesktop && (
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] z-10 pointer-events-auto">
-              <Canvas
-                dpr={[1, 1.5]}
-                gl={{
-                  antialias: true,
-                  toneMapping: THREE.ACESFilmicToneMapping,
-                  toneMappingExposure: 1.5,
-                }}
-                camera={{
-                  position: [0, 0, 6],
-                  fov: 35,
-                }}
-              >
-                <ambientLight intensity={0.5} />
-                {/* Main Key Light - Warmer and Stronger */}
-                <spotLight
-                  position={[5, 2, 8]}
-                  angle={0.5}
-                  penumbra={1}
-                  intensity={8}
-                  color="#FFD700"
-                  castShadow
-                />
-                {/* Fill Light from opposite side */}
-                <pointLight
-                  position={[-5, 0, 5]}
-                  intensity={2}
-                  color="#FDB931"
-                />
-                {/* Rim Light for edge definition */}
-                <pointLight
-                  position={[0, 5, -5]}
-                  intensity={3}
-                  color="#FFFFFF"
-                />
-
-                <Suspense fallback={null}>
-                  {/* 
-                                    STATIC PLACEMENT (True Front Face, Left Half Shown):
-                                    - Scale: 4
-                                    - Orientation: [0, -Math.PI / 2, 0] (Rotated 90deg to face front)
-                                    - Position: [1.5, 0.4, 0] (Adjusted split)
-                                */}
-                  <MaskModel
-                    scale={4}
-                    position={[1.5, 0.4, 0]}
-                    rotation={[0, -Math.PI / 2, 0]}
+              <ErrorBoundary>
+                <Canvas
+                  dpr={1} // Lower DPR to prevent crash
+                  gl={{
+                    antialias: true,
+                    toneMapping: THREE.ACESFilmicToneMapping,
+                    toneMappingExposure: 1.2,
+                    powerPreference: "default",
+                  }}
+                  camera={{
+                    position: [0, 0, 6],
+                    fov: 35,
+                  }}
+                  onCreated={({ gl }) => {
+                    // console.log("WebGL Context Created:", gl.info);
+                    gl.domElement.addEventListener("webglcontextlost", (event) => {
+                      event.preventDefault();
+                      console.error("WebGL Context Lost!");
+                    });
+                  }}
+                >
+                  <ambientLight intensity={0.5} />
+                  {/* Main Key Light - Warmer and Stronger */}
+                  <spotLight
+                    position={[5, 2, 8]}
+                    angle={0.5}
+                    penumbra={1}
+                    intensity={8}
+                    color="#FFD700"
+                  // castShadow // Disabled to prevent crash
                   />
-                  <Environment preset="city" environmentIntensity={1.5} />
-                </Suspense>
-              </Canvas>
+                  {/* Fill Light from opposite side */}
+                  <pointLight
+                    position={[-5, 0, 5]}
+                    intensity={2}
+                    color="#FDB931"
+                  />
+                  {/* Rim Light for edge definition */}
+                  <pointLight
+                    position={[0, 5, -5]}
+                    intensity={3}
+                    color="#FFFFFF"
+                  />
+
+                  <Suspense fallback={null}>
+                    {/* 
+                                      STATIC PLACEMENT (True Front Face, Left Half Shown):
+                                      - Scale: 4
+                                      - Orientation: [0, -Math.PI / 2, 0] (Rotated 90deg to face front)
+                                      - Position: [1.5, 0.4, 0] (Adjusted split)
+                                  */}
+                    <MaskModel
+                      scale={4}
+                      position={[1.5, 0.4, 0]}
+                      rotation={[0, -Math.PI / 2, 0]}
+                    />
+                    <Environment preset="city" environmentIntensity={1.5} />
+                  </Suspense>
+                </Canvas>
+              </ErrorBoundary>
             </div>
           )}
         </div>
