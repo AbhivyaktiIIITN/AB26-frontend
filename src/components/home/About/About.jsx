@@ -1,13 +1,135 @@
-import { motion } from "motion/react";
+import React, { Suspense, useRef, useEffect, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useGLTF, Environment } from "@react-three/drei";
+import { motion, useScroll, useTransform } from "motion/react";
+import * as THREE from "three";
+
+// Error Boundary for 3D content
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error("Magician Model loading error:", error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return null;
+    }
+    return this.props.children;
+  }
+}
+
+const MagicianModel = (props) => {
+  const { scene } = useGLTF("/3d-Models/magician_3d_model.glb");
+  const meshRef = useRef();
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [currentScale, setCurrentScale] = useState(3.2);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsDesktop(width >= 768);
+
+      // Adjust scale for specific viewport range where model gets cut off
+      if (width >= 769 && width <= 1100) {
+        setCurrentScale(2.5);
+      } else {
+        setCurrentScale(3.2);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Base rotation from props
+  const baseRotation = props.rotation || [0, 0, 0];
+
+  useFrame((state) => {
+    if (!meshRef.current || !isDesktop) return;
+
+    // Subtle tilt based on mouse position
+    const mouseX = state.mouse.x;
+    const mouseY = state.y;
+
+    // Target rotation: Base + small tilt
+    const tiltX = 0; // Disable vertical tilt
+    const tiltY = mouseX * 0.1;  // Very subtle horizontal tilt
+
+    // Smooth interpolation
+    meshRef.current.rotation.x = THREE.MathUtils.lerp(
+      meshRef.current.rotation.x,
+      baseRotation[0] + tiltX,
+      0.1
+    );
+    meshRef.current.rotation.y = THREE.MathUtils.lerp(
+      meshRef.current.rotation.y,
+      baseRotation[1] + tiltY,
+      0.1
+    );
+  });
+
+  return (
+    <primitive
+      object={scene}
+      ref={meshRef}
+      scale={currentScale}
+      {...props}
+    />
+  );
+};
+
+useGLTF.preload("/3d-Models/magician_3d_model.glb");
 
 const About = () => {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [0, 0.8]);
+  const raysOpacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 0]);
+
   return (
     <section
-      className="w-full h-fit bg-cover bg-center relative"
+      ref={sectionRef}
+      className="w-full h-fit bg-cover bg-center relative overflow-hidden"
       style={{ backgroundImage: "url('/images/Home/image2.jpg')" }}
     >
-      <div className="w-full h-full backdrop-blur-xs bg-black/75">
-        <div className="w-full min-h-screen flex flex-col">
+      {/* Darkening Overlay */}
+      <motion.div
+        style={{ opacity }}
+        className="absolute inset-0 bg-black z-0 pointer-events-none"
+      />
+
+      {/* Light Rays - positioned to match typical "rays from top" composition */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Ray 1 - Leftish */}
+        <motion.div
+          style={{ opacity: raysOpacity }}
+          className="absolute -top-20 left-[20%] w-24 h-[120%] bg-gradient-to-b from-white/20 via-white/5 to-transparent blur-3xl origin-top -rotate-12"
+        />
+        {/* Ray 2 - Center-Left */}
+        <motion.div
+          style={{ opacity: raysOpacity }}
+          className="absolute -top-20 left-[40%] w-32 h-[120%] bg-gradient-to-b from-white/30 via-white/10 to-transparent blur-[60px] origin-top -rotate-6"
+        />
+        {/* Ray 3 - Center-Right */}
+        <motion.div
+          style={{ opacity: raysOpacity }}
+          className="absolute -top-20 left-[60%] w-20 h-[120%] bg-gradient-to-b from-white/25 via-white/5 to-transparent blur-2xl origin-top rotate-12"
+        />
+      </div>
+
+      <div className="w-full h-full bg-black/75 relative z-10">
+        <div className="w-full h-fit flex flex-col">
           <div className="px-6 pt-16 pb-4 w-full h-fit bg-linear-to-b from-[#D4AF37]/35 to-transparent flex items-center gap-3 sm:gap-4">
             <motion.div
               initial={{ scaleX: 0 }}
@@ -53,14 +175,40 @@ const About = () => {
               style={{ backgroundImage: "url('/images/Home/aboutab.png')" }}
             ></motion.div>
             <div className="grow sm:px-3 py-6 w-full flex flex-col md:flex-row justify-evenly items-center gap-6">
-              <div className="max-w-110">
-                <img
-                  src="/images/Home/magician.png"
-                  alt="Magician"
-                  className="w-full h-full object-contain"
-                />
+              <div className="w-full h-[400px] md:w-1/2 md:h-[600px] flex items-center justify-center">
+                <ErrorBoundary>
+                  <Canvas
+                    dpr={1}
+                    camera={{ position: [0, 0, 5], fov: 40 }}
+                    gl={{ preserveDrawingBuffer: true, alpha: true }}
+                    onCreated={({ gl }) => {
+                      gl.domElement.addEventListener("webglcontextlost", (event) => {
+                        event.preventDefault();
+                        console.error("WebGL Context Lost!");
+                      });
+                    }}
+                  >
+                    <ambientLight intensity={1.2} />
+                    <spotLight
+                      position={[5, 5, 5]}
+                      angle={0.5}
+                      penumbra={1}
+                      intensity={3}
+                    />
+                    <pointLight position={[-5, 2, 5]} intensity={2} />
+                    <Suspense fallback={null}>
+                      <MagicianModel
+                        // Scale is handled internally for responsiveness
+                        position={[0, 0, 0]}
+                        rotation={[0, 1.5 + Math.PI, 0]}
+                      />
+                      <Environment preset="city" />
+                      {/* OrbitControls removed per request for "static" hold */}
+                    </Suspense>
+                  </Canvas>
+                </ErrorBoundary>
               </div>
-              <div className="w-full max-w-[max(700px,45vw)]">
+              <div className="w-full max-w-[max(700px,45vw)] flex flex-col justify-center h-full">
                 <motion.div
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -95,8 +243,8 @@ const About = () => {
             </div>
           </div>
         </div>
-        <div className="px-8 py-10 grid place-items-center">
-          <div className="w-full max-w-200 border border-white/10 p-6 sm:px-14 sm:py-10 rounded-4xl">
+        <div className="px-8 pt-12 pb-24 grid place-items-center">
+          <div className="w-full max-w-200 border border-white/10 p-4 sm:px-14 sm:py-6 rounded-4xl">
             <div className="w-full h-100 overflow-hidden rounded-3xl">
               <iframe
                 width="100%"

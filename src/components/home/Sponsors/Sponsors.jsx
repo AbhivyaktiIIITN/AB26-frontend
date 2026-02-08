@@ -25,10 +25,9 @@ const Sponsors = () => {
   ];
 
   return (
-    <div className="relative pb-20 bg-[#0a0a0a]">
-      <div className="absolute inset-0 bg-[url('/images/background.png')] bg-cover bg-center opacity-100 z-0" />
-      <div className="absolute inset-0 bg-linear-to-br from-[rgba(26,10,10,0.95)] to-[rgba(45,24,16,0.95)] z-0" />
-      
+    <div className="relative pb-20">
+
+
       <div className="relative z-10 w-full px-6 sm:px-10 lg:px-20 mb-8 sm:mb-12">
         <div className="w-full h-8 sm:h-12 bg-contain bg-no-repeat bg-left" />
       </div>

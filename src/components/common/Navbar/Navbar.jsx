@@ -51,9 +51,9 @@ const Navbar = ({ isLoggedIn = false }) => {
             {/* Logo + SVG */}
             <div
               onClick={() => navigate("/")}
-              className="flex-1 flex items-center justify-start gap-3 cursor-pointer"
+              className="flex-1 flex items-center justify-start gap-2 lg:gap-3 cursor-pointer"
             >
-              <div className="w-16 h-16 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-full flex items-center justify-center">
                 <img src="/mainlogo.png" />
               </div>
 
@@ -61,8 +61,7 @@ const Navbar = ({ isLoggedIn = false }) => {
               <AnimatePresence>
                 {showSVG && (
                   <motion.svg
-                    width="320"
-                    height="75"
+                    className="w-40 lg:w-60 xl:w-80 h-auto"
                     viewBox="0 0 300 70"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -185,16 +184,15 @@ const Navbar = ({ isLoggedIn = false }) => {
             </div>
 
             {/* Navigation Menu */}
-            <div className="flex items-center space-x-9 font-normal text-lg shrink-0">
+            <div className="flex items-center space-x-4 lg:space-x-6 xl:space-x-9 font-normal text-sm lg:text-base xl:text-lg shrink-0">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`transition-colors ${
-                    isActive(link.path)
-                      ? "text-yellow-500 font-semibold"
-                      : "text-white hover:text-yellow-300"
-                  }`}
+                  className={`transition-colors ${isActive(link.path)
+                    ? "text-yellow-500 font-semibold"
+                    : "text-white hover:text-yellow-300"
+                    }`}
                 >
                   {link.label}
                 </Link>
@@ -202,10 +200,10 @@ const Navbar = ({ isLoggedIn = false }) => {
             </div>
 
             {/* Auth Buttons / Profile */}
-            <div className="flex-1 flex items-center justify-end space-x-4 text-lg">
+            <div className="flex-1 flex items-center justify-end space-x-3 lg:space-x-4 text-sm lg:text-base xl:text-lg">
               {isLoggedIn ? (
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-semibold cursor-pointer hover:opacity-90 transition-opacity">
+                  <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-semibold cursor-pointer hover:opacity-90 transition-opacity">
                     A
                   </div>
                 </div>
@@ -219,7 +217,7 @@ const Navbar = ({ isLoggedIn = false }) => {
                   </button>
                   <button
                     onClick={() => openAuth("signin")}
-                    className="px-6 py-2 bg-linear-to-b from-[#4f3b40] to-[#7D1128] cursor-pointer text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+                    className="px-4 py-1.5 lg:px-6 lg:py-2 bg-linear-to-b from-[#4f3b40] to-[#7D1128] cursor-pointer text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
                   >
                     Login
                   </button>
@@ -328,11 +326,10 @@ const Navbar = ({ isLoggedIn = false }) => {
                 >
                   <Link
                     to={link.path}
-                    className={`text-2xl transition-colors ${
-                      isActive(link.path)
-                        ? "text-yellow-300 font-semibold"
-                        : "font-normal hover:text-gray-300"
-                    }`}
+                    className={`text-2xl transition-colors ${isActive(link.path)
+                      ? "text-yellow-300 font-semibold"
+                      : "font-normal hover:text-gray-300"
+                      }`}
                     onClick={closeMobileMenu}
                   >
                     {link.label}

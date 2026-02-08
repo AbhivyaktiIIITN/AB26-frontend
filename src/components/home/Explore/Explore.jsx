@@ -18,12 +18,10 @@ const Explore = () => {
 
   return (
     <section
-      className="relative w-full bg-cover bg-center bg-no-repeat h-fit overflow-x-hidden"
-      style={{ backgroundImage: "url('/images/Home/red-royal-bg.png')" }}
+      className="relative w-full h-fit overflow-x-hidden"
     >
-      <div className="absolute inset-0 bg-black/60 pointer-events-none" />
 
-      <div className="relative px-4 sm:px-10 lg:px-20 py-12 sm:py-20 flex flex-col items-center gap-10 sm:gap-14">
+      <div className="relative px-4 sm:px-10 lg:px-20 pt-10 pb-12 sm:pb-20 flex flex-col items-center gap-10 sm:gap-14">
         <div className="flex items-center gap-3 sm:gap-4">
           <div className="w-8 sm:w-12 h-0.5 bg-white/80 rounded-full" />
           <span className="text-white text-xs sm:text-base tracking-widest uppercase font-light">
@@ -48,7 +46,7 @@ const Explore = () => {
 
           <ExploreCard
             bg="/images/Home/CARD-BACKGROUND.jpg"
-            text="/images/Home/Competition.png"
+            text="/images/Home/Competition-copy.png"
             asset="/images/Home/dancer.png"
             cta="Compete Now"
             assetClass="bottom-[20px] sm:bottom-[25px] w-[110px] sm:w-[130px]"

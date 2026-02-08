@@ -17,7 +17,7 @@ function Footer() {
   return (
     <footer className="font-[Gabarito] text-white w-full flex flex-col overflow-x-hidden">
       {/* First: black background section */}
-      <div className="bg-neutral-950 px-4 sm:px-5 md:px-8 lg:px-12 xl:px-18 pb-5 sm:pb-0">
+      <div className="bg-black px-4 sm:px-5 md:px-8 lg:px-12 xl:px-18 pb-5 sm:pb-0">
         <div className="flex flex-col items-start gap-5 sm:gap-7 md:gap-8 lg:gap-9 xl:gap-10 pt-9 sm:pt-12 md:pt-14 max-w-306.75 ml-[5%]">
           <p className="text-sm sm:text-base md:text-lg font-normal leading-tight tracking-widest">
             IIIT NAGPUR'S FLAGSHIP CULTURAL FESTIVAL
@@ -35,7 +35,7 @@ function Footer() {
             />
           </div>
           <p className="text-sm sm:text-base md:text-lg font-normal leading-tight tracking-widest">
-            19-21 Mar 2026 | THE 7TH EDITION | AN IIITN EVENT
+            19-21 Mar 2026 <span className="text-yellow-500">|</span> THE 7TH EDITION <span className="text-yellow-500">|</span> AN IIITN EVENT
           </p>
         </div>
 
