@@ -30,7 +30,360 @@ export const exploreData = {
         },
     ],
 
-    competitions: [],
+    competitions: [
+        {
+            id: "fine_arts",
+            events: [
+                {
+                    name: "Event Name",
+                    organizers: "Strokes",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                }
+            ]
+        },
+        {
+            id: "dance",
+            events: [
+                {
+                    name: "Event Name",
+                    organizers: "Dtraxia",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                }
+            ]
+        },
+        {
+            id: "music",
+            events: [
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                }
+            ]
+        },
+        {
+            id: "digital_arts",
+            events: [
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                }
+            ]
+        },
+        {
+            id: "speaking_art",
+            events: [
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                }
+            ]
+        },
+        {
+            id: "dramatics",
+            events: [
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                }
+            ]
+        },
+        {
+            id: "AB_events",
+            events: [
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                }
+            ]
+        },
+        {
+            id: "esports",
+            events: [
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                },
+                {
+                    name: "Event Name",
+                    organizers: "Organizers",
+                    description: "Description",
+                    price_worth: "25000",
+                    price_1st: "12000",
+                    price_2nd: "8000",
+                    price_3rd: "5000",
+                    unstop_link: "#",
+                    bg_img: "/images/explore/events/1.jpg",
+                    timelines: "timelines",
+                    contact: "contact us"
+                }
+            ]
+        }
+    ],
 
     streetActivity: [
         {

@@ -60,7 +60,7 @@ const MagicianModel = (props) => {
 
     // Target rotation: Base + small tilt
     const tiltX = 0; // Disable vertical tilt
-    const tiltY = mouseX * 0.1;  // Very subtle horizontal tilt
+    const tiltY = mouseX * 0.2;  // Increased horizontal tilt intensity
 
     // Smooth interpolation
     meshRef.current.rotation.x = THREE.MathUtils.lerp(
@@ -200,7 +200,7 @@ const About = () => {
                       <MagicianModel
                         // Scale is handled internally for responsiveness
                         position={[0, 0, 0]}
-                        rotation={[0, 1.5 + Math.PI, 0]}
+                        rotation={[0, 1.7 + Math.PI, 0]}
                       />
                       <Environment preset="city" />
                       {/* OrbitControls removed per request for "static" hold */}

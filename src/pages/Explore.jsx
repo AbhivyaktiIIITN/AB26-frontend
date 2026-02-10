@@ -5,6 +5,7 @@ import { useState } from "react";
 import ExploreHero from "@/components/explore/ExploreHero";
 import ExploreTabs from "../components/explore/ExploreTabs";
 import ExploreSection from "../components/explore/ExploreSection";
+import Competitions from "../components/explore/competitions/Competitions";
 
 import { exploreData } from "../data/exploreData";
 
@@ -27,9 +28,14 @@ const Explore = () => {
                     onTabChange={handleTabChange}
                 />
 
-                <ExploreSection
-                    items={exploreData[activeTab]}
-                />
+
+                {activeTab === "competitions" ? (
+                    <Competitions />
+                ) : (
+                    <ExploreSection
+                        items={exploreData[activeTab]}
+                    />
+                )}
             </section>
         </main>
     );
