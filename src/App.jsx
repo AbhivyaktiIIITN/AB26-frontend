@@ -10,6 +10,9 @@ import Developers from "./pages/Developers";
 import Sponsors from "./pages/Sponsors";
 import Teams from "./pages/Teams";
 import Home from "./pages/Home";
+import Explore from "./pages/Explore";
+import About from "./pages/About";
+import PassesStay from "./pages/PassesStay"; 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -66,10 +69,12 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="*" element={<NotFound />} />
           <Route path="/sponsors" element={<Sponsors />} />
           <Route path="/teams" element={<Teams />} />
           <Route path="/developers" element={<Developers />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/passes-stay" element={<PassesStay />} />
         </Routes>
 
         <Footer />

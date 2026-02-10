@@ -1,0 +1,361 @@
+/* =====================
+   EXPLORE TABS
+   ===================== */
+
+.tabsWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    max-width: 1100px;
+    margin: 0 auto 0;
+    padding: 0 24px;
+}
+
+
+/* Base tab (inactive) */
+.tab {
+    width: 280px;
+    height: 66px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: "Gabarito", system-ui, sans-serif;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0;
+    font-weight: 400;
+
+    color: #9a9a9a;
+    background: #000;
+
+    border: none;
+    cursor: pointer;
+
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        font-weight 0.25s ease,
+        transform 0.25s ease;
+}
+
+/* Active tab */
+.activeTab {
+    background: var(--red-800, rgba(60, 9, 25, 1));
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* Optional: subtle hover for inactive tabs only */
+.tab:not(.activeTab):hover {
+    color: #ffffff;
+}
+
+
+/* =====================
+   SECTION / EMPTY STATE
+   ===================== */
+
+.section {
+    background: rgba(14, 14, 14, 1);
+    padding: 120px 0 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+
+.sectionInner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+}
+
+.emptyState {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+}
+
+.emptyText {
+    font-family: "Gabarito", system-ui, sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.24em;
+    color: #666;
+}
+
+/* =====================
+   ROW LAYOUT (EDITORIAL)
+   ===================== */
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+}
+
+.imageLeft {
+    grid-template-areas: "image card";
+}
+
+.imageRight {
+    grid-template-areas: "card image";
+}
+
+.imageWrapper {
+    grid-area: image;
+}
+
+.card {
+    grid-area: card;
+}
+
+/* =====================
+   IMAGE (FIXED FRAME)
+   ===================== */
+
+.imageWrapper {
+    width: 100%;
+    height: 360px;
+    overflow: hidden;
+    background: #000;
+    transition: box-shadow 0.4s ease;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(100%);
+
+    transition:
+        filter 0.4s ease,
+        border 0.4s ease;
+}
+
+.imageWrapper:hover {
+    box-shadow: 16px 16px 0px 0px rgba(130, 76, 52, 1);
+}
+
+.imageWrapper:hover .image {
+    filter: grayscale(0%);
+    border: 3px solid rgba(255, 255, 255, 1);
+}
+
+/* =====================
+   CARD
+   ===================== */
+
+.card {
+    border: 1px solid rgba(127, 126, 126, 1);
+    padding: 28px 32px 32px;
+    background: transparent;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    transition: border-color 0.35s ease;
+}
+
+.artistName {
+    font-family: "Gabarito", system-ui, sans-serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.2;
+
+    transition: color 0.35s ease;
+}
+
+.metaItem {
+    font-family: "Gabarito", system-ui, sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+
+    transition: color 0.35s ease;
+}
+
+.card:hover {
+    border-color: var(--gold-300, #ffde91);
+}
+
+.card:hover .artistName,
+.card:hover .metaItem {
+    color: var(--red-500, rgba(255, 44, 85, 1));
+}
+
+/* ---------------------
+   GENRE
+--------------------- */
+
+.genre {
+    font-family: "Gabarito", system-ui, sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #9a9a9a;
+}
+
+/* ---------------------
+   DESCRIPTION
+--------------------- */
+
+.description {
+    font-family: "Gabarito", system-ui, sans-serif;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #cfcfcf;
+    max-width: 520px;
+}
+
+/* ---------------------
+   META ROW
+--------------------- */
+
+.meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.metaItem {
+    font-family: "Gabarito", system-ui, sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+}
+
+/* alignment per column */
+.metaItem:first-child {
+    text-align: left;
+}
+
+.metaItem:nth-child(2) {
+    text-align: center;
+}
+
+.metaItem:last-child {
+    text-align: right;
+}
+
+
+/* ---------------------
+   BUTTON
+--------------------- */
+
+.button {
+    margin-top: 20px;
+    align-self: flex-start;
+
+    font-family: "Gabarito", system-ui, sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+
+    padding: 8px 16px;
+    background: transparent;
+    color: #ffffff;
+
+    border: 0.8px solid rgba(255, 241, 194, 1);
+    cursor: pointer;
+    width: 153px;
+    height: 40px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.button:hover {
+    background: linear-gradient(180deg, #a3263a, #6e1421);
+}
+
+/* =====================
+   RESPONSIVE
+   ===================== */
+
+@media (max-width: 1024px) {
+    .section {
+        gap: 96px;
+    }
+
+    .row {
+        gap: 40px;
+    }
+
+    .imageWrapper {
+        height: 320px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tabsWrapper {
+        justify-content: space-between;
+        align-items: flex-end;
+        max-width: 100%;
+        margin: 0 auto 0;
+        padding: 0 12px;
+        gap: 12px;
+    }
+
+    .section {
+        padding: 48px 0 24px;
+    }
+
+    .tab {
+        width: 120px;
+        height: 44px;
+
+        font-size: 14px;
+        font-weight: 400;
+
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .activeTab {
+        font-weight: 600;
+    }
+
+    .row {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "image"
+            "card";
+    }
+
+    .imageWrapper {
+        height: 260px;
+    }
+
+    .card {
+        padding: 24px;
+    }
+
+    .artistName {
+        font-size: 1.4rem;
+    }
+
+    .description {
+        font-size: 0.85rem;
+    }
+
+    .metaItem {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,182 @@
+.explore-hero {
+    position: relative;
+    min-height: 100svh;
+    width: 100%;
+    overflow: hidden;
+    background-color: #000;
+  }
+  
+  /* background */
+  .explore-bg {
+    position: absolute;
+    top: 40px;        /* navbar height */
+    left: 0;
+    right: 0;
+    bottom: 0;
+  
+    background-size: cover;
+    background-position: center top;
+    z-index: 0;
+  }
+  
+
+  .explore-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  
+    /* top → transparent, bottom → black */
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 55%,
+      rgba(0, 0, 0, 0.65) 75%,
+      rgba(0, 0, 0, 0.9) 90%,
+      #000 100%
+    );
+  
+    pointer-events: none;
+  }  
+  
+  /* stage */
+  .explore-stage {
+    position: relative;
+    z-index: 2;
+  
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: clamp(24vh, 28vh, 32vh);
+    gap: clamp(40px, 6vh, 80px);
+  }
+  
+  /* cards */
+  .explore-cards {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(16px, 3vw, 28px);
+  }
+  
+  .card-wrap {
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  /* triangle offsets */
+  .pos-0 { transform: translateY(40px); }
+  .pos-1 { transform: translateY(14px); }
+  .pos-2 { transform: translateY(-32px); }
+  .pos-3 { transform: translateY(14px); }
+  .pos-4 { transform: translateY(40px); }
+  
+  .explore-card {
+    height: clamp(260px, 42vh, 420px);
+    aspect-ratio: 9 / 16;
+    border-radius: 18px;
+  }
+  
+  /* EXPLORE overlay */
+  .explore-title {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  
+    font-family: "BudmoJigglish", serif;
+    font-size: clamp(3.2rem, 6.5vw, 7.5rem);
+    letter-spacing: 0.26em;
+    color: #d4af37;
+    text-shadow: 0 -2px 6px rgba(212, 175, 55, 0.9);
+  }
+  
+  /* stats */
+  .explore-stats {
+    display: flex;
+    gap: clamp(48px, 8vw, 140px);
+    text-align: center;
+  }
+  
+  .stat {
+    min-width: 120px;
+  }
+  
+  .stat-num {
+    display: block;
+    font-family: "Milker", serif;
+    font-size: clamp(2.6rem, 5.5vw, 5.25rem);
+    letter-spacing: 0.23em;
+    color: #ddb224;
+  }
+  
+  .stat-text {
+    display: block;
+    margin-top: 10px;
+    font-family: "Gabarito", system-ui, sans-serif;
+    font-size: clamp(0.9rem, 1.6vw, 1.125rem);
+    letter-spacing: 0.1em;
+    color: #fff;
+  }
+  
+  /* mobile fixes */
+  @media (max-width: 768px) {
+
+    .explore-hero {
+      min-height: unset;
+      padding-bottom: 32px; /* small breathing room only */
+    }
+    
+    .explore-bg {
+      top: 100px;
+      background-size: contain;
+      background-position: center top;
+      background-repeat: no-repeat;
+    }
+  
+    .explore-bg::before {
+      background: linear-gradient(
+        to bottom,
+        #000 0%,
+        rgba(0,0,0,0.9) 30%,
+        rgba(0,0,0,0.4) 55%,
+        rgba(0,0,0,0) 70%
+      );
+    }
+  
+    .explore-bg::after {
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0) 60%,
+        rgba(0,0,0,0.8) 80%,
+        #000 100%
+      );
+    }
+    
+    .explore-stage {
+      min-height: unset;
+      padding-top: clamp(14vh, 18vh, 22vh);
+      gap: 32px;
+    }
+  
+    .explore-card {
+      height: clamp(180px, 28vh, 240px);
+    }
+  
+    .explore-stats {
+      gap: 16px;
+      transform: scale(0.9);
+    }
+  
+    .stat-num {
+      font-size: 2rem;
+      letter-spacing: 0.15em;
+    }
+  
+    .stat-text {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+    }
+  }
+  

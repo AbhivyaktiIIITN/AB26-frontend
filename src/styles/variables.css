@@ -1,0 +1,47 @@
+/* =====================
+   COLOR SYSTEM
+   ===================== */
+
+:root {
+    /* Reds (Primary Accent) */
+    --red-500: #ff2c55;
+    /* Artist name, primary highlights */
+    --red-400: #ff4d6d;
+    /* Meta tags (date, venue, time) */
+
+    /* Gold (Hover / Emphasis) */
+    --gold-300: #ffde91;
+    /* Card border hover */
+
+    /* Neutrals */
+    --black-900: #000000;
+    --white-900: #ffffff;
+
+    --gray-100: #f5f5f5;
+    --gray-300: #d0d0d0;
+    --gray-500: #9a9a9a;
+    --gray-700: #555555;
+}
+
+/* =====================
+   TYPOGRAPHY
+   ===================== */
+
+/*
+  Fonts are intentionally NOT declared here via @font-face.
+  They should be loaded globally (index.css / main.css)
+  to avoid duplication and bundle bloat.
+
+  Primary UI Font: Gabarito
+*/
+
+/* =====================
+   MOTION (OPTIONAL)
+   ===================== */
+
+:root {
+    --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: 0.2s var(--ease-default);
+    --transition-medium: 0.4s var(--ease-default);
+    --transition-slow: 0.6s var(--ease-default);
+}

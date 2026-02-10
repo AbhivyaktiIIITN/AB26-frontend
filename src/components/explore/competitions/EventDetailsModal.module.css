@@ -1,0 +1,425 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh; /* Dynamic viewport height for mobile */
+    background: rgba(0, 0, 0, 0.85); /* Slightly darker for better contrast */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    overflow-y: auto; /* Allow scrolling within the overlay */
+    overscroll-behavior: contain; /* Prevent scroll chaining to body */
+}
+
+.modal {
+    width: 85%;
+    max-width: 1200px; /* Reduced width */
+    height: 70vh; /* Reduced height */
+    background: #0E0E0E;
+    border-radius: 20px;
+    padding: 3rem;
+    position: relative;
+    display: flex;
+    gap: 3rem;
+    overflow: hidden; /* Or auto if content scrolls inside */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    scrollbar-width: none; /* Firefox */
+}
+.modal::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+/* Desktop Adjustments for Alignment */
+.closeButton {
+    position: absolute;
+    top: 3rem; /* Match modal padding for alignment */
+    left: 2rem;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 10;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    transition: transform 0.2s;
+}
+
+/* ... existing hover styles ... */
+
+/* Left Column */
+.leftColumn {
+    flex: 6; /* 60% approx */
+    display: flex;
+    flex-direction: column;
+    padding-top: 0; /* Removed padding to align with close button */
+}
+
+/* ... existing styles ... */
+
+@media (max-width: 1024px) {
+    /* ... existing mobile styles ... */
+    
+    .header {
+        padding-left: 0;
+        margin-bottom: 1.5rem;
+        padding-right: 0; /* Reset padding, we are moving it below */
+        margin-top: 4rem; /* Push below close button */
+        text-align: left;
+    }
+
+    .closeButton {
+        top: 1rem;
+        right: 1rem; 
+        left: auto; /* Reset left */
+        background: rgba(0,0,0,0.2);
+        backdrop-filter: blur(4px);
+    }
+    
+    /* ... rest of mobile styles ... */
+}
+
+.header {
+    margin-bottom: 2rem;
+    padding-left: 3rem; /* Space for close button if needed, or align close differently */
+}
+
+/* Close button is absolute, header needs margin-left to not overlap if they are close */
+.header h1 {
+    font-family: 'Gabarito', sans-serif;
+    font-size: 3rem;
+    color: white;
+    margin: 0;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.subHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.organizerInfo {
+    font-size: 1rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.unstopLink {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 0.8rem;
+    gap: 0.3rem;
+    transition: opacity 0.2s;
+}
+
+.unstopLink:hover {
+    opacity: 1;
+    color: white; /* Text stays white */
+}
+
+.unstopLink:hover .unstopIcon {
+    background: #007bff; /* Blue icon bg on hover */
+    color: white;
+}
+
+.unstopIcon {
+    width: 24px;
+    height: 24px;
+    background: white; /* Placeholder if no icon */
+    border-radius: 50%;
+    /* Replace with actual Unstop logo if available */
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+    transition: all 0.2s; /* Add transition */
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+}
+
+.tabButton {
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 1.2rem;
+    padding-bottom: 0.5rem;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s;
+    font-family: inherit; /* Ensure font matches */
+}
+
+.tabButton.active {
+    color: #ff4757; /* Red accent color */
+    font-weight: 500;
+}
+
+.tabButton.active::after {
+    display: none; /* Remove underline */
+}
+
+.tabContent {
+    flex: 1;
+    overflow-y: auto;
+    color: #ccc;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.tabContent::-webkit-scrollbar {
+    display: none;
+}
+.tabContent {
+    scrollbar-width: none;
+}
+
+/* Bottom Actions */
+.actions {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: auto;
+}
+
+.actionButton {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actionButton:hover {
+    background: white;
+    color: black;
+}
+
+/* Right Column */
+.rightColumn {
+    flex: 4; /* 40% approx */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.eventImage {
+    width: 100%;
+    flex: 1; /* Fill available space in right column */
+    min-height: 400px; /* Minimum height ensures it doesn't shrink too much */
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.prizeBox {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex; /* Flex row */
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.prizeMain {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.trophyIconLarge {
+    font-size: 3rem;
+    color: white; /* Or gold if preferred, keeping minimal white for now */
+}
+
+.prizeTotal {
+    display: flex;
+    flex-direction: column;
+}
+
+.prizeLabel {
+    font-size: 0.9rem;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.prizeValueMain {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ff4757;
+}
+
+.separator {
+    width: 1px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.prizeBreakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.9rem;
+    color: #ccc;
+    text-align: right; /* Match reference if they are right aligned */
+}
+
+.breakdownItem {
+    display: flex;
+    justify-content: space-between; /* If width is fixed */
+    gap: 1rem;
+}
+
+@media (max-width: 1024px) {
+    .modalOverlay {
+        display: block; /* Block for scroll */
+        overflow-y: auto; /* Overlay scrolls */
+        padding: 1rem;
+        z-index: 10000;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+    }
+
+    .modal {
+        display: flex;
+        flex-direction: column;
+        height: auto; /* Grow to fit all content (prizes etc) */
+        min-height: unset;
+        max-height: none; /* No internal limit */
+        width: 100%;
+        max-width: 600px; 
+        margin: 2rem auto; 
+        padding: 1.5rem;
+        padding-bottom: 6rem; /* Huge padding for safe area */
+        gap: 2rem;
+        
+        overflow: visible; /* No internal scroll */
+        position: relative;
+        box-sizing: border-box; 
+    }
+
+    .leftColumn, .rightColumn {
+        flex: unset;
+        width: 100%;
+    }
+
+    .rightColumn {
+        gap: 1.5rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 2rem;
+    }
+
+    /* Prize Box - Make it pop */
+    .prizeBox {
+        background: rgba(255, 215, 0, 0.05); /* Subtle gold tint */
+        border: 1px solid rgba(255, 215, 0, 0.2);
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .eventImage {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9; /* Standard video ratio */
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    
+    .header {
+        padding-left: 0;
+        margin-bottom: 1.5rem;
+        padding-right: 6rem; /* Further increased to safely clear close button */
+        text-align: left;
+    }
+
+    .header h1 {
+        font-size: 1.8rem;
+    }
+
+    .closeButton {
+        top: 1rem;
+        right: 1rem; 
+        background: rgba(0,0,0,0.2);
+        backdrop-filter: blur(4px);
+    }
+
+    /* Tabs scrollable */
+    .tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 8px;
+        margin-bottom: 1rem;
+    }
+
+    .tabContent {
+        overflow: visible; 
+    }
+
+    .actions {
+        margin-top: 1.5rem;
+    }
+
+    /* Fix Prize Box Layout for Mobile */
+    .prizeMain {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .trophyIconLarge {
+        font-size: 2rem;
+        margin-bottom: 0;
+        color: #ffd700;
+    }
+    
+    .separator {
+        width: 100%;
+        height: 1px;
+    }
+    
+    .prizeBreakdown {
+        text-align: center;
+        font-size: 0.95rem;
+    }
+    
+    .breakdownItem {
+        justify-content: center;
+        gap: 2rem;
+    }
+}

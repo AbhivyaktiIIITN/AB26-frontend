@@ -1,0 +1,238 @@
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 2rem;
+    padding: 2rem;
+    box-sizing: border-box;
+    color: white;
+    background: #0E0E0E; /* Match .section background in explore.module.css */
+}
+
+.ticketList {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-right: 2rem;
+    padding-left: 5rem; /* Increased left padding */
+    padding-top: 4rem; 
+    padding-bottom: 2rem;
+    overflow-y: auto;
+    overflow-x: visible;
+    scrollbar-width: none; 
+}
+
+.ticketList::-webkit-scrollbar {
+    display: none;
+}
+
+.ticketWrapper {
+    width: 95%; /* Moderate size */
+    /* Transition for margin, transform, and filter */
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    
+    /* Default state: heavily overlapped, only header visible */
+    /* Using a fixed large negative margin to hide most of the ticket */
+    margin-bottom: -18rem; 
+    
+    filter: brightness(0.7) blur(0.5px);
+    transform-origin: center top;
+}
+
+.ticketWrapper:last-child {
+    margin-bottom: 0;
+}
+
+/* Hover state or Active state (Persistent) */
+.ticketWrapper:hover,
+.ticketWrapper.active {
+    /* Push subsequent tickets down to reveal this full ticket */
+    /* 0 margin ensures the next ticket starts right after the layout bounds */
+    /* Slight negative to close any gap from the lift transform */
+    margin-bottom: -1rem; 
+    
+    /* Bring to front */
+    z-index: 100;
+    
+    /* Pop effect - move up slightly to overlap the one above nicely */
+    transform: scale(1.05) translateY(-20px);
+    
+    /* Bright and clear */
+    filter: brightness(1.1) blur(0);
+}
+
+.ticketImage {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+    border-radius: 12px;
+}
+
+.detailsPanel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align to top */
+    align-items: center;
+    background: transparent; /* Remove background box if implied by "just show cards" or keep it subtle? User said "update right panel like align it... just show the cards". I'll keep the glassmorphism but align it. */
+    /* actually "matches the level from where ticket starts" implies visual alignment. */
+    /* removing background might look cleaner if cards have their own bg */
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    padding: 0; /* Remove padding so cards can go to edges if needed, or keep for container */
+    padding-top: 4rem; /* Match ticketList padding-top */
+    padding-bottom: 2rem;
+    backdrop-filter: none; /* Remove blur on panel if cards have it */
+    border: none;
+    position: sticky;
+    top: 0;
+    height: 100vh; /* Full height to match container */
+    overflow-y: auto;
+    
+    /* Fade in animation */
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Hide scrollbar for details */
+.detailsPanel::-webkit-scrollbar {
+    display: none;
+}
+.detailsPanel {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.detailsTitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #ffd700; /* Gold color for premium feel */
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    /* mix-blend-mode: overlay; */ /* Optional */
+}
+
+.cardsContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    padding-bottom: 2rem;
+}
+
+.placeholderText {
+    font-style: italic;
+    color: #888;
+    font-size: 1.1rem;
+}
+
+.ticketGroup {
+    display: contents; /* Ensure children act as flex items if needed, or simple block flow */
+    /* contents makes the wrapper disappear from layout tree, so children (wrapper + panel) are siblings in container */
+}
+
+/* Mobile Accordion Panel - Hidden on Desktop */
+.mobileEventsPanel {
+    display: none;
+    width: 100%;
+}
+
+.mobileCardsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    width: 100%;
+    align-items: center;
+}
+
+/* Responsive Adjustments */
+
+/* Smoothly reduce overlap as screen gets smaller from 1920px down to 1280px */
+@media (max-width: 1700px) {
+    .ticketWrapper {
+        margin-bottom: -14rem; 
+    }
+}
+
+@media (max-width: 1550px) {
+    .ticketWrapper {
+        margin-bottom: -11rem;
+    }
+}
+
+@media (max-width: 1400px) {
+    .ticketWrapper {
+        margin-bottom: -8rem;
+    }
+    .ticketList {
+        padding-left: 2rem; /* Reduce padding slightly as width narrows */
+    }
+}
+
+@media (max-width: 1280px) {
+    .container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .detailsPanel {
+        display: none; /* Hide right panel */
+    }
+
+    .ticketList {
+        padding: 0;
+        width: 100%;
+        padding-bottom: 5rem;
+    }
+
+    /* Override Wrapper Styles for Mobile/Tablet */
+    .ticketWrapper {
+        width: 100%;
+        max-width: 600px; /* Limit width on tablet */
+        margin: 0 auto;
+        margin-bottom: -8rem; /* Reduced overlap to show more of ticket */
+        transition: margin 0.5s ease, transform 0.5s ease;
+    }
+
+    .ticketWrapper.active {
+        margin-bottom: 0; /* Remove negative margin to make space for content */
+        transform: scale(1.02); /* Slight pop */
+    }
+
+    /* Show mobile panel when active */
+    .mobileEventsPanel.show {
+        display: block;
+        animation: slideDown 0.5s ease-out;
+    }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .ticketWrapper {
+        margin-bottom: -8rem; /* Less overlap on smaller screens */
+        max-width: 100%;
+    }
+    
+    .ticketWrapper.active {
+        margin-bottom: 0;
+    }
+}
