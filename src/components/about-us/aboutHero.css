@@ -1,7 +1,7 @@
 /* =========================
    HERO CONTAINER
 ========================= */
-.team-hero {
+.about-hero {
   position: relative;
   min-height: 100svh;
   height: 100svh;
@@ -35,7 +35,7 @@
   transform: translateX(1%);
 }
 
-.team-title {
+.about-title {
   font-family: "BudmoJigglish", serif;
   font-weight: 300;
   font-size: clamp(4rem, 9vw, 8rem);
@@ -193,16 +193,6 @@
 }
 
 .hero-scroll-btn:hover {
-  transform: translateY(3px);
-  background: linear-gradient(
-    145deg,
-    rgba(255, 230, 200, 0.4) 0%,
-    rgba(212, 175, 55, 0.6) 100%
-  );
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-.hero-scroll-btn:hover {
   transform: scale(0.95);
   background: linear-gradient(
     145deg,
@@ -212,6 +202,7 @@
   filter: brightness(1.15);
   box-shadow: 0 0 10px rgba(255, 220, 150, 0.25);
 }
+
 
 /* =========================
    HERO → CONTENT FADE

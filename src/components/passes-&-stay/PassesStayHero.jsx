@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
-import "./TeamHero.css";
+import "./passesStayHero.css";
 import stageBg from "@/assets/background/background-curtains.webp";
 import abhivyaktiText from "@/assets/branding/abhivyakti text-yellow.webp";
 
-const TeamHero = () => {
+const PassesStayHero = () => {
   return (
-    <section className="team-hero">
+    <section className="hero">
 
       {/* Background */}
       <div
@@ -25,19 +25,18 @@ const TeamHero = () => {
       {/* Center title */}
       <div className="hero-content">
         <motion.h1
-          className="team-title"
+          className="title"
           initial={{ y: -40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          TEAMS
+          PASSES & STAY
         </motion.h1>
       </div>
 
       {/* CTA */}
       <div className="hero-cta">
-        <button className="cta-btn">AB Teams</button>
-        <button className="cta-btn">Clubs</button>
+        <button className="cta-btn">Contact Us</button>
       </div>
 
       {/* Scroll Down Button */}
@@ -92,4 +91,4 @@ const TeamHero = () => {
   );
 };
 
-export default TeamHero;
+export default PassesStayHero;

@@ -1,7 +1,7 @@
 /* =========================
    HERO CONTAINER
 ========================= */
-.team-hero {
+.hero {
   position: relative;
   min-height: 100svh;
   height: 100svh;
@@ -35,7 +35,7 @@
   transform: translateX(1%);
 }
 
-.team-title {
+.title {
   font-family: "BudmoJigglish", serif;
   font-weight: 300;
   font-size: clamp(4rem, 9vw, 8rem);

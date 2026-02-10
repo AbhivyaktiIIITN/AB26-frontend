@@ -87,7 +87,7 @@
 
 .memberName {
   font-family: "Gabarito", system-ui, sans-serif;
-  font-size: 0.95rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: #eaeaea;
 }
@@ -95,7 +95,7 @@
 .memberRole {
   margin-top: 4px;
   font-family: "Gabarito", system-ui, sans-serif;
-  font-size: 0.75rem;
+  font-size: 1rem;
   letter-spacing: 0.04em;
   color: #9a9a9a;
 }
@@ -159,12 +159,12 @@
 
 .left {
   grid-column: 1;
-  text-align: right;
+  text-align: center;
 }
 
 .right {
   grid-column: 3;
-  text-align: left;
+  text-align: center;
 }
 
 .center {
