@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import useAuth from "../../hooks/auth/useAuth";
-import { ForgotPassword, SignIn, SignUp } from "./";
+import { ForgotPassword, SignIn, SignUp, VerifyOTP } from "./";
 
 const ModalAuthLayout = () => {
   const { mode, step, isOpen, closeAuth, switchAuthMode } = useAuth();
@@ -78,6 +78,7 @@ const ModalAuthLayout = () => {
                 {mode === "signup" && (
                   <SignUp
                     onSwitchToSignIn={() => switchAuthMode("signin")}
+                    onSwitchToVerifyOTP={() => switchAuthMode("verify-otp")}
                     currentStep={step}
                   />
                 )}
@@ -85,6 +86,11 @@ const ModalAuthLayout = () => {
                   <ForgotPassword
                     onSwitchToSignIn={() => switchAuthMode("signin")}
                     currentStep={step}
+                  />
+                )}
+                {mode === "verify-otp" && (
+                  <VerifyOTP
+                    onSwitchToSignIn={() => switchAuthMode("signin")}
                   />
                 )}
               </div>

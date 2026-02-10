@@ -1,7 +1,7 @@
-import React, { Suspense, useRef, useEffect, useState } from "react";
+import { Environment, useGLTF } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useGLTF, Environment } from "@react-three/drei";
 import { motion, useScroll, useTransform } from "motion/react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 // Error Boundary for 3D content
@@ -170,7 +170,7 @@ const About = () => {
               style={{ backgroundImage: "url('/images/Home/aboutab.png')" }}
             ></motion.div>
             <div className="grow sm:px-3 py-6 w-full flex flex-col md:flex-row justify-evenly items-center gap-6">
-              <div className="w-full h-100 md:w-1/2 md:h-150 flex items-center justify-center">
+              <div className="hidden w-full h-100 md:w-1/2 md:h-150 md:flex items-center justify-center">
                 <ErrorBoundary>
                   <Canvas
                     dpr={1}

@@ -1,11 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { useToast } from "../../contexts/ToastContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 import useAuth from "../../hooks/auth/useAuth";
 
-const SignUp = ({ onSwitchToSignIn, currentStep = 1 }) => {
+const SignUp = ({ onSwitchToSignIn, onSwitchToVerifyOTP, currentStep = 1 }) => {
   const { nextStep, prevStep } = useAuth();
   const { showToast } = useToast();
+  const { register, googleLogin, isLoading: authLoading } = useAuthContext();
   const [formData, setFormData] = useState({
     firstName: "",
     middleName: "",
@@ -80,28 +82,26 @@ const SignUp = ({ onSwitchToSignIn, currentStep = 1 }) => {
       // Final submission
       setIsLoading(true);
       try {
-        console.log("Sign up data:", formData);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        showToast("Account Created Successfully", "success");
+        await register({
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+        });
+        showToast("Account created! Please verify your email.", "success");
+        // Navigate to OTP verification
+        if (onSwitchToVerifyOTP) onSwitchToVerifyOTP();
       } catch (err) {
-        showToast("Failed to create account. Please try again.", "error");
+        showToast(err.message || "Failed to create account. Please try again.", "error");
       } finally {
         setIsLoading(false);
       }
     }
   };
 
-  const handleGoogleSignUp = async (e) => {
+  const handleGoogleSignUp = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      // Google signup logic
-    } catch (err) {
-      showToast("Something went wrong with Google signup.", "error");
-    } finally {
-      setIsLoading(false);
-    }
+    googleLogin();
   };
 
   const renderStepContent = () => {

@@ -1,10 +1,19 @@
 @import "tailwindcss";
 
+/* 1. fonts to Tailwind */
+@theme {
+  --font-besta: "Besta Baru", sans-serif;
+  --font-jigglish: "BudmoJigglish", sans-serif;
+  --font-adqila: "Adqila", sans-serif;
+
+  /* system one */
+  --font-gabarito: "Gabarito", ui-sans-serif, system-ui, sans-serif;
+}
+
 @font-face {
   font-family: "Besta Baru";
   src: url("/src/assets/fonts/BestaBaru.otf") format("opentype");
   font-weight: 400;
-  font-style: normal;
   font-display: swap;
 }
 
@@ -12,8 +21,13 @@
   font-family: "BudmoJigglish";
   src: url("/src/assets/fonts/budmo jigglish.otf") format("opentype");
   font-weight: 400;
-  font-style: normal;
   font-display: swap;
+}
+
+@font-face {
+  font-family: "Adqila";
+  src: url("/fonts/aqila-demoversion-regular.otf") format("opentype");
+  font-weight: 400;
 }
 
 /* CSS for edge cases of Lenis (Smooth Scrolling) */
@@ -45,9 +59,7 @@ html.lenis body {
 html,
 body,
 #root {
-  font-family:
-    "Gabarito", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: var(--font-gabarito);
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: #d4af37 #1a1a1a; /* Firefox: thumb track */
   width: 100%;
@@ -73,13 +85,6 @@ body,
   background: #b8962f;
 }
 /* ==================================== */
-
-@font-face {
-  font-family: "Adqila";
-  src: url("/fonts/aqila-demoversion-regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-}
 
 @keyframes marquee-left {
   0% {
