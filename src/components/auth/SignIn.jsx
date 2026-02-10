@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useToast } from "../../contexts/ToastContext";
+import { useAuthContext } from "../../contexts/AuthContext";
+import useAuth from "../../hooks/auth/useAuth";
 
 const SignIn = ({
   onSwitchToSignUp,
@@ -7,12 +9,14 @@ const SignIn = ({
   currentStep = 1,
 }) => {
   const { showToast } = useToast();
+  const { login, googleLogin } = useAuthContext();
+  const { closeAuth } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [isGoogleLoading, setGoogleLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -24,13 +28,15 @@ const SignIn = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
-      // simulate api (logic goes here)
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await login({
+        email: formData.email,
+        password: formData.password,
+      });
       showToast("Login Successful", "success");
+      closeAuth();
     } catch (err) {
-      showToast("Invalid credentials. Please try again.", "error");
+      showToast(err.message || "Invalid credentials. Please try again.", "error");
     } finally {
       setIsLoading(false);
     }
@@ -38,21 +44,16 @@ const SignIn = ({
 
   const handleGoogleSubmit = async (e) => {
     e.preventDefault();
-    setGoogleLoading(true);
-
+    setIsGoogleLoading(true);
     try {
-      // simulate api (logic goes here)
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      showToast("Login Unsuccessful", "error");
-    } catch (err) {
-      showToast("Something went wrong.", "error");
+      await googleLogin();
     } finally {
-      setGoogleLoading(false);
+      setIsGoogleLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col md:flex-row md:min-h-[650px] tracking-wide">
+    <div className="flex flex-col md:flex-row md:min-h-162.5 tracking-wide">
       {/* Left side - Brand/Image */}
       <div className="hidden md:flex md:w-1/2 items-start justify-start p-6 text-white text-center relative bg-gray-900 rounded-l-lg">
         <span className="text-xl font-semibold z-10 relative select-none">

@@ -1,7 +1,7 @@
-import React, { Suspense, useRef, useEffect, useState } from "react";
+import { Environment, useGLTF } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useGLTF, Environment } from "@react-three/drei";
 import { motion, useScroll, useTransform } from "motion/react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 // Error Boundary for 3D content
@@ -66,22 +66,17 @@ const MagicianModel = (props) => {
     meshRef.current.rotation.x = THREE.MathUtils.lerp(
       meshRef.current.rotation.x,
       baseRotation[0] + tiltX,
-      0.1
+      0.1,
     );
     meshRef.current.rotation.y = THREE.MathUtils.lerp(
       meshRef.current.rotation.y,
       baseRotation[1] + tiltY,
-      0.1
+      0.1,
     );
   });
 
   return (
-    <primitive
-      object={scene}
-      ref={meshRef}
-      scale={currentScale}
-      {...props}
-    />
+    <primitive object={scene} ref={meshRef} scale={currentScale} {...props} />
   );
 };
 
@@ -114,17 +109,17 @@ const About = () => {
         {/* Ray 1 - Leftish */}
         <motion.div
           style={{ opacity: raysOpacity }}
-          className="absolute -top-20 left-[20%] w-24 h-[120%] bg-gradient-to-b from-white/20 via-white/5 to-transparent blur-3xl origin-top -rotate-12"
+          className="absolute -top-20 left-[20%] w-24 h-[120%] bg-linear-to-b from-white/20 via-white/5 to-transparent blur-3xl origin-top -rotate-12"
         />
         {/* Ray 2 - Center-Left */}
         <motion.div
           style={{ opacity: raysOpacity }}
-          className="absolute -top-20 left-[40%] w-32 h-[120%] bg-gradient-to-b from-white/30 via-white/10 to-transparent blur-[60px] origin-top -rotate-6"
+          className="absolute -top-20 left-[40%] w-32 h-[120%] bg-linear-to-b from-white/30 via-white/10 to-transparent blur-[60px] origin-top -rotate-6"
         />
         {/* Ray 3 - Center-Right */}
         <motion.div
           style={{ opacity: raysOpacity }}
-          className="absolute -top-20 left-[60%] w-20 h-[120%] bg-gradient-to-b from-white/25 via-white/5 to-transparent blur-2xl origin-top rotate-12"
+          className="absolute -top-20 left-[60%] w-20 h-[120%] bg-linear-to-b from-white/25 via-white/5 to-transparent blur-2xl origin-top rotate-12"
         />
       </div>
 
@@ -175,17 +170,20 @@ const About = () => {
               style={{ backgroundImage: "url('/images/Home/aboutab.png')" }}
             ></motion.div>
             <div className="grow sm:px-3 py-6 w-full flex flex-col md:flex-row justify-evenly items-center gap-6">
-              <div className="w-full h-[400px] md:w-1/2 md:h-[600px] flex items-center justify-center">
+              <div className="hidden w-full h-100 md:w-1/2 md:h-150 md:flex items-center justify-center">
                 <ErrorBoundary>
                   <Canvas
                     dpr={1}
                     camera={{ position: [0, 0, 5], fov: 40 }}
                     gl={{ preserveDrawingBuffer: true, alpha: true }}
                     onCreated={({ gl }) => {
-                      gl.domElement.addEventListener("webglcontextlost", (event) => {
-                        event.preventDefault();
-                        console.error("WebGL Context Lost!");
-                      });
+                      gl.domElement.addEventListener(
+                        "webglcontextlost",
+                        (event) => {
+                          event.preventDefault();
+                          console.error("WebGL Context Lost!");
+                        },
+                      );
                     }}
                   >
                     <ambientLight intensity={1.2} />
@@ -214,8 +212,8 @@ const About = () => {
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true, amount: 0.5 }}
                   transition={{
-                    duration: 1.5,
-                    delay: 2.5,
+                    duration: 1,
+                    delay: 0.2,
                   }}
                   className="w-full text-white md:text-xl text-justify"
                 >
@@ -243,15 +241,14 @@ const About = () => {
             </div>
           </div>
         </div>
-        <div className="px-8 pt-12 pb-24 grid place-items-center">
-          <div className="w-full max-w-200 border border-white/10 p-4 sm:px-14 sm:py-6 rounded-4xl">
-            <div className="w-full h-100 overflow-hidden rounded-3xl">
+        <div className="px-4 sm:px-8 pt-8 sm:pt-12 pb-16 sm:pb-24 grid place-items-center">
+          <div className="w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-230 border-2 border-white/30 backdrop-blur-2xl p-3 sm:p-5 md:px-16 md:py-8 rounded-2xl sm:rounded-3xl lg:rounded-4xl">
+            <div className="w-full aspect-video sm:h-120 border-4 border-double border-amber-200/30 overflow-hidden rounded-xl sm:rounded-2xl lg:rounded-3xl">
               <iframe
                 width="100%"
                 height="100%"
                 src="https://www.youtube.com/embed/droNt6x2P7E"
                 title='"The Greatest Show" Background Animation'
-                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen

@@ -2,9 +2,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/auth/useAuth";
+import { useAuthContext } from "../../../contexts/AuthContext";
 
-const Navbar = ({ isLoggedIn = false }) => {
+const Navbar = () => {
   const { openAuth } = useAuth();
+  const { user, isLoggedIn, logout } = useAuthContext();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -57,7 +59,7 @@ const Navbar = ({ isLoggedIn = false }) => {
                 <img src="/mainlogo.png" />
               </div>
 
-              {/* you can copy svg codes from figma this accurate :) */}
+              {/* damn, you can copy svg codes from figma this accurate :) */}
               <AnimatePresence>
                 {showSVG && (
                   <motion.svg
@@ -189,10 +191,11 @@ const Navbar = ({ isLoggedIn = false }) => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`transition-colors ${isActive(link.path)
-                    ? "text-yellow-500 font-semibold"
-                    : "text-white hover:text-yellow-300"
-                    }`}
+                  className={`transition-colors ${
+                    isActive(link.path)
+                      ? "text-yellow-500 font-semibold"
+                      : "text-white hover:text-yellow-300"
+                  }`}
                 >
                   {link.label}
                 </Link>
@@ -203,9 +206,18 @@ const Navbar = ({ isLoggedIn = false }) => {
             <div className="flex-1 flex items-center justify-end space-x-3 lg:space-x-4 text-sm lg:text-base xl:text-lg">
               {isLoggedIn ? (
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-semibold cursor-pointer hover:opacity-90 transition-opacity">
-                    A
+                  <div
+                    className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-semibold cursor-pointer hover:opacity-90 transition-opacity"
+                    title={user?.first_name || "Profile"}
+                  >
+                    {user?.first_name?.charAt(0)?.toUpperCase() || "U"}
                   </div>
+                  <button
+                    onClick={logout}
+                    className="text-white hover:text-gray-300 transition-colors font-medium cursor-pointer text-sm lg:text-base"
+                  >
+                    Logout
+                  </button>
                 </div>
               ) : (
                 <>
@@ -255,8 +267,11 @@ const Navbar = ({ isLoggedIn = false }) => {
             </div>
 
             {isLoggedIn ? (
-              <div className="w-8 h-8 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-semibold cursor-pointer">
-                A
+              <div
+                className="w-8 h-8 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-semibold cursor-pointer"
+                title={user?.first_name || "Profile"}
+              >
+                {user?.first_name?.charAt(0)?.toUpperCase() || "U"}
               </div>
             ) : (
               <button
@@ -326,10 +341,11 @@ const Navbar = ({ isLoggedIn = false }) => {
                 >
                   <Link
                     to={link.path}
-                    className={`text-2xl transition-colors ${isActive(link.path)
-                      ? "text-yellow-300 font-semibold"
-                      : "font-normal hover:text-gray-300"
-                      }`}
+                    className={`text-2xl transition-colors ${
+                      isActive(link.path)
+                        ? "text-yellow-300 font-semibold"
+                        : "font-normal hover:text-gray-300"
+                    }`}
                     onClick={closeMobileMenu}
                   >
                     {link.label}
@@ -339,8 +355,22 @@ const Navbar = ({ isLoggedIn = false }) => {
 
               {/* Auth Buttons / Profile */}
               {isLoggedIn ? (
-                <div className="flex flex-col items-center gap-4 mt-8 border rounded-md p-2">
-                  <p className="text-white text-xl font-medium">My Profile</p>
+                <div className="flex flex-col items-center gap-4 mt-8">
+                  <div className="w-12 h-12 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white text-xl font-semibold">
+                    {user?.first_name?.charAt(0)?.toUpperCase() || "U"}
+                  </div>
+                  <p className="text-white text-xl font-medium">
+                    {user?.first_name || "Profile"}
+                  </p>
+                  <button
+                    onClick={() => {
+                      logout();
+                      closeMobileMenu();
+                    }}
+                    className="text-red-400 hover:text-red-300 transition-colors font-medium text-lg"
+                  >
+                    Logout
+                  </button>
                 </div>
               ) : (
                 <div className="flex items-center space-x-4 pt-8">

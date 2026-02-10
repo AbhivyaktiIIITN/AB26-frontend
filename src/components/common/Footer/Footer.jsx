@@ -1,3 +1,5 @@
+import AbhivyaktiLogo from "@/assets/abhivyaktiSVG/AbhivyaktiLogo";
+import Year2026 from "@/assets/abhivyaktiSVG/Year2026";
 import {
   FaInstagram,
   FaLinkedin,
@@ -17,32 +19,23 @@ function Footer() {
   return (
     <footer className="font-[Gabarito] text-white w-full flex flex-col overflow-x-hidden">
       {/* First: black background section */}
-      <div className="bg-black px-4 sm:px-5 md:px-8 lg:px-12 xl:px-18 pb-5 sm:pb-0">
-        <div className="flex flex-col items-start gap-5 sm:gap-7 md:gap-8 lg:gap-9 xl:gap-10 pt-9 sm:pt-12 md:pt-14 max-w-306.75 ml-[5%]">
-          <p className="text-sm sm:text-base md:text-lg font-normal leading-tight tracking-widest">
+      <div className="bg-black px-4 sm:px-5 md:px-8 lg:px-12 xl:px-18 pb-6 sm:pb-0">
+        <div className="flex flex-col items-start gap-7 sm:gap-9 md:gap-11 lg:gap-13 xl:gap-16 pt-10 sm:pt-14 md:pt-16 lg:pt-18 xl:pt-20 max-w-[90%] ml-[5%]">
+          <p className="text-xs sm:text-base md:text-lg font-normal leading-tight tracking-widest">
             IIIT NAGPUR'S FLAGSHIP CULTURAL FESTIVAL
           </p>
-          <div className="flex items-end justify-start lg:justify-center gap-2.5 sm:gap-4.5 md:gap-5 lg:gap-9 w-full max-w-306.75 min-h-20 sm:min-h-24 md:min-h-25 lg:min-h-28 xl:min-h-30">
-            <img
-              src="/Footer-Content/Abhivyacti image.png"
-              alt="Abhivyakti"
-              className="max-w-[55%] sm:max-w-full h-auto max-h-16 sm:max-h-20 md:max-h-21 lg:max-h-22 xl:max-h-37 object-contain shrink-0"
-            />
-            <img
-              src="/Footer-Content/2026 image.png"
-              alt="2026"
-              className="h-auto max-h-11 md:max-h-12 xl:max-h-13 w-auto max-w-12 sm:max-w-none object-contain self-end shrink-0"
-            />
+          <div className="flex items-end justify-start w-full gap-14">
+            <AbhivyaktiLogo className="h-auto" />
+            <Year2026 className="h-auto w-54" />
           </div>
-          <p className="text-sm sm:text-base md:text-lg font-normal leading-tight tracking-widest">
-            19-21 Mar 2026 <span className="text-yellow-500">|</span> THE 7TH EDITION <span className="text-yellow-500">|</span> AN IIITN EVENT
+          <p className="text-xs sm:text-base md:text-lg font-normal leading-tight tracking-widest">
+            19-21 Mar 2026 <span className="text-yellow-500">|</span> THE 7TH
+            EDITION <span className="text-yellow-500">|</span> AN IIITN EVENT
           </p>
         </div>
 
-        <img
-          src="/Footer-Content/vector -line.png"
-          alt=""
-          className="w-[90%] h-auto object-contain mx-[5%] mt-7 sm:mt-9 block shrink-0"
+        <div
+          className="w-[90%] h-0.5 bg-pink-700 mx-[5%] mt-9 sm:mt-12 md:mt-14 rounded-full"
           aria-hidden="true"
         />
       </div>
