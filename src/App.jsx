@@ -68,7 +68,7 @@ function App() {
             <Route path="/developers" element={<Developers />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/about" element={<About />} />
-            <Route path="/passes-stay" element={<PassesStay />} />
+            <Route path="/passes" element={<PassesStay />} />
           </Routes>
 
           <Footer />

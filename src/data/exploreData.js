@@ -35,7 +35,8 @@ export const exploreData = {
             id: "fine_arts",
             events: [
                 {
-                    name: "Event Name",
+                    id: "fine_arts_1",
+                    name: "Rangeraza",
                     organizers: "Strokes",
                     description: "Description",
                     price_worth: "25000",
@@ -48,6 +49,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "fine_arts_2",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -61,6 +63,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "fine_arts_3",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -79,6 +82,7 @@ export const exploreData = {
             id: "dance",
             events: [
                 {
+                    id: "dance_1",
                     name: "Event Name",
                     organizers: "Dtraxia",
                     description: "Description",
@@ -92,6 +96,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "dance_2",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -105,6 +110,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "dance_3",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -123,6 +129,7 @@ export const exploreData = {
             id: "music",
             events: [
                 {
+                    id: "music_1",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -136,6 +143,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "music_2",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -149,6 +157,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "music_3",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -167,6 +176,7 @@ export const exploreData = {
             id: "digital_arts",
             events: [
                 {
+                    id: "digital_arts_1",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -180,6 +190,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "digital_arts_2",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -193,6 +204,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "digital_arts_3",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -211,6 +223,7 @@ export const exploreData = {
             id: "speaking_art",
             events: [
                 {
+                    id: "speaking_art_1",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -224,6 +237,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "speaking_art_2",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -237,6 +251,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "speaking_art_3",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -255,6 +270,7 @@ export const exploreData = {
             id: "dramatics",
             events: [
                 {
+                    id: "dramatics_1",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -268,6 +284,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "dramatics_2",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -281,6 +298,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "dramatics_3",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -299,6 +317,7 @@ export const exploreData = {
             id: "AB_events",
             events: [
                 {
+                    id: "AB_events_1",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -312,6 +331,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "AB_events_2",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -325,6 +345,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "AB_events_3",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -343,6 +364,7 @@ export const exploreData = {
             id: "esports",
             events: [
                 {
+                    id: "esports_1",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -356,6 +378,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "esports_2",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",
@@ -369,6 +392,7 @@ export const exploreData = {
                     contact: "contact us"
                 },
                 {
+                    id: "esports_3",
                     name: "Event Name",
                     organizers: "Organizers",
                     description: "Description",

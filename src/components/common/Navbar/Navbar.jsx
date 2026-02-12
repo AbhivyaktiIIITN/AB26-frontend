@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/auth/useAuth";
 import { useAuthContext } from "../../../contexts/AuthContext";
+import UserProfile from "./UserProfile";
 
 const Navbar = () => {
   const { openAuth } = useAuth();
@@ -62,7 +63,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-linear-to-b from-black to-black/10 backdrop-blur-sm tracking-wider">
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-linear-to-b from-black to-black/10 backdrop-blur-sm tracking-wider">
         <div className="mx-auto px-6 sm:px-8 lg:px-10">
           <div className="hidden md:flex justify-between items-center h-20 w-full">
             {/* Logo + SVG */}
@@ -206,11 +207,10 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`transition-colors ${
-                    isActive(link.path)
-                      ? "text-yellow-500 font-semibold"
-                      : "text-white hover:text-yellow-300"
-                  }`}
+                  className={`transition-colors ${isActive(link.path)
+                    ? "text-yellow-500 font-semibold"
+                    : "text-white hover:text-yellow-300"
+                    }`}
                 >
                   {link.label}
                 </Link>
@@ -219,22 +219,7 @@ const Navbar = () => {
 
             {/* Auth Buttons / Profile */}
             <div className="flex-1 flex items-center justify-end space-x-3 lg:space-x-4 text-sm lg:text-base xl:text-lg">
-              {isLoggedIn ? (
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-semibold cursor-pointer hover:opacity-90 transition-opacity"
-                    title={user?.first_name || "Profile"}
-                  >
-                    {user?.first_name?.charAt(0)?.toUpperCase() || "U"}
-                  </div>
-                  <button
-                    onClick={logout}
-                    className="text-white hover:text-gray-300 transition-colors font-medium cursor-pointer text-sm lg:text-base"
-                  >
-                    Logout
-                  </button>
-                </div>
-              ) : (
+              {!isLoggedIn && (
                 <>
                   <button
                     onClick={() => openAuth("signup")}
@@ -250,6 +235,17 @@ const Navbar = () => {
                   </button>
                 </>
               )}
+              <UserProfile
+                user={
+                  user || {
+                    first_name: "Satvik",
+                    last_name: "Rastogi",
+                    email: "satvik@example.com",
+                    ab_id: "AB_2026",
+                  }
+                }
+                logout={logout}
+              />
             </div>
           </div>
 
@@ -281,21 +277,27 @@ const Navbar = () => {
               </div>
             </div>
 
-            {isLoggedIn ? (
-              <div
-                className="w-8 h-8 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-semibold cursor-pointer"
-                title={user?.first_name || "Profile"}
-              >
-                {user?.first_name?.charAt(0)?.toUpperCase() || "U"}
-              </div>
-            ) : (
-              <button
-                onClick={() => openAuth("signin")}
-                className="px-4 py-2 bg-linear-to-b from-[#4f3b40] to-[#7D1128] cursor-pointer text-white font-medium rounded-lg hover:opacity-90 transition-opacity text-base"
-              >
-                Login
-              </button>
-            )}
+            <div className="flex items-center gap-3">
+              {!isLoggedIn && (
+                <button
+                  onClick={() => openAuth("signin")}
+                  className="px-3 py-1.5 bg-linear-to-b from-[#4f3b40] to-[#7D1128] cursor-pointer text-white font-medium rounded-lg hover:opacity-90 transition-opacity text-sm"
+                >
+                  Login
+                </button>
+              )}
+              <UserProfile
+                user={
+                  user || {
+                    first_name: "Satvik",
+                    last_name: "Rastogi",
+                    email: "satvik@example.com",
+                    ab_id: "AB_2026",
+                  }
+                }
+                logout={logout}
+              />
+            </div>
           </div>
         </div>
       </nav>
@@ -356,11 +358,10 @@ const Navbar = () => {
                 >
                   <Link
                     to={link.path}
-                    className={`text-2xl transition-colors ${
-                      isActive(link.path)
-                        ? "text-yellow-300 font-semibold"
-                        : "font-normal hover:text-gray-300"
-                    }`}
+                    className={`text-2xl transition-colors ${isActive(link.path)
+                      ? "text-yellow-300 font-semibold"
+                      : "font-normal hover:text-gray-300"
+                      }`}
                     onClick={closeMobileMenu}
                   >
                     {link.label}
@@ -375,7 +376,11 @@ const Navbar = () => {
                     {user?.first_name?.charAt(0)?.toUpperCase() || "U"}
                   </div>
                   <p className="text-white text-xl font-medium">
-                    {user?.first_name || "Profile"}
+                    {user?.first_name || "Profile"} {user?.last_name}
+                  </p>
+                  <p className="text-gray-400 text-sm">{user?.email}</p>
+                  <p className="text-yellow-500 text-xs border border-yellow-500/30 px-2 py-0.5 rounded-full bg-yellow-500/10">
+                    ID: {user?.ab_id || "AB_123456"}
                   </p>
                   <button
                     onClick={() => {

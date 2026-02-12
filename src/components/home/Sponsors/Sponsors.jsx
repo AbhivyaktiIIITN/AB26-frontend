@@ -30,7 +30,7 @@ const Sponsors = () => {
         className="tracking-wide uppercase ml-20 text-5xl sm:text-6xl md:text-8xl text-[#FDB931]"
         style={{ fontFamily: "'Adqila', serif", fontWeight: 400 }}
       >SPONSORS</h1>
-
+      <br /><br />
       <div className="relative z-10 w-full flex flex-col gap-8 sm:gap-12">
         <div className="w-full overflow-hidden">
           <div className="flex gap-8 sm:gap-15 w-max animate-[marquee-right_30s_linear_infinite]">
