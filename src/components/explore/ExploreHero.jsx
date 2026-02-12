@@ -2,13 +2,13 @@ import { motion, animate } from "framer-motion";
 import { useEffect, useRef } from "react";
 import "./ExploreHero.css";
 
-import bgExplore from "@/assets/background/explore_bg.webp";
+let bgExplore = "https://assets.2026.abhivyaktifest.in/src/assets/background/explore_bg.webp";
 
-import img1 from "@/assets/background/card_1.webp";
-import img2 from "@/assets/background/card_2.webp";
-import img3 from "@/assets/background/card_3.webp";
-import img4 from "@/assets/background/card_4.webp";
-import img5 from "@/assets/background/card_5.webp";
+let img1 = "https://assets.2026.abhivyaktifest.in/src/assets/background/card_1.webp";
+let img2 = "https://assets.2026.abhivyaktifest.in/src/assets/background/card_2.webp";
+let img3 = "https://assets.2026.abhivyaktifest.in/src/assets/background/card_3.webp";
+let img4 = "https://assets.2026.abhivyaktifest.in/src/assets/background/card_4.webp";
+let img5 = "https://assets.2026.abhivyaktifest.in/src/assets/background/card_5.webp";
 
 const cards = [img1, img2, img3, img4, img5];
 

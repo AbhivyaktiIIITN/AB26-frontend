@@ -25,7 +25,7 @@ class ErrorBoundary extends React.Component {
 }
 
 const MagicianModel = (props) => {
-  const { scene } = useGLTF("/3d-Models/magician_3d_model.glb");
+  const { scene } = useGLTF("https://assets.2026.abhivyaktifest.in/3d-Models/magician_3d_model.glb");
   const meshRef = useRef();
   const [isDesktop, setIsDesktop] = useState(false);
   const [currentScale, setCurrentScale] = useState(3.2);
@@ -80,7 +80,7 @@ const MagicianModel = (props) => {
   );
 };
 
-useGLTF.preload("/3d-Models/magician_3d_model.glb");
+useGLTF.preload("https://assets.2026.abhivyaktifest.in/3d-Models/magician_3d_model.glb");
 
 const About = () => {
   const sectionRef = useRef(null);
@@ -96,7 +96,7 @@ const About = () => {
     <section
       ref={sectionRef}
       className="w-full h-fit bg-cover bg-center relative overflow-hidden"
-      style={{ backgroundImage: "url('/images/Home/image2.jpg')" }}
+      style={{ backgroundImage: "url('https://assets.2026.abhivyaktifest.in/images/Home/image2.jpg')" }}
     >
       {/* Darkening Overlay */}
       <motion.div
@@ -167,7 +167,7 @@ const About = () => {
                 delay: 2,
               }}
               className="w-full max-w-150 h-16 bg-contain bg-center bg-no-repeat"
-              style={{ backgroundImage: "url('/images/Home/aboutab.png')" }}
+              style={{ backgroundImage: "url('https://assets.2026.abhivyaktifest.in/images/Home/aboutab.png')" }}
             ></motion.div>
             <div className="grow sm:px-3 py-6 w-full flex flex-col md:flex-row justify-evenly items-center gap-6">
               <div className="hidden w-full h-100 md:w-1/2 md:h-150 md:flex items-center justify-center">

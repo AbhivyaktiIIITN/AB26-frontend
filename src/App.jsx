@@ -16,6 +16,16 @@ import Sponsors from "./pages/Sponsors";
 import Teams from "./pages/Teams";
 
 function App() {
+
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--asset-base-url",
+      import.meta.env.VITE_ASSET_BASE_URL
+    );
+
+    // console.log("Asset Base URL:", import.meta.env.VITE_ASSET_BASE_URL);
+  }, []);
+
   //  ======Lenis - Smooth Scrolling=======
   useEffect(() => {
     const lenis = new Lenis({

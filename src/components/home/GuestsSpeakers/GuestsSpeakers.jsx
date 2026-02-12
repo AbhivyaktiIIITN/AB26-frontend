@@ -18,25 +18,25 @@ const GuestsSpeakers = () => {
       id: 1,
       name: "GUEST NAME",
       designation: "DESIGNATION",
-      image: "/images/speakers/speaker1.png",
+      image: "https://assets.2026.abhivyaktifest.in/images/speakers/speaker1.png",
     },
     {
       id: 2,
       name: "GUEST NAME",
       designation: "DESIGNATION",
-      image: "/images/speakers/speaker2.png",
+      image: "https://assets.2026.abhivyaktifest.in/images/speakers/speaker2.png",
     },
     {
       id: 3,
       name: "GUEST NAME",
       designation: "DESIGNATION",
-      image: "/images/speakers/speaker3.png",
+      image: "https://assets.2026.abhivyaktifest.in/images/speakers/speaker3.png",
     },
     {
       id: 4,
       name: "GUEST NAME",
       designation: "DESIGNATION",
-      image: "/images/speakers/speaker4.png",
+      image: "https://assets.2026.abhivyaktifest.in/images/speakers/speaker4.png",
     },
   ];
 
@@ -194,7 +194,7 @@ const GuestsSpeakers = () => {
                     <div className="card-inner">
                       <img
                         className="card-template-bg"
-                        src="/images/card-template.png"
+                        src="https://assets.2026.abhivyaktifest.in/images/card-template.png"
                         alt=""
                       />
 

@@ -27,7 +27,7 @@ class ErrorBoundary extends React.Component {
 // 1. MODEL COMPONENT (Dynamic Interactable)
 // ------------------------------------------------------------------
 const MaskModel = (props) => {
-  const { scene } = useGLTF("/3d-Models/gold_masquerade_mask.glb");
+  const { scene } = useGLTF("https://assets.2026.abhivyaktifest.in/3d-Models/gold_masquerade_mask.glb");
   const meshRef = useRef();
   const lightRef = useRef(); // Dynamic glossy light
 
@@ -101,7 +101,7 @@ const MaskModel = (props) => {
   );
 };
 
-useGLTF.preload("/3d-Models/gold_masquerade_mask.glb");
+useGLTF.preload("https://assets.2026.abhivyaktifest.in/3d-Models/gold_masquerade_mask.glb");
 
 // ------------------------------------------------------------------
 // 2. MAIN COMPONENT
@@ -163,16 +163,8 @@ const AboutTheme = () => {
               color: "white",
             }}
           >
-            Abhivyakti, the annual cultural extravaganza of IIIT Nagpur, is a
-            grand celebration of creativity, artistry, and cultural diversity.
-            True to its name, meaning "expression," it offers students a vibrant
-            platform to showcase their talents, push boundaries, and foster a
-            spirit of camaraderie and collaboration. As one of the most awaited
-            campus events, it transforms the institute into a lively hub of
-            energy and artistic brilliance. The fest features electrifying
-            concerts, mesmerizing dances, captivating plays, and stunning art
-            exhibitions, inspiring participants to explore their potential and
-            celebrate creativity in unique, memorable ways.
+            The Enchanted Circus is an invitation to leave the ordinary behind and step into a realm where the impossible feels like home. It is a celebration of the whimsical and the purely joyful, transforming our campus into a spectacle of golden lights and laughter. At its heart, this theme is a tribute to that breathtaking moment of wonder when art and melody fill the night.
+            We are creating a Midnight Carnival wrapped in velvet and stardust, blending vintage charm with surreal magic. In this arena, there are no spectators, only participants in the magic. The Enchanted Circus is your playground, a reminder that when we come together, we create a spectacle that lingers in the heart long after the curtains fall.
           </p>
         </div>
 

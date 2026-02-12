@@ -44,7 +44,7 @@ function Footer() {
       <div className="relative  w-full h-[72vh] min-h-95 sm:min-h-105 md:min-h-120 overflow-hidden">
         <div className="absolute inset-0 leading-none" aria-hidden="true">
           <img
-            src="/Footer-Content/carnival-bg_2.png"
+            src="https://assets.2026.abhivyaktifest.in/Footer-Content/carnival-bg_2.png"
             alt=""
             className="size-full object-cover object-center"
           />

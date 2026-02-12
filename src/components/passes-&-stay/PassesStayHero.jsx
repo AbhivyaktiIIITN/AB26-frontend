@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import "./passesStayHero.css";
-import stageBg from "@/assets/background/background-curtains.webp";
-import abhivyaktiText from "@/assets/branding/abhivyakti text-yellow.webp";
+
+const abhivyaktiText = "https://assets.2026.abhivyaktifest.in/src/assets/branding/abhivyakti text-yellow.webp";
+const stageBg = "https://assets.2026.abhivyaktifest.in/src/assets/background/background-curtains.webp";
 
 const PassesStayHero = () => {
   return (
