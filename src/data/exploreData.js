@@ -1609,33 +1609,33 @@ export const exploreData = {
                 },
               ],
             },
-            {
-              id: "round_2",
-              title: "Round 2: Offline Semi-Finals (LAN Event)",
-              start_date: "",
-              end_date: "",
+            // {
+            //   id: "round_2",
+            //   title: "Round 2: Offline Semi-Finals (LAN Event)",
+            //   start_date: "",
+            //   end_date: "",
 
-              description: [""],
+            //   description: [""],
 
-              submission_requirements: [
-                {
-                  details: [
-                    "32 Qualified Teams",
-                    "Conducted offline",
-                    "Custom Room (LAN setup)",
-                    "Number of Matches: 3 matches",
-                    "Maps: Mixed rotation",
-                  ],
-                  Qualification: [
-                    "Total 16 teams qualify for Offline Finals",
-                    "Qualification based on overall points",
-                  ],
-                },
-              ],
-            },
+            //   submission_requirements: [
+            //     {
+            //       details: [
+            //         "32 Qualified Teams",
+            //         "Conducted offline",
+            //         "Custom Room (LAN setup)",
+            //         "Number of Matches: 3 matches",
+            //         "Maps: Mixed rotation",
+            //       ],
+            //       Qualification: [
+            //         "Total 16 teams qualify for Offline Finals",
+            //         "Qualification based on overall points",
+            //       ],
+            //     },
+            //   ],
+            // },
             {
               id: "round_3",
-              title: "Round 3: Offline Grand Finals (LAN Event)",
+              title: "Round 2: Offline Grand Finals (LAN Event)",
               start_date: "",
               end_date: "",
 
@@ -1646,7 +1646,7 @@ export const exploreData = {
                   details: [
                     "16 Qualified Teams",
                     "Mode: Battle Royale",
-                    "Number of Matches: 5 matches",
+                    "Number of Matches: 4 matches",
                     "Maps: Erangel / Miramar / Sanhok (rotation)",
                     "Spectator & Casting: Enabled",
                   ],
@@ -2014,7 +2014,7 @@ export const exploreData = {
           stages: [
             {
               id: "round_1",
-              title: "Round 1: Online Rounds (Team Deathmatch)",
+              title: "Round 1: Online Rounds (Search & Destroy)",
               start_date: "15th February 2026",
               end_date: "10th March 2026",
 
@@ -2083,7 +2083,7 @@ export const exploreData = {
                 {
                   details: [
                     "2 Qualified teams",
-                    "Mode: Team Deathmatch",
+                    "Mode: Control, Hardpoint, Search & destroy",
                     "Match Type: Best of 5 (BO5) (or BO3 if time-limited)",
                     "Maps: Organizer-selected rotation",
                   ],

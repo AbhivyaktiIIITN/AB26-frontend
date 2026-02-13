@@ -7,13 +7,12 @@ import Navbar from "./components/common/Navbar/Navbar";
 import NotFound from "./components/not-found/NotFound";
 import { ToastProvider } from "./contexts/ToastContext";
 import About from "./pages/About";
-import Developers from "./pages/Developers";
+import Contact from "./pages/Contact";
 import Explore from "./pages/Explore";
 import Home from "./pages/Home";
 import PassesStay from "./pages/PassesStay";
 import Sponsors from "./pages/Sponsors";
 import Teams from "./pages/Teams";
-import Contact from "./pages/Contact";
 
 function App() {
   // useEffect(() => {
@@ -74,7 +73,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/sponsors" element={<Sponsors />} />
             <Route path="/teams" element={<Teams />} />
-            <Route path="/developers" element={<Developers />} />
+            {/* <Route path="/developers" element={<Developers />} /> */}
             <Route path="/explore" element={<Explore />} />
             <Route path="/about" element={<About />} />
             <Route path="/passes" element={<PassesStay />} />
@@ -90,7 +89,6 @@ function App() {
 
 export default App;
 
-
 // registeration and passes final
 // touchup
-// 
+//
