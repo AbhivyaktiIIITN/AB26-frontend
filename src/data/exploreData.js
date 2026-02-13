@@ -939,9 +939,8 @@ export const exploreData = {
             "https://assets.2026.abhivyaktifest.in/images/explore/events/abmun.jpg",
 
           description: [
-            "Unleash your creativity and marketing genius at AdMads, where storytelling meets strategy! This is your stage to craft captivating advertisements that blend emotion, wit, and innovation into one unforgettable message.",
-            "From conceptualizing to filming, bring your own unique vision to life through a 1–2 minute video ad for any product or service of your choice. Whether it’s humor, emotion, or pure brilliance—make your ad the one audiences can’t forget.",
-            "Step into the world of branding and persuasion, where every second counts. Let your imagination do the selling, and your story do the talking.",
+            "Model United Nations (MUN) is an educational simulation where students step into the roles of delegates representing countries, NGOs, or other entities in a structured committee setting. Participants debate pressing global issues, draft resolutions, collaborate to solve international challenges, and develop skills in diplomacy, public speaking, critical thinking, and negotiation.",
+            "Through research and active participation, MUN fosters a deeper understanding of the United Nations' mission and global affairs, empowering students to take informed actions as global citizens.",
           ],
 
           prizes: {
