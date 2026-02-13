@@ -53,7 +53,7 @@ const Navbar = () => {
     { path: "/", label: "Home" },
     { path: "/about", label: "About" },
     { path: "/explore", label: "Explore" },
-    { path: "/passes-stay", label: "Passes & Stay" },
+    { path: "/passes", label: "Passes & Stay" },
     { path: "/sponsors", label: "Sponsors" },
     { path: "/teams", label: "Team" },
     { path: "/contact", label: "Contact Us" },
@@ -75,7 +75,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[100] bg-linear-to-b from-black to-black/10 backdrop-blur-sm tracking-wider">
+      <nav className="fixed top-0 left-0 right-0 z-9999 bg-linear-to-b from-black to-black/10 backdrop-blur-sm tracking-wider">
         <div className="mx-auto px-6 sm:px-8 lg:px-10">
           <div className="hidden md:flex justify-between items-center h-20 w-full">
             <div
@@ -217,10 +217,11 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`transition-colors ${isActive(link.path)
-                    ? "text-yellow-500 font-semibold"
-                    : "text-white hover:text-yellow-300"
-                    }`}
+                  className={`transition-colors ${
+                    isActive(link.path)
+                      ? "text-yellow-500 font-semibold"
+                      : "text-white hover:text-yellow-300"
+                  }`}
                 >
                   {link.label}
                 </Link>
@@ -237,24 +238,7 @@ const Navbar = () => {
                 </div>
               ) : isAuthenticated ? (
                 // Authenticated User UI
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-semibold cursor-pointer hover:opacity-90 transition-opacity"
-                    title={user?.name || user?.firstName || "Profile"}
-                  >
-                    {(
-                      user?.name?.charAt(0) ||
-                      user?.firstName?.charAt(0) ||
-                      "U"
-                    ).toUpperCase()}
-                  </div>
-                  <button
-                    onClick={handleLogout}
-                    className="text-white hover:text-gray-300 transition-colors font-medium cursor-pointer text-sm lg:text-base"
-                  >
-                    Logout
-                  </button>
-                </div>
+                <UserProfile user={user} logout={handleLogout} />
               ) : (
                 // Unauthenticated User UI
                 <>
@@ -272,17 +256,6 @@ const Navbar = () => {
                   </button>
                 </>
               )}
-              <UserProfile
-                user={
-                  user || {
-                    first_name: "Satvik",
-                    last_name: "Rastogi",
-                    email: "satvik@example.com",
-                    ab_id: "AB_2026",
-                  }
-                }
-                logout={logout}
-              />
             </div>
           </div>
 
@@ -395,10 +368,11 @@ const Navbar = () => {
                 >
                   <Link
                     to={link.path}
-                    className={`text-2xl transition-colors ${isActive(link.path)
-                      ? "text-yellow-300 font-semibold"
-                      : "font-normal hover:text-gray-300"
-                      }`}
+                    className={`text-2xl transition-colors ${
+                      isActive(link.path)
+                        ? "text-yellow-300 font-semibold"
+                        : "font-normal hover:text-gray-300"
+                    }`}
                     onClick={closeMobileMenu}
                   >
                     {link.label}

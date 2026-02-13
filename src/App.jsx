@@ -13,9 +13,9 @@ import Home from "./pages/Home";
 import PassesStay from "./pages/PassesStay";
 import Sponsors from "./pages/Sponsors";
 import Teams from "./pages/Teams";
+import Contact from "./pages/Contact";
 
 function App() {
-
   // useEffect(() => {
   //   document.documentElement.style.setProperty(
   //     "--asset-base-url",
@@ -78,6 +78,7 @@ function App() {
             <Route path="/explore" element={<Explore />} />
             <Route path="/about" element={<About />} />
             <Route path="/passes" element={<PassesStay />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
 
           <Footer />
@@ -88,3 +89,8 @@ function App() {
 }
 
 export default App;
+
+
+// registeration and passes final
+// touchup
+// 

@@ -12,7 +12,7 @@ function Footer() {
   const quickLinks = [
     { label: "Home", href: "/" },
     { label: "Events", href: "/events" },
-    { label: "Sponsorss", href: "/sponsors" },
+    { label: "Sponsors", href: "/sponsors" },
     { label: "Team", href: "/teams" },
   ];
 
@@ -77,7 +77,7 @@ function Footer() {
                             className="relative group inline-block text-xs sm:text-sm md:text-base font-normal leading-tight tracking-widest text-neutral-300 no-underline transition-colors duration-300 hover:text-white"
                           >
                             {link.label}
-                            <span className="absolute -bottom-0.5 left-0 w-0 h-[2px] bg-yellow-500 transition-all duration-300 ease-out group-hover:w-full"></span>
+                            <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-yellow-500 transition-all duration-300 ease-out group-hover:w-full"></span>
                           </Link>
                         </li>
                       ))}

@@ -47,11 +47,12 @@ const SignIn = ({ onSwitchToSignUp, onSwitchToForgotPassword, onClose }) => {
     setIsGoogleLoading(true);
     try {
       // Use environment variable in production, fallback to current origin
-      const frontendUrl = import.meta.env.VITE_FRONTEND_URL || window.location.origin;
-      
+      const frontendUrl =
+        import.meta.env.VITE_FRONTEND_URL || window.location.origin;
+
       await signIn.social({
         provider: "google",
-        callbackURL: `${frontendUrl}/auth/callback`,
+        callbackURL: `${frontendUrl}`,
         redirectTo: frontendUrl,
       });
     } catch (err) {

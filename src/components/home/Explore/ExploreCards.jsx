@@ -1,6 +1,9 @@
-const ExploreCard = ({ bg, text, cta, asset, assetClass }) => {
+const ExploreCard = ({ bg, text, cta, asset, assetClass, onClick }) => {
     return (
-        <div className="w-[320px] rounded-[5px] border-10 border-[#f2e1c2] bg-[#7b4a2e] flex flex-col relative group cursor-pointer transition-all duration-300 hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1">
+        <div 
+            className="w-[320px] rounded-[5px] border-10 border-[#f2e1c2] bg-[#7b4a2e] flex flex-col relative group cursor-pointer transition-all duration-300 hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1"
+            onClick={onClick}
+        >
 
             <div className="relative h-38 w-full overflow-hidden rounded-t-sm">
                 <img src={bg} className="w-full h-full object-cover" alt="" />
@@ -22,7 +25,7 @@ const ExploreCard = ({ bg, text, cta, asset, assetClass }) => {
                 />
             )}
 
-            <div className="h-13 bg-[#8c5a3c] text-white font-semibold flex items-center justify-center z-20 relative border-t-2 border-[#f2e1c2]/20 rounded-b-[4px] transition-all duration-300 group-hover:shadow-[inset_0_6px_10px_rgba(0,0,0,0.5)]">
+            <div className="h-13 bg-[#8c5a3c] text-white font-semibold flex items-center justify-center z-20 relative border-t-2 border-[#f2e1c2]/20 rounded-b-sm transition-all duration-300 group-hover:shadow-[inset_0_6px_10px_rgba(0,0,0,0.5)]">
                 <span className="mt-1 transition-transform duration-300 group-hover:scale-105">{cta}</span>
             </div>
         </div>

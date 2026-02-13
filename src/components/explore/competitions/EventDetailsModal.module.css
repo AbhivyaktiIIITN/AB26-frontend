@@ -10,8 +10,8 @@
   align-items: center;
   z-index: 1000;
   backdrop-filter: blur(5px);
-  overflow-y: auto; /* Allow scrolling within the overlay */
-  overscroll-behavior: contain; /* Prevent scroll chaining to body */
+  overflow: hidden; /* Prevent scrolling on the overlay */
+  overscroll-behavior: none; /* Prevent scroll chaining to body */
 }
 
 .modal {
@@ -37,8 +37,8 @@
 /* Desktop Adjustments for Alignment */
 .closeButton {
   position: absolute;
-  top: 3rem; /* Match modal padding for alignment */
-  left: 2rem;
+  top: 2.2rem;
+  left: 1.5rem;
   background: transparent;
   border: none;
   color: white;
@@ -197,8 +197,11 @@
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.02);
   overflow-y: auto; /* Enable scrolling */
+  overflow-x: hidden;
   max-height: 50vh; /* Limit height to trigger scroll if needed */
   min-height: 350px;
+  overscroll-behavior: contain; /* Prevent scroll chaining */
+  pointer-events: auto;
 }
 
 /* ... (keep other tabContent styles/scrollbars) ... */
