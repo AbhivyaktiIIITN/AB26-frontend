@@ -27,7 +27,7 @@ const Hero = () => {
   return (
     <section
       className="w-full pt-20 h-screen bg-center bg-no-repeat bg-cover"
-      style={{ backgroundImage: "url('/hero.webp')" }}
+      style={{ backgroundImage: "url('https://assets.2026.abhivyaktifest.in/hero.webp')" }}
     >
       <div
         className="absolute inset-0 bg-linear-to-b from-black/80 from-0% via-black/50 via-80% to-black/90 to-100%"
@@ -298,7 +298,7 @@ const Hero = () => {
               type="button"
               className="mt-2.5 md:mt-0 w-10 bg-amber-400 cursor-pointer aspect-square rounded-2xl bg-contain bg-center bg-no-repeat duration-300 active:scale-85"
               onClick={scrollHandler}
-              style={{ backgroundImage: "url('/images/Home/arrow.png')" }}
+              style={{ backgroundImage: "url('https://assets.2026.abhivyaktifest.in/images/Home/arrow.png')" }}
             ></button>
           </div>
         </div>

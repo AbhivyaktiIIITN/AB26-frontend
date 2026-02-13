@@ -1,3 +1,4 @@
+import ComingSoon from "../common/ComingSoon/ComingSoon";
 import styles from "./passesSection.module.css";
 import { motion } from "framer-motion";
 
@@ -109,15 +110,18 @@ const PassesSection = () => {
         <div className={styles.section}>
             {/* COMBO PASSES */}
             <div>
+
                 <div className={styles.headerGroup}>
                     <div className={styles.subLabel}>Combo Passes</div>
                     <h2 className={styles.mainTitle}><span className={styles.whiteText}>CHOOSE YOUR</span> <br /> EXPERIENCE</h2>
                 </div>
                 <div className={styles.cardsGrid}>
-                    {comboPasses.map((pass, index) => (
+                    {/* {comboPasses.map((pass, index) => (
                         <Card key={index} item={pass} />
-                    ))}
+                    ))} */}
+                    <ComingSoon />
                 </div>
+
             </div>
 
             {/* ACCOMMODATION */}
@@ -127,9 +131,10 @@ const PassesSection = () => {
                     <h2 className={styles.mainTitle}>ACCOMODATION</h2>
                 </div>
                 <div className={styles.cardsGrid}>
-                    {accommodation.map((stay, index) => (
+                    {/* {accommodation.map((stay, index) => (
                         <Card key={index} item={stay} className={styles.accommodationCard} />
-                    ))}
+                    ))} */}
+                    <ComingSoon />
                 </div>
             </div>
         </div>

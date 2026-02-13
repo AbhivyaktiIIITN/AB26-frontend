@@ -2,6 +2,9 @@ import styles from "./EventCard.module.css";
 import { FaTrophy } from "react-icons/fa"; // Assuming react-icons is installed, otherwise I'll use text or svg
 
 const EventCard = ({ event, onMoreInfo, index }) => {
+    // Robust prize check
+    const prizeAmount = event.prizes?.prize_pool || event.price_worth || "TBA";
+
     return (
         <div
             className={styles.card}
@@ -16,8 +19,8 @@ const EventCard = ({ event, onMoreInfo, index }) => {
                     <p className={styles.organizers}>{event.organizers}</p>
                 </div>
 
-                <p className={styles.description}>
-                    {event.description}
+                <p className={styles.eventType}>
+                    {event.type}
                 </p>
 
                 <div className={styles.footer}>
@@ -25,8 +28,8 @@ const EventCard = ({ event, onMoreInfo, index }) => {
                         {/* Use an emoji if icon lib is not guaranteed, or SVG */}
                         <span className={styles.trophyIcon}>🏆</span>
                         <div className={styles.prizeDetails}>
-                            <span className={styles.prizeLabel}>Prize worth</span>
-                            <span className={styles.prizeValue}>Rs. {event.price_worth}</span>
+                            <span className={styles.prizeLabel}>Prize Pool</span>
+                            <span className={styles.prizeValue}>{prizeAmount}</span>
                         </div>
                     </div>
 

@@ -2,13 +2,15 @@ import { animate, motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import "./ExploreHero.css";
 
-const cards = [
-  "/assets/background/card_1.webp",
-  "/assets/background/card_2.webp",
-  "/assets/background/card_3.webp",
-  "/assets/background/card_4.webp",
-  "/assets/background/card_5.webp",
-];
+let bgExplore = "https://assets.2026.abhivyaktifest.in/src/assets/background/explore_bg.webp";
+
+let img1 = "https://assets.2026.abhivyaktifest.in/src/assets/background/card_1.webp";
+let img2 = "https://assets.2026.abhivyaktifest.in/src/assets/background/card_2.webp";
+let img3 = "https://assets.2026.abhivyaktifest.in/src/assets/background/card_3.webp";
+let img4 = "https://assets.2026.abhivyaktifest.in/src/assets/background/card_4.webp";
+let img5 = "https://assets.2026.abhivyaktifest.in/src/assets/background/card_5.webp";
+
+const cards = [img1, img2, img3, img4, img5];
 
 /* card entry */
 const cardsEnter = {
@@ -62,7 +64,7 @@ export default function ExploreHero() {
       {/* background */}
       <div
         className="explore-bg"
-        style={{ backgroundImage: `url('/assets/background/explore_bg.webp')` }}
+        style={{ backgroundImage: `url(${bgExplore})`}}
       />
 
       {/* stage */}
@@ -120,7 +122,7 @@ export default function ExploreHero() {
 
           <div className="stat">
             <span className="stat-num">
-              <Counter to={10} delay={1.7} />+
+              <Counter to={5} delay={1.7} />+
             </span>
             <span className="stat-text">Lakh Prize Pool</span>
           </div>

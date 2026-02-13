@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthProvider";
 import { signOut } from "../../../lib/auth-client";
 import { useAuthModal } from "../../auth/ModalAuthLayout";
+import UserProfile from "./UserProfile";
 
 const Navbar = () => {
   const { openAuth } = useAuthModal();
@@ -21,6 +22,22 @@ const Navbar = () => {
     }
   };
 
+  // for page title
+  const titles = {
+    "/": "Abhivyakti 26",
+    "/about": "About Us | Abhivyakti 26",
+    "/explore": "Explore | Abhivyakti 26",
+    "/sponsors": "Sponsors | Abhivyakti 26",
+    "/teams": "Teams | Abhivyakti 26",
+    // "/contact": "Contact Us | Abhivyakti 26",
+    "/developers": "Developers | Abhivyakti 26",
+  };
+
+  useEffect(() => {
+    document.title = titles[location.pathname] || "Abhivyakti 2026";
+  }, [location.pathname]);
+
+  // svg show logic
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > window.innerHeight);
@@ -58,7 +75,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-linear-to-b from-black to-black/10 backdrop-blur-sm tracking-wider">
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-linear-to-b from-black to-black/10 backdrop-blur-sm tracking-wider">
         <div className="mx-auto px-6 sm:px-8 lg:px-10">
           <div className="hidden md:flex justify-between items-center h-20 w-full">
             <div
@@ -200,11 +217,10 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`transition-colors ${
-                    isActive(link.path)
-                      ? "text-yellow-500 font-semibold"
-                      : "text-white hover:text-yellow-300"
-                  }`}
+                  className={`transition-colors ${isActive(link.path)
+                    ? "text-yellow-500 font-semibold"
+                    : "text-white hover:text-yellow-300"
+                    }`}
                 >
                   {link.label}
                 </Link>
@@ -256,6 +272,17 @@ const Navbar = () => {
                   </button>
                 </>
               )}
+              <UserProfile
+                user={
+                  user || {
+                    first_name: "Satvik",
+                    last_name: "Rastogi",
+                    email: "satvik@example.com",
+                    ab_id: "AB_2026",
+                  }
+                }
+                logout={logout}
+              />
             </div>
           </div>
 
@@ -368,11 +395,10 @@ const Navbar = () => {
                 >
                   <Link
                     to={link.path}
-                    className={`text-2xl transition-colors ${
-                      isActive(link.path)
-                        ? "text-yellow-300 font-semibold"
-                        : "font-normal hover:text-gray-300"
-                    }`}
+                    className={`text-2xl transition-colors ${isActive(link.path)
+                      ? "text-yellow-300 font-semibold"
+                      : "font-normal hover:text-gray-300"
+                      }`}
                     onClick={closeMobileMenu}
                   >
                     {link.label}

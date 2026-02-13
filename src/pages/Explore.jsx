@@ -6,6 +6,7 @@ import ExploreHero from "@/components/explore/ExploreHero";
 import ExploreTabs from "../components/explore/ExploreTabs";
 import ExploreSection from "../components/explore/ExploreSection";
 import Competitions from "../components/explore/competitions/Competitions";
+import ComingSoon from "../components/common/ComingSoon/ComingSoon";
 
 import { exploreData } from "../data/exploreData";
 
@@ -32,9 +33,10 @@ const Explore = () => {
                 {activeTab === "competitions" ? (
                     <Competitions />
                 ) : (
-                    <ExploreSection
-                        items={exploreData[activeTab]}
-                    />
+                    // <ExploreSection
+                    //     items={exploreData[activeTab]}
+                    // />
+                    <ComingSoon />
                 )}
             </section>
         </main>

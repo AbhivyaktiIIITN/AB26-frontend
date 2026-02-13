@@ -16,11 +16,11 @@ const Sponsors = () => {
   ];
 
   return (
-    <main className="sponsorsPage">
+    <main className="sponsorsPage bg-black">
       <HeroSection />
-      <SponsorsTierSection title="TITLE SPONSOR" sponsors={tierOne} />
+      {/* <SponsorsTierSection title="TITLE SPONSER" sponsors={tierOne} />
       <SponsorsTierSection title="PLATINUM SPONSORS" sponsors={tierTwo} />
-      <SponsorsTierSection title="GOLD SPONSORS" sponsors={tierThree} />
+      <SponsorsTierSection title="GOLD SPONSORS" sponsors={tierThree} /> */}
       <ComingSoon />
     </main>
   );

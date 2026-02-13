@@ -16,27 +16,27 @@ const GuestsSpeakers = () => {
   const speakers = [
     {
       id: 1,
-      name: "GUEST NAME",
-      designation: "DESIGNATION",
-      image: "/images/speakers/speaker1.png",
+      name: "UNKNOWN GUEST",
+      designation: "UNKNOWN",
+      image: "https://assets.2026.abhivyaktifest.in/images/guests/unknown-guest-card.svg",
     },
     {
       id: 2,
-      name: "GUEST NAME",
-      designation: "DESIGNATION",
-      image: "/images/speakers/speaker2.png",
+      name: "UNKNOWN GUEST",
+      designation: "UNKNOWN",
+      image: "https://assets.2026.abhivyaktifest.in/images/guests/unknown-guest-card.svg",
     },
     {
       id: 3,
-      name: "GUEST NAME",
-      designation: "DESIGNATION",
-      image: "/images/speakers/speaker3.png",
+      name: "UNKNOWN GUEST",
+      designation: "UNKNOWN",
+      image: "https://assets.2026.abhivyaktifest.in/images/guests/unknown-guest-card.svg",
     },
     {
       id: 4,
-      name: "GUEST NAME",
-      designation: "DESIGNATION",
-      image: "/images/speakers/speaker4.png",
+      name: "UNKNOWN GUEST",
+      designation: "UNKNOWN",
+      image: "https://assets.2026.abhivyaktifest.in/images/guests/unknown-guest-card.svg",
     },
   ];
 
@@ -193,13 +193,13 @@ const GuestsSpeakers = () => {
                     <div className="card-inner">
                       <img
                         className="card-template-bg"
-                        src="/images/card-template.png"
-                        alt=""
+                        src={speaker.image}
+                        alt={speaker.name}
                       />
 
-                      <div className="speaker-photo-layer">
+                      {/* <div className="speaker-photo-layer">
                         <img src={speaker.image} alt={speaker.name} />
-                      </div>
+                      </div> */}
 
                       <div className="designation-text">
                         {speaker.designation}

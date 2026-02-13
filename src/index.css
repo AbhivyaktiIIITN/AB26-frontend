@@ -8,21 +8,21 @@
 
 @font-face {
   font-family: "Besta Baru";
-  src: url("/fonts/BestaBaru.otf") format("opentype");
+  src: url("https://assets.2026.abhivyaktifest.in/fonts/BestaBaru.otf") format("opentype");
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: "BudmoJigglish";
-  src: url("/fonts/budmo jigglish.otf") format("opentype");
+  src: url("https://assets.2026.abhivyaktifest.in/src/assets/fonts/budmo jigglish.otf") format("opentype");
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Aquila";
-  src: url("/fonts/Aquila.otf") format("opentype");
+  src: url("https://assets.2026.abhivyaktifest.in/fonts/aqila-demoversion-regular.otf") format("opentype");
   font-weight: 400;
   font-display: swap;
 }

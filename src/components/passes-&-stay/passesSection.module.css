@@ -15,6 +15,13 @@
      SECTION HEADERS
   ========================= */
 
+@font-face {
+    font-family: var(--font-aquila);
+    src: url("https://assets.2026.abhivyaktifest.in/fonts/aqila-demoversion-regular.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 .headerGroup {
   margin-bottom: 40px;
 }

@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import "./HeroSection.css";
 
+const stageBg = "https://assets.2026.abhivyaktifest.in/src/assets/background/background-curtains.webp";
+const abhivyaktiText = "https://assets.2026.abhivyaktifest.in/src/assets/branding/abhivyakti text-yellow.webp";
+
 const HeroSection = () => {
   return (
     <section className="sponsor-hero">
@@ -8,14 +11,14 @@ const HeroSection = () => {
       <div
         className="hero-bg"
         style={{
-          backgroundImage: `url('/assets/background/background-curtains.webp')`,
+          backgroundImage: `url(${stageBg})`,
         }}
       />
 
       {/* ABHIVYAKTI branding */}
       <div className="hero-branding">
         <img
-          src={"/assets/branding/abhivyakti text-yellow.webp"}
+          src={abhivyaktiText}
           alt="Abhivyakti"
           className="abhivyakti-text"
         />

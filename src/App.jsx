@@ -15,6 +15,16 @@ import Sponsors from "./pages/Sponsors";
 import Teams from "./pages/Teams";
 
 function App() {
+
+  // useEffect(() => {
+  //   document.documentElement.style.setProperty(
+  //     "--asset-base-url",
+  //     import.meta.env.VITE_ASSET_BASE_URL
+  //   );
+
+  //   // console.log("Asset Base URL:", import.meta.env.VITE_ASSET_BASE_URL);
+  // }, []);
+
   //  ======Lenis - Smooth Scrolling=======
   useEffect(() => {
     const lenis = new Lenis({
@@ -67,7 +77,7 @@ function App() {
             <Route path="/developers" element={<Developers />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/about" element={<About />} />
-            <Route path="/passes-stay" element={<PassesStay />} />
+            <Route path="/passes" element={<PassesStay />} />
           </Routes>
 
           <Footer />

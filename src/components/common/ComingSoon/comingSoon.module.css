@@ -1,19 +1,19 @@
 .section {
-  width: 100%;
-  min-height: 60vh;
+    width: 100%;
+    min-height: 60vh;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  background:
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.4) 0%,
-      rgba(88, 40, 31, 0.35) 22.6%,
-      rgba(0, 0, 0, 0.4) 100%
-    ),
-    #000;
+    /* background:
+        linear-gradient(180deg,
+            rgba(0, 0, 0, 0.4) 0%,
+            rgba(88, 40, 31, 0.35) 22.6%,
+            rgba(0, 0, 0, 0.4) 100%),
+        #000; */
+
+    background: transparent;
 }
 
 .inner {

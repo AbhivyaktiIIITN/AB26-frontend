@@ -16,7 +16,7 @@ const Home = () => {
         {/* Shared Background Image */}
         <div
           className="absolute inset-0 w-full h-full bg-top bg-repeat-y -z-20"
-          style={{ backgroundImage: "url('/images/Home/red-royal-bg.png')", backgroundSize: "100% auto" }}
+          style={{ backgroundImage: "url('https://assets.2026.abhivyaktifest.in/images/Home/red-royal-bg.png')", backgroundSize: "100% auto" }}
         />
 
         {/* Center Vignette (Dark edges, 60% dark center) */}
