@@ -1,5 +1,7 @@
 import { useState } from "react";
 import MinimalPayButton from "../components/payment/MinimalPayButton";
+import DeveloperHero from "../components/developers/DevelopersHero";
+import DeveloperSection from "../components/developers/DeveloperSection";
 
 export default function Developers() {
   const [amount, setAmount] = useState(500);
@@ -7,7 +9,7 @@ export default function Developers() {
   const [contact, setContact] = useState("");
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-black">
+    <div className="min-h-screen bg-black">
       {/* <MinimalPayButton
         amount={amount}
         eventId={eventId || null}
@@ -18,6 +20,8 @@ export default function Developers() {
       >
         Pay ₹{amount}
       </MinimalPayButton> */}
+      <DeveloperHero/>
+      <DeveloperSection/>
     </div>
   );
 }

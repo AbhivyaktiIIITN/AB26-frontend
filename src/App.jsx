@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import PassesStay from "./pages/PassesStay";
 import Sponsors from "./pages/Sponsors";
 import Teams from "./pages/Teams";
+import Developers from "./pages/Developers";
 
 function App() {
   // useEffect(() => {
@@ -73,7 +74,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/sponsors" element={<Sponsors />} />
             <Route path="/teams" element={<Teams />} />
-            {/* <Route path="/developers" element={<Developers />} /> */}
+            <Route path="/developers" element={<Developers />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/about" element={<About />} />
             <Route path="/passes" element={<PassesStay />} />

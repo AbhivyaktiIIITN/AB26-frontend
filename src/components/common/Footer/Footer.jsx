@@ -154,12 +154,15 @@ function Footer() {
           <p className="pointer-events-auto text-xs sm:text-sm font-normal leading-tight text-white/80  sm:mt-[5%] text-left sm:text-center">
             Abhivyakti 2026 @All Rights Reserved
             <br />
-            Developed and Managed by{" "}
+            Meet our{" "}
             <Link
-              to={"/developers"}
-              className="bg-linear-to-r from-rose-600 to-rose-950 bg-clip-text text-transparent cursor-pointer"
+              to="/developers"
+              className="relative bg-linear-to-r from-rose-600 to-rose-950 bg-clip-text text-transparent
+             after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0
+             after:bg-linear-to-r after:from-rose-600 after:to-rose-950
+             hover:after:w-full after:transition-all after:duration-300"
             >
-              Students
+              Developers
             </Link>
           </p>
         </div>
