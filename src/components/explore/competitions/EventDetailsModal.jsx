@@ -264,9 +264,9 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
   };
 
   const prizePool = event.prizes?.prize_pool || event.price_worth || "TBA";
-  const firstPrize = event.prizes?.first || event.price_1st || "-";
-  const secondPrize = event.prizes?.second || event.price_2nd || "-";
-  const thirdPrize = event.prizes?.third || event.price_3rd || "-";
+  const firstPrize = event.prizes?.first || event.price_1st;
+  const secondPrize = event.prizes?.second || event.price_2nd;
+  const thirdPrize = event.prizes?.third || event.price_3rd;
 
   return createPortal(
     <div className={styles.modalOverlay} onClick={onClose}>
@@ -345,13 +345,13 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
 
             <div className={styles.prizeBreakdown}>
               <div className={styles.breakdownItem}>
-                <span>1st -</span> <span>{firstPrize}</span>
+                {firstPrize && <><span>1st -</span> <span>{firstPrize}</span></>}
               </div>
               <div className={styles.breakdownItem}>
-                <span>2nd -</span> <span>{secondPrize}</span>
+                {secondPrize && <><span>2nd -</span> <span>{secondPrize}</span></>}
               </div>
               <div className={styles.breakdownItem}>
-                <span>3rd -</span> <span>{thirdPrize}</span>
+                {thirdPrize && <><span>3rd -</span> <span>{thirdPrize}</span></>}
               </div>
             </div>
           </div>

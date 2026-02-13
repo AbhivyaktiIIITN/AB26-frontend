@@ -53,9 +53,9 @@ export const exploreData = {
 
           prizes: {
             prize_pool: "₹20,000",
-            first: "₹10,000",
-            second: "₹5,000",
-            third: "₹5,000",
+            // first: "₹10,000",
+            // second: "₹5,000",
+            // third: "₹5,000",
           },
 
           unstop_link:
@@ -158,9 +158,9 @@ export const exploreData = {
 
           prizes: {
             prize_pool: "₹15,000",
-            first: "₹10,000",
+            first: "₹7,000",
             second: "₹5,000",
-            third: "",
+            third: "₹3,000",
           },
 
           unstop_link:
@@ -258,8 +258,8 @@ export const exploreData = {
           prizes: {
             prize_pool: "₹20,000",
             first: "₹10,000",
-            second: "₹5,000",
-            third: "₹5,000",
+            second: "₹6,000",
+            third: "₹4,000",
           },
 
           unstop_link:
@@ -357,9 +357,9 @@ export const exploreData = {
 
           prizes: {
             prize_pool: "₹25,000",
-            first: "₹12,000",
-            second: "₹8,000",
-            third: "₹5,000",
+            first: "₹15,000",
+            second: "₹10,000",
+            // third: "₹5,000",
           },
 
           unstop_link:
@@ -461,10 +461,10 @@ export const exploreData = {
           ],
 
           prizes: {
-            prize_pool: "₹25,000",
-            first: "₹12,000",
+            prize_pool: "₹28,000",
+            first: "₹16,000",
             second: "₹8,000",
-            third: "₹5,000",
+            third: "₹4,000",
           },
 
           unstop_link:
@@ -527,7 +527,6 @@ export const exploreData = {
             prize_pool: "₹15,000",
             first: "₹10,000",
             second: "₹5,000",
-            third: "",
           },
 
           unstop_link:
@@ -589,7 +588,6 @@ export const exploreData = {
             prize_pool: "₹15,000",
             first: "₹10,000",
             second: "₹5,000",
-            third: "",
           },
 
           unstop_link:
@@ -646,10 +644,8 @@ export const exploreData = {
           ],
 
           prizes: {
-            prize_pool: "₹5,000",
-            first: "₹3,000",
-            second: "₹2,000",
-            third: "",
+            prize_pool: "₹2,000",
+            first: "₹2,000",
           },
 
           unstop_link:
@@ -716,8 +712,8 @@ export const exploreData = {
 
           prizes: {
             prize_pool: "₹25,000",
-            first: "₹15,000",
-            second: "₹10,000",
+            // first: "₹15,000",
+            // second: "₹10,000",
           },
 
           unstop_link:
@@ -774,9 +770,9 @@ export const exploreData = {
           ],
 
           prizes: {
-            prize_pool: "₹30,000",
-            first: "",
-            second: "",
+            prize_pool: "₹25,000",
+            // first: "",
+            // second: "",
           },
 
           unstop_link:
@@ -866,8 +862,8 @@ export const exploreData = {
 
           prizes: {
             prize_pool: "₹5,000",
-            first: "₹3,000",
-            second: "₹2,000",
+            // first: "₹3,000",
+            // second: "₹2,000",
           },
 
           unstop_link:
@@ -949,9 +945,9 @@ export const exploreData = {
           ],
 
           prizes: {
-            prize_pool: "₹1,20,000",
-            first: "",
-            second: "",
+            prize_pool: "₹1,40,000",
+            // first: "",
+            // second: "",
           },
 
           unstop_link:
@@ -1012,9 +1008,9 @@ export const exploreData = {
           ],
 
           prizes: {
-            prize_pool: "₹25,000",
-            first: "₹15,000",
-            second: "₹10,000",
+            prize_pool: "₹15,000",
+            first: "₹9,000",
+            second: "₹6,000",
           },
 
           unstop_link: "#",
@@ -1087,9 +1083,9 @@ export const exploreData = {
           ],
 
           prizes: {
-            prize_pool: "₹25,000",
-            first: "₹15,000",
-            second: "₹10,000",
+            prize_pool: "₹20,000",
+            // first: "₹15,000",
+            // second: "₹10,000",
           },
 
           unstop_link: "#",
@@ -1163,9 +1159,9 @@ export const exploreData = {
           ],
 
           prizes: {
-            prize_pool: "₹25,000",
-            first: "₹15,000",
-            second: "₹10,000",
+            prize_pool: "₹30,000",
+            first: "₹30,000",
+            // second: "₹10,000",
           },
 
           unstop_link:
@@ -1230,8 +1226,8 @@ export const exploreData = {
 
           prizes: {
             prize_pool: "₹5,000",
-            first: "₹3,000",
-            second: "₹2,000",
+            // first: "₹3,000",
+            // second: "₹2,000",
           },
 
           unstop_link:
@@ -1296,8 +1292,8 @@ export const exploreData = {
         //   description: [],
 
         //   prizes: {
-        //     prize_pool: "₹25,000",
-        //     first: "₹15,000",
+        //     prize_pool: "₹10,000",
+            // first: "₹15,000",
         //     second: "₹10,000",
         //   },
 
@@ -1330,9 +1326,9 @@ export const exploreData = {
           ],
 
           prizes: {
-            prize_pool: "₹15,000",
-            first: "₹10,000",
-            second: "₹5,000",
+            prize_pool: "₹10,000",
+            // first: "₹10,000",
+            // second: "₹5,000",
           },
 
           unstop_link:
@@ -1416,7 +1412,7 @@ export const exploreData = {
         //   description: [],
 
         //   prizes: {
-        //     prize_pool: "₹25,000",
+        //     prize_pool: "₹10,000",
         //     first: "₹15,000",
         //     second: "₹10,000",
         //   },
@@ -1450,9 +1446,9 @@ export const exploreData = {
           ],
 
           prizes: {
-            prize_pool: "Trophy + Certificate",
-            first: "Trophy + Certificate",
-            second: "Special Mentions",
+            prize_pool: "₹10,000",
+            // first: "Trophy + Certificate",
+            // second: "Special Mentions",
           },
 
           unstop_link: "#",
@@ -1571,9 +1567,9 @@ export const exploreData = {
           ],
 
           prizes: {
-            prize_pool: "₹20,000",
-            first: "₹10,000",
-            second: "₹5,000",
+            prize_pool: "₹15,000",
+            // first: "₹10,000",
+            // second: "₹5,000",
           },
 
           unstop_link:
@@ -1692,8 +1688,8 @@ export const exploreData = {
 
           prizes: {
             prize_pool: "₹10,000",
-            first: "",
-            second: "",
+            // first: "",
+            // second: "",
           },
 
           unstop_link:
@@ -1789,8 +1785,8 @@ export const exploreData = {
 
           prizes: {
             prize_pool: "₹5,000",
-            first: "",
-            second: "",
+            // first: "",
+            // second: "",
           },
 
           unstop_link: "#",
@@ -1885,8 +1881,8 @@ export const exploreData = {
 
           prizes: {
             prize_pool: "₹5,000",
-            first: "",
-            second: "",
+            // first: "",
+            // second: "",
           },
 
           unstop_link: "#",
@@ -2005,8 +2001,8 @@ export const exploreData = {
 
           prizes: {
             prize_pool: "₹5,000",
-            first: "",
-            second: "",
+            // first: "",
+            // second: "",
           },
 
           unstop_link: "#",
