@@ -92,7 +92,7 @@ const TeamSection = () => {
 
   const emLogiOpsTeam = [
     { name: "Sandesh Charhate", designation: "Lead" },
-    { name: "Abhiram Golem", designation: "Lead" },
+    // { name: "Abhiram Golem", designation: "Lead" },
     { name: "Jayraj Vikhe Patil", designation: "Lead" },
     { name: "Tanmay Dixit", designation: "Co-Lead" },
     { name: "Suraj Bhan", designation: "Co-Lead" },

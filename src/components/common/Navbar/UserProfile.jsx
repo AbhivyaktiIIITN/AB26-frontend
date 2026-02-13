@@ -159,7 +159,7 @@ const UserProfile = ({ user, logout }) => {
             {mounted && createPortal(
                 <AnimatePresence>
                     {selectedTeam && (
-                        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+                        <div className="fixed inset-0 z-200 flex items-center justify-center p-4">
                             {/* Backdrop */}
                             <motion.div
                                 key="backdrop"
@@ -227,7 +227,7 @@ const UserProfile = ({ user, logout }) => {
                                             </thead>
                                             <tbody className="divide-y divide-white/5">
                                                 {/* Leader Row */}
-                                                <tr className="hover:bg-white/[0.02] transition-colors">
+                                                <tr className="hover:bg-white/2 transition-colors">
                                                     <td className="px-6 py-4">
                                                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
                                                             <svg
@@ -262,7 +262,7 @@ const UserProfile = ({ user, logout }) => {
                                                 {selectedTeam.members.map((member, idx) => (
                                                     <tr
                                                         key={idx}
-                                                        className="hover:bg-white/[0.02] transition-colors"
+                                                        className="hover:bg-white/2 transition-colors"
                                                     >
                                                         <td className="px-6 py-4 text-gray-400 text-sm">
                                                             Member {idx + 1}

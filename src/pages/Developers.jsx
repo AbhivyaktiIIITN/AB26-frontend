@@ -8,7 +8,7 @@ export default function Developers() {
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-black">
-      <MinimalPayButton
+      {/* <MinimalPayButton
         amount={amount}
         eventId={eventId || null}
         contact={contact || null}
@@ -17,7 +17,7 @@ export default function Developers() {
         className="w-16 h-10 text-lg text-center align-middle cursor-pointer font-semibold"
       >
         Pay ₹{amount}
-      </MinimalPayButton>
+      </MinimalPayButton> */}
     </div>
   );
 }
