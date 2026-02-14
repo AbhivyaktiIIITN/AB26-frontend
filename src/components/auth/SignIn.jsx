@@ -2,6 +2,25 @@ import { useState } from "react";
 import { useToast } from "../../contexts/ToastContext";
 import { signIn } from "../../lib/auth-client";
 
+// Helper function to convert technical errors to user-friendly messages
+const getErrorMessage = (error) => {
+  const errorStr = error?.message?.toLowerCase() || "";
+
+  if (errorStr.includes("credentials") || errorStr.includes("invalid"))
+    return "Email or password is incorrect";
+  if (errorStr.includes("user") || errorStr.includes("not found"))
+    return "Account not found. Please sign up";
+  if (errorStr.includes("email")) return "Please check your email";
+  if (errorStr.includes("network") || errorStr.includes("connect"))
+    return "Network error. Check your connection";
+  if (errorStr.includes("json") || errorStr.includes("parse"))
+    return "Can't login at this moment. Try again later";
+  if (errorStr.includes("timeout"))
+    return "Request took too long. Please try again";
+
+  return "Can't login at this moment. Try again later";
+};
+
 const SignIn = ({ onSwitchToSignUp, onSwitchToForgotPassword, onClose }) => {
   const { showToast } = useToast();
 
@@ -31,12 +50,12 @@ const SignIn = ({ onSwitchToSignUp, onSwitchToForgotPassword, onClose }) => {
       {
         onSuccess: () => {
           setIsLoading(false);
-          showToast("Login Successful", "success");
+          showToast("Login successful", "success");
           onClose();
         },
         onError: (ctx) => {
           setIsLoading(false);
-          showToast(ctx.error.message || "Invalid credentials", "error");
+          showToast(getErrorMessage(ctx.error), "error");
         },
       },
     );
@@ -46,7 +65,6 @@ const SignIn = ({ onSwitchToSignUp, onSwitchToForgotPassword, onClose }) => {
     e.preventDefault();
     setIsGoogleLoading(true);
     try {
-      // Use environment variable in production, fallback to current origin
       const frontendUrl =
         import.meta.env.VITE_FRONTEND_URL || window.location.origin;
 
@@ -57,8 +75,7 @@ const SignIn = ({ onSwitchToSignUp, onSwitchToForgotPassword, onClose }) => {
       });
     } catch (err) {
       setIsGoogleLoading(false);
-      console.error("Google login error:", err);
-      showToast("Google login failed. Please try again.", "error");
+      showToast(getErrorMessage(err), "error");
     }
   };
 

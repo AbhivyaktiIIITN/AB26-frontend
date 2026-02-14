@@ -6,6 +6,27 @@ import { sendOTP, verifyOTP } from "../../lib/otp-client";
 
 const OTP_LENGTH = 6;
 
+// Helper function to convert technical errors to user-friendly messages
+const getErrorMessage = (error) => {
+  const errorStr = error?.message?.toLowerCase() || "";
+
+  if (errorStr.includes("email"))
+    return "This email is already registered. Please Sign-In.";
+  if (errorStr.includes("password"))
+    return "Password must be at least 8 characters";
+  if (errorStr.includes("otp") || errorStr.includes("code"))
+    return "Invalid code. Please try again";
+  if (errorStr.includes("network") || errorStr.includes("connect"))
+    return "Network error. Check your connection";
+  if (errorStr.includes("json") || errorStr.includes("parse"))
+    return "Something went wrong. Try again later";
+  if (errorStr.includes("timeout"))
+    return "Request took too long. Please try again";
+
+  // For unknown errors, show generic user-friendly message
+  return "Something went wrong. Please try again later";
+};
+
 const SignUp = ({ onSwitchToSignIn, onClose }) => {
   const { showToast } = useToast();
   const { data: session, isLoading: sessionLoading } = useSession();
@@ -155,8 +176,7 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
       nextStep();
     } catch (err) {
       console.error("OTP verification error:", err);
-      const errorMessage = err.message || "Invalid OTP. Please try again.";
-      showToast(errorMessage, "error");
+      showToast(getErrorMessage(err), "error");
       setOtp(Array(OTP_LENGTH).fill(""));
       inputRefs.current[0]?.focus();
     } finally {
@@ -237,9 +257,7 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
       inputRefs.current[0]?.focus();
     } catch (err) {
       console.error("Resend OTP error:", err);
-      const errorMessage =
-        err.message || "Failed to resend OTP. Please try again.";
-      showToast(errorMessage, "error");
+      showToast(getErrorMessage(err), "error");
     } finally {
       setIsResending(false);
     }
@@ -266,8 +284,7 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
         nextStep();
       } catch (err) {
         console.error("Send verification error:", err);
-        const errorMessage = err.message || "Failed to send verification email";
-        showToast(errorMessage, "error");
+        showToast(getErrorMessage(err), "error");
       } finally {
         setIsLoading(false);
       }
@@ -302,7 +319,8 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
           onError: (ctx) => {
             setIsLoading(false);
             clearSavedData();
-            showToast(ctx.error.message || "Registration failed", "error");
+            console.error("SignUp error:", ctx.error);
+            showToast(getErrorMessage(ctx.error), "error");
           },
         },
       );
@@ -312,7 +330,7 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
   const handleGoogleSignUp = async (e) => {
     e.preventDefault();
     try {
-      showToast("Redirecting to Google...", "info");
+      showToast("Redirecting to Google...", "success");
 
       const currentOrigin =
         window.location.origin || import.meta.env.VITE_FRONTEND_URL;
@@ -324,7 +342,7 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
       });
     } catch (error) {
       console.error("Google signup error:", error);
-      showToast("Google signup failed. Please try again.", "error");
+      showToast(getErrorMessage(error), "error");
     }
   };
 

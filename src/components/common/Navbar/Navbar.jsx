@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthProvider";
+import { useToast } from "../../../contexts/ToastContext";
 import { signOut } from "../../../lib/auth-client";
 import { useAuthModal } from "../../auth/ModalAuthLayout";
 import UserProfile from "./UserProfile";
@@ -9,6 +10,7 @@ import UserProfile from "./UserProfile";
 const Navbar = () => {
   const { openAuth } = useAuthModal();
   const { user, isAuthenticated, isLoading } = useAuth();
+  const { showToast } = useToast();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -17,8 +19,10 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await signOut();
+      showToast("Logged out successfully", "success");
     } catch (error) {
       console.error("Logout error:", error);
+      showToast("Logout failed. Please try again.", "error");
     }
   };
 

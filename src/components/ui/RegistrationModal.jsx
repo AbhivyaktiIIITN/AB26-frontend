@@ -9,6 +9,23 @@ import {
 } from "../../lib/registration-client";
 import { useAuthModal } from "../auth/ModalAuthLayout";
 
+// Helper function to convert technical errors to user-friendly messages
+const getErrorMessage = (error) => {
+  const errorStr = error?.message?.toLowerCase() || "";
+
+  if (errorStr.includes("already")) return "Already registered for this event";
+  if (errorStr.includes("abid") || errorStr.includes("member"))
+    return "Please check team member details";
+  if (errorStr.includes("team")) return "Team registration failed. Try again";
+  if (errorStr.includes("network") || errorStr.includes("connect"))
+    return "Network error. Check your connection";
+  if (errorStr.includes("validate")) return "Please enter valid information";
+  if (errorStr.includes("json") || errorStr.includes("parse"))
+    return "Registration failed. Try again later";
+
+  return "Registration failed. Try again later";
+};
+
 const styles = {
   overlay:
     "fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50",
@@ -122,10 +139,15 @@ export default function RegistrationModal({
         showToast("Successfully registered!", "success");
         onClose();
       } else {
-        setError(result.error || "Registration failed");
+        const errorMsg = result.error || "Registration failed";
+        showToast(errorMsg, "error");
+        setError(errorMsg);
       }
     } catch (err) {
-      setError(err.message);
+      console.error("Registration error:", err);
+      const errorMsg = getErrorMessage(err);
+      showToast(errorMsg, "error");
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -138,7 +160,9 @@ export default function RegistrationModal({
       setError("");
 
       if (teamMembers.some((m) => !m.abid?.trim())) {
-        setError("All team members must have an ABID");
+        const errorMsg = "All team members must have an ABID";
+        showToast(errorMsg, "error");
+        setError(errorMsg);
         return;
       }
 
@@ -146,7 +170,9 @@ export default function RegistrationModal({
         teamMembers.length < minTeamSize ||
         teamMembers.length > maxTeamSize
       ) {
-        setError(`Team size must be between ${minTeamSize} and ${maxTeamSize}`);
+        const errorMsg = `Team size must be between ${minTeamSize} and ${maxTeamSize}`;
+        showToast(errorMsg, "error");
+        setError(errorMsg);
         return;
       }
 
@@ -161,10 +187,15 @@ export default function RegistrationModal({
         showToast("Team registered successfully!", "success");
         onClose();
       } else {
-        setError(result.error || "Team registration failed");
+        const errorMsg = result.error || "Team registration failed";
+        showToast(errorMsg, "error");
+        setError(errorMsg);
       }
     } catch (err) {
-      setError(err.message);
+      console.error("Team registration error:", err);
+      const errorMsg = getErrorMessage(err);
+      showToast(errorMsg, "error");
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -177,7 +208,9 @@ export default function RegistrationModal({
       setError("");
 
       if (!teamId.trim()) {
-        setError("Please enter a team ID");
+        const errorMsg = "Please enter a team ID";
+        showToast(errorMsg, "error");
+        setError(errorMsg);
         return;
       }
 
@@ -187,10 +220,15 @@ export default function RegistrationModal({
         showToast("Successfully joined team!", "success");
         onClose();
       } else {
-        setError(result.error || "Failed to join team");
+        const errorMsg = result.error || "Failed to join team";
+        showToast(errorMsg, "error");
+        setError(errorMsg);
       }
     } catch (err) {
-      setError(err.message);
+      console.error("Join team error:", err);
+      const errorMsg = getErrorMessage(err);
+      showToast(errorMsg, "error");
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }

@@ -6,6 +6,7 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 import ContactHero from "../components/contact/ContactHero";
+import { useToast } from "../contexts/ToastContext";
 
 // Contact data extracted from Footer
 const contactData = {
@@ -40,6 +41,7 @@ const contactData = {
 };
 
 const Contact = () => {
+  const { showToast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -48,7 +50,6 @@ const Contact = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -64,12 +65,11 @@ const Contact = () => {
 
     try {
       console.log("Form submitted:", formData);
-      setSubmitMessage("Thank you! We'll get back to you soon.");
+      showToast("Message sent successfully!", "success");
       setFormData({ name: "", email: "", subject: "", message: "" });
-      setTimeout(() => setSubmitMessage(""), 5000);
     } catch (error) {
-      setSubmitMessage("Error submitting form. Please try again.");
-      console.error(error);
+      console.error("Form submission error:", error);
+      showToast("Failed to send message. Please try again.", "error");
     } finally {
       setIsSubmitting(false);
     }
@@ -247,12 +247,6 @@ const Contact = () => {
               >
                 {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
               </button>
-
-              {submitMessage && (
-                <p className="text-center text-green-400 text-sm">
-                  {submitMessage}
-                </p>
-              )}
             </form>
           </div>
         </div>

@@ -55,13 +55,13 @@ const Toast = ({ toast, onRemove }) => {
   const getToastStyles = () => {
     switch (type) {
       case "success":
-        return "bg-gradient-to-b from-[#4f3b40] to-[#7D1128] text-white border-[#DEDEDE]";
+        return "bg-gradient-to-b from-green-800 to-green-600 text-white border-[#DEDEDE]";
       case "error":
-        return "bg-gradient-to-r from-red-700 to-red-500 text-white border-[#DEDEDE]";
+        return "bg-gradient-to-b from-[#7D1128] to-[#FF2C55] text-white border-[#DEDEDE]";
       case "warning":
-        return "bg-gradient-to-r from-yellow-700 to-yellow-500 text-white border-[#DEDEDE]";
+        return "bg-gradient-to-b from-amber-700 to-yellow-600 text-white border-[#DEDEDE]";
       default:
-        return "bg-gradient-to-r from-[#7D1128] to-[#FF2C55] text-white border-[#DEDEDE]";
+        return "bg-gradient-to-b from-[#7D1128] to-[#FF2C55] text-white border-[#DEDEDE]";
     }
   };
 
@@ -79,7 +79,7 @@ const Toast = ({ toast, onRemove }) => {
       <span className="font-medium">{message}</span>
       <button
         onClick={() => onRemove(id)}
-        className="ml-4 text-white/80 hover:text-white transition-colors"
+        className="ml-4 text-white/80 hover:text-white cursor-pointer transition-colors"
       >
         <svg
           className="w-4 h-4"

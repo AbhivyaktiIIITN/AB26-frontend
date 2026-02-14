@@ -13,15 +13,6 @@ const Explore = () => {
   const [activeTab, setActiveTab] = useState("proShows");
   const tabsRef = useRef(null);
 
-  // Scroll to top on page load
-  useEffect(() => {
-    if (window.lenis) {
-      window.lenis.scrollTo(0, { duration: 0.5 });
-    } else {
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    }
-  }, []);
-
   // Initialize from URL hash on mount and scroll to tabs
   useEffect(() => {
     const hashTab = window.location.hash.replace("#", "");

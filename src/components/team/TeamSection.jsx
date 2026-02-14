@@ -1,6 +1,7 @@
 // components/team/TeamSection.jsx
 
 import TeamGroup from "./TeamGroup";
+import ClubGroup from "./ClubGroup";
 import styles from "./team.module.css";
 
 const TeamSection = () => {
@@ -98,27 +99,92 @@ const TeamSection = () => {
     { name: "Suraj Bhan", designation: "Co-Lead" },
   ];
 
+  const dotSlashTeam = [
+    { name: "Shubham Jee Shrivastava", designation: "Lead" },
+    { name: "Sambodhi Bhowal", designation: "Co-Lead" },
+  ];
+
+  const elevateTeam = [
+    { name: "Ayush Kathal", designation: "Lead" },
+    { name: "Swapnil Jain", designation: "Co-Lead" },
+  ];
+
+  const strokesTeam = [
+    { name: "Digvijay Pande", designation: "Lead" },
+    { name: "Piyush Pal", designation: "Co-Lead" },
+  ];
+
+  const ioticsTeam = [
+    { name: "Aditya Gupta", designation: "Lead" },
+    { name: "Narendra Andhale", designation: "Co-Lead" },
+  ];
+
+  const dimensionsTeam = [
+    { name: "Romit Raj Bind", designation: "Lead" },
+    { name: "Yash Sonaniya", designation: "Co-Lead" },
+  ];
+
+  const crisprTeam = [
+    { name: "Kunal Mohapatra", designation: "Lead" },
+    { name: "Soham Pawar", designation: "Co-Lead" },
+  ];
+
+  const crescendoTeam = [
+    { name: "Prathamesh Kale", designation: "Lead" },
+    { name: "A.Nithin Karthikeyan", designation: "Co-Lead" },
+  ];
+
+  const dtaraxiaTeam = [
+    { name: "Varshith Yakkala", designation: "Lead" },
+    { name: "Sanskruti Malani", designation: "Co-Lead" },
+  ];
+
+  const estoriaTeam = [
+    { name: "Mayank Meharchandani", designation: "Lead" },
+    { name: "Pranay Chiraman", designation: "Co-Lead" },
+  ];
+
+  const oratorTeam = [{ name: "Shreyam Prashar", designation: "Co-Lead" }];
+
+  const probeTeam = [
+    { name: "Manu Shrivastava", designation: "Lead" },
+    { name: "Akshit Yadav", designation: "Co-Lead" },
+  ];
+
+  const avalokTeam = [
+    { name: "Debapallab Das", designation: "Lead" },
+    { name: "Tanishq Kamble", designation: "Co-Lead" },
+  ];
+
   return (
     <div className={styles.teamSection}>
       <TeamGroup title="SECRETARIES" members={secretaries} />
-      <TeamGroup title="MARKETING TEAM" members={marketingTeam} />
-      <TeamGroup title="CORPORATE TEAM" members={corporateTeam} />
-      <TeamGroup title="OUTREACH TEAM" members={outreachTeam} />
+      <TeamGroup title="MARKETING" members={marketingTeam} />
+      <TeamGroup title="CORPORATE" members={corporateTeam} />
+      <TeamGroup title="OUTREACH" members={outreachTeam} />
       <TeamGroup title="ARTIST MANAGEMENT" members={artistManagementTeam} />
-      <TeamGroup title="HOSPITALITY TEAM" members={hospitalityTeam} />
-      <TeamGroup title="MEDIA TEAM" members={mediaTeam} />
-      <TeamGroup title="WEB DEVELOPMENT TEAM" members={webdevTeam} />
-      <TeamGroup title="APP DEVELOPMENT TEAM" members={appdevTeam} />
-      <TeamGroup title="DECOR TEAM" members={decorTeam} />
-      <TeamGroup
-        title="CONTENT & ANCHORING TEAM"
-        members={contentAnchoringTeam}
-      />
-      <TeamGroup title="STAGE TEAM" members={stageTeam} />
-      <TeamGroup title="STALLS TEAM" members={stallsTeam} />
-      <TeamGroup title="DISCO TEAM" members={discoTeam} />
-      <TeamGroup title="MULTIMEDIA TEAM" members={multimediaTeam} />
-      <TeamGroup title="EM-LOGISTICS & OPS TEAM" members={emLogiOpsTeam} />
+      <TeamGroup title="HOSPITALITY" members={hospitalityTeam} />
+      <TeamGroup title="MEDIA" members={mediaTeam} />
+      <TeamGroup title="WEB DEVELOPMENT" members={webdevTeam} />
+      <TeamGroup title="APP DEVELOPMENT" members={appdevTeam} />
+      <TeamGroup title="DECOR" members={decorTeam} />
+      <TeamGroup title="CONTENT & ANCHORING" members={contentAnchoringTeam} />
+      <TeamGroup title="STAGE" members={stageTeam} />
+      <TeamGroup title="STALLS" members={stallsTeam} />
+      <TeamGroup title="DISCO" members={discoTeam} />
+      <TeamGroup title="MULTIMEDIA" members={multimediaTeam} />
+      <ClubGroup title="DOT SLASH" members={dotSlashTeam} />
+      <ClubGroup title="ELEVATE" members={elevateTeam} />
+      <ClubGroup title="STROKES" members={strokesTeam} />
+      <ClubGroup title="IOTICS" members={ioticsTeam} />
+      <ClubGroup title="DIMENSIONS" members={dimensionsTeam} />
+      <ClubGroup title="CRISPR" members={crisprTeam} />
+      <ClubGroup title="CRESCENDO" members={crescendoTeam} />
+      <ClubGroup title="D-TARAXIA" members={dtaraxiaTeam} />
+      <ClubGroup title="Estória" members={estoriaTeam} />
+      <ClubGroup title="ORATOR" members={oratorTeam} />
+      <ClubGroup title="PROBE" members={probeTeam} />
+      <ClubGroup title="AVALOK" members={avalokTeam} />
     </div>
   );
 };

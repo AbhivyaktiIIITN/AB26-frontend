@@ -1,6 +1,22 @@
 import { useState } from "react";
 import { useToast } from "../../contexts/ToastContext";
 
+// Helper function to convert technical errors to user-friendly messages
+const getErrorMessage = (error) => {
+  const errorStr = error?.message?.toLowerCase() || "";
+
+  if (errorStr.includes("email") || errorStr.includes("user"))
+    return "Email not found. Please check and try again";
+  if (errorStr.includes("network") || errorStr.includes("connect"))
+    return "Network error. Check your connection";
+  if (errorStr.includes("json") || errorStr.includes("parse"))
+    return "Can't process request. Try again later";
+  if (errorStr.includes("timeout"))
+    return "Request took too long. Please try again";
+
+  return "Couldn't send reset link. Try again later";
+};
+
 const ForgotPassword = ({ onSwitchToSignIn, onClose }) => {
   const { showToast } = useToast();
   const [email, setEmail] = useState("");
@@ -13,15 +29,11 @@ const ForgotPassword = ({ onSwitchToSignIn, onClose }) => {
     try {
       // simulate api (logic goes here)
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      showToast(
-        "Password reset instructions have been sent to your email.",
-        "success",
-      );
+      showToast("Reset link sent to your email", "success");
+      setEmail("");
     } catch (err) {
-      showToast(
-        "Failed to send reset instructions. Please try again.",
-        "error",
-      );
+      console.error("Password reset error:", err);
+      showToast(getErrorMessage(err), "error");
     } finally {
       setIsLoading(false);
     }

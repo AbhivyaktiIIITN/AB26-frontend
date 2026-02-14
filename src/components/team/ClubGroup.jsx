@@ -1,17 +1,9 @@
-// components/team/TeamGroup.jsx
+// components/team/ClubGroup.jsx
 
 import styles from "./team.module.css";
 
-const chunk = (arr, size) => {
-  const result = [];
-  for (let i = 0; i < arr.length; i += size) {
-    result.push(arr.slice(i, size + i));
-  }
-  return result;
-};
-
-const TeamGroup = ({ title, members }) => {
-  // separate leads & others
+const ClubGroup = ({ title, members }) => {
+  // separate leads & co-leads
   const leads = members.filter(m =>
     /^lead$/i.test(m.designation.trim())
   );
@@ -20,15 +12,14 @@ const TeamGroup = ({ title, members }) => {
     /co[-\s]?lead/i.test(m.designation)
   );
 
-  const others = members.filter(
-    m =>
-      !/^lead$/i.test(m.designation.trim()) &&
-      !/co[-\s]?lead/i.test(m.designation)
-  );
-
-  const leadRows = chunk(leads, 2);
-  const coLeadRows = chunk(coLeads, 2);
-  const otherRows = chunk(others, 2);
+  // For clubs: pair leads with co-leads in same row
+  const combinedLeadCoLeadRows = [];
+  for (let i = 0; i < Math.max(leads.length, coLeads.length); i++) {
+    const row = [];
+    if (leads[i]) row.push(leads[i]);
+    if (coLeads[i]) row.push(coLeads[i]);
+    if (row.length > 0) combinedLeadCoLeadRows.push(row);
+  }
 
   const renderRow = (row, key) => (
     <div key={key} className={styles.row}>
@@ -55,22 +46,12 @@ const TeamGroup = ({ title, members }) => {
 
       <div className={styles.membersWrap}>
         <div className={styles.membersContainer}>
-          {/* {leadRows.map((row, i) => renderRow(row, `lead-${i}`))}
-          {otherRows.map((row, i) => renderRow(row, `other-${i}`))} */}
-
-          {/* Leads first */}
-          {leadRows.map((row, i) => renderRow(row, `lead-${i}`))}
-
-          {/* Co-Leads below */}
-          {coLeadRows.map((row, i) => renderRow(row, `co-${i}`))}
-
-          {/* Others if any */}
-          {otherRows.map((row, i) => renderRow(row, `other-${i}`))}
-
+          {/* Lead and Co-Lead in same row for clubs */}
+          {combinedLeadCoLeadRows.map((row, i) => renderRow(row, `club-${i}`))}
         </div>
       </div>
     </div>
   );
 };
 
-export default TeamGroup;
+export default ClubGroup;

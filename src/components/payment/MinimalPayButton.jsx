@@ -10,6 +10,22 @@ import { useAuthModal } from "../auth/ModalAuthLayout";
 import PaymentFailureModal from "./PaymentFailureModal";
 import PaymentSuccessModal from "./PaymentSuccessModal";
 
+// Helper to convert technical errors to user-friendly messages
+const getErrorMessage = (error) => {
+  const errorStr = error?.message?.toLowerCase() || "";
+
+  if (errorStr.includes("network") || errorStr.includes("connect"))
+    return "Network error. Check your connection";
+  if (errorStr.includes("order")) return "Can't process payment. Try again";
+  if (errorStr.includes("verify") || errorStr.includes("signature"))
+    return "Payment verification failed. Contact support";
+  if (errorStr.includes("json") || errorStr.includes("parse"))
+    return "Payment failed. Try again later";
+  if (errorStr.includes("timeout")) return "Request timed out. Try again";
+
+  return "Payment failed. Please try again";
+};
+
 const MinimalPayButton = ({
   amount = 500,
   eventId = null,
@@ -40,6 +56,7 @@ const MinimalPayButton = ({
 
     try {
       setIsProcessing(true);
+      showToast("Initializing payment...", "success");
 
       // create payment order
       const orderData = await createPaymentOrder({
@@ -59,6 +76,7 @@ const MinimalPayButton = ({
         },
         async (response) => {
           try {
+            showToast("Verifying payment...", "success");
             // verify payment
             const verificationResult = await completePayment({
               razorpay_order_id: response.razorpay_order_id,
@@ -74,19 +92,26 @@ const MinimalPayButton = ({
               verificationResult,
             });
             setShowSuccessModal(true);
+            showToast("Payment successful!", "success");
           } catch (error) {
-            setPaymentError(error.message || "Payment verification failed");
+            console.error("Payment verification error:", error);
+            setPaymentError("Payment verification failed. Contact support");
             setShowFailureModal(true);
+            showToast(getErrorMessage(error), "error");
           }
         },
         (error) => {
-          setPaymentError(error || "Payment was cancelled or failed");
+          console.error("Payment handler error:", error);
+          setPaymentError("Payment failed or was cancelled");
           setShowFailureModal(true);
+          showToast("Payment cancelled or failed", "error");
         },
       );
     } catch (error) {
-      setPaymentError(error.message || "Payment failed");
+      console.error("Payment error:", error);
+      setPaymentError(getErrorMessage(error));
       setShowFailureModal(true);
+      showToast(getErrorMessage(error), "error");
     } finally {
       setIsProcessing(false);
     }
