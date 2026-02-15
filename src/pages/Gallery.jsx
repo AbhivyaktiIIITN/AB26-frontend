@@ -64,16 +64,16 @@ const Gallery = () => {
         className="relative w-full h-screen bg-black flex flex-col items-center justify-center overflow-hidden"
       >
         {/* Fixed Header (Positioned below Navbar) */}
-        <div className="absolute top-[85px] left-0 w-full z-20 bg-black/80 backdrop-blur-md border-b border-white/5 flex justify-center">
+        <div className="absolute top-21.25 left-0 w-full z-20 bg-black/80 backdrop-blur-md border-b border-white/5 flex justify-center">
           <div className="flex items-center justify-center gap-4 py-6 px-0 w-full"> {/* Reduced py from 8 to 6 for compactness */}
-            <div className="h-[2px] flex-1 bg-gradient-to-r from-transparent to-[#611a14]" />
+            <div className="h-0.5 flex-1 bg-linear-to-r from-transparent to-[#611a14]" />
             <h1 
               className="text-4xl md:text-5xl lg:text-6xl text-[#F5F5F0] tracking-[0.15em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4"
               style={{ fontFamily: '"Besta Baru", serif' }}
             >
               Gallery
             </h1>
-            <div className="h-[2px] flex-1 bg-gradient-to-l from-transparent to-[#611a14]" />
+            <div className="h-0.5 flex-1 bg-linear-to-l from-transparent to-[#611a14]" />
           </div>
         </div>
 
@@ -83,10 +83,10 @@ const Gallery = () => {
         */}
         <div 
           ref={viewportRef}
-          className="relative w-full max-w-[1400px] h-[65vh] overflow-hidden mt-[220px]" // Increased margin to clear Navbar + Header
+          className="relative w-full max-w-350 h-[65vh] overflow-hidden mt-36" // Increased margin to clear Navbar + Header
         >
           {/* Top Gradient Mask */}
-          <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 left-0 w-full h-20 bg-linear-to-b from-black to-transparent z-10 pointer-events-none" />
 
           {/* Moving Content Layer */}
           <div 
@@ -108,7 +108,7 @@ const Gallery = () => {
           </div>
 
           {/* Bottom Gradient Mask */}
-          <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-black to-transparent z-10 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-full h-20 bg-linear-to-t from-black to-transparent z-10 pointer-events-none" />
         </div>
       </div>
       
