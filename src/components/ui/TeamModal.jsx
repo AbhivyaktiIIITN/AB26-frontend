@@ -95,7 +95,7 @@ const TeamModal = ({ teamId, eventId, onClose, onSuccess }) => {
         import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_BACKEND_URL;
 
       const response = await fetch(
-        `${BASE_URL}/api/user/by-serial/${serialId}`,
+        `${BASE_URL}/api/user/serial/${serialId}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
