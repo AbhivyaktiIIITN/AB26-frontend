@@ -137,11 +137,14 @@ const TeamModal = ({ teamId, eventId, onClose, onSuccess }) => {
       const BASE_URL =
         import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_BACKEND_URL;
 
-      const response = await fetch(`${BASE_URL}/api/user/serial/${serialId}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${BASE_URL}/api/user/serial/${serialId}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        },
+      );
 
       const data = await response.json();
 
