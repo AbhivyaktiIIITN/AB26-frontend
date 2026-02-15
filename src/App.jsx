@@ -100,7 +100,7 @@ function App() {
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/shipping" element={<ShippingPolicy />} />
             <Route path="/cancellation" element={<CancellationAndRefunds />} />
-            <Route path="/gallery" element={<Gallery />} />
+            {/* <Route path="/gallery" element={<Gallery />} /> */}
           </Routes>
 
           <Footer />
