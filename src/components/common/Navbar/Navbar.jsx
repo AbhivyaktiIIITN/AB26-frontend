@@ -79,7 +79,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-9999 bg-linear-to-b from-black to-black/10 backdrop-blur-sm tracking-wider">
+      <nav className="fixed top-0 left-0 right-0 z-[9999] bg-linear-to-b from-black to-black/10 backdrop-blur-sm tracking-wider" style={{ zIndex: 9999 }}>
         <div className="mx-auto px-6 sm:px-8 lg:px-10">
           <div className="hidden md:flex justify-between items-center h-20 w-full">
             <div

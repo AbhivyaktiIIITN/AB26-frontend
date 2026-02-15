@@ -6,7 +6,7 @@ const abhivyaktiText =
 const stageBg =
   "https://assets.2026.abhivyaktifest.in/src/assets/background/background-curtains.webp";
 
-const PageHero = ({title}) => {
+const GalleryHero = () => {
   return (
     <section className="relative h-screen min-h-screen w-full overflow-hidden">
 
@@ -36,7 +36,7 @@ const PageHero = ({title}) => {
              text-balance
              drop-shadow-[0_-2px_6px_rgba(212,175,55,0.9)]"
         >
-          {title}
+          Gallery
         </motion.h1>
       </div>
 
@@ -112,4 +112,4 @@ const PageHero = ({title}) => {
   );
 };
 
-export default PageHero;
+export default GalleryHero;
