@@ -76,9 +76,9 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
                   {stage.submission_requirements && (
                     <div className={styles.submissionReqs}>
                       <h4>{stage.submission_requirements.title || "Submission Requirements"}</h4>
-                      {Array.isArray(stage.submission_requirements.rules || stage.submission_requirements) ? (
+                      {Array.isArray(stage.submission_requirements.submission_rules || stage.submission_requirements) ? (
                         <ul>
-                          {(stage.submission_requirements.rules || stage.submission_requirements).map((req, i) => {
+                          {(stage.submission_requirements.submission_rules || stage.submission_requirements).map((req, i) => {
                             if (typeof req === "string") {
                               return <li key={i}>{req}</li>;
                             } else if (
@@ -142,7 +142,7 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
                         </ul>
                       ) : typeof stage.submission_requirements === "object" ? (
                         <>
-                          {stage.submission_requirements.rules && (
+                          {/* {stage.submission_requirements.rules && (
                             <div>
                               <h5>Rules</h5>
                               <ul>
@@ -165,6 +165,25 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
                                 )}
                               </ul>
                             </div>
+                          )} */}
+                          {Object.entries(stage.submission_requirements).map(
+                            ([key, value]) =>
+                              Array.isArray(value) &&
+                              value.length > 0 && (
+                                <div key={key}>
+                                  <h5>
+                                    {key
+                                      .replace(/_/g, " ")
+                                      .replace(/\b\w/g, (c) => c.toUpperCase())}
+                                  </h5>
+
+                                  <ul>
+                                    {value.map((item, i) => (
+                                      <li key={i}>{item}</li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ),
                           )}
                           {/* Render other string properties like file_format if they exist as keys */}
                           {Object.entries(stage.submission_requirements).map(

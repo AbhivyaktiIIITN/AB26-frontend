@@ -69,13 +69,20 @@ export const exploreData = {
               end_date: "5th March 2026",
 
               description:
-                "Participants must submit a high-quality image (or series) of their artwork along with an artist statement explaining the concept behind it. This round will determine the final showcase participants whose works will be displayed in the on-campus art gallery during the fest.",
+                "The journey of Rangreza begins with a nationwide online screening round. Participants are required to submit a high-quality image (or a series of images, if necessary) of their original artwork along with a compelling artist statement explaining the concept, inspiration, and creative process behind the piece.This round will determine the finalists whose works will be showcased at the on-campus art gallery during the fest.",
 
               submission_requirements: {
                 rules: [
-                  "Each participant must submit one original artwork (painting, digital art, illustration, mixed media, sculpture, or photograph).",
-                  "Plagiarism or use of AI-generated work is strictly prohibited.",
-                  "Artwork must adhere to the given theme (if announced).",
+                  "Each participant must submit one original artwork.",
+                  "Accepted mediums include:",
+                  "Painting",
+                  "Digital Art",
+                  "Illustration",
+                  "Mixed Media",
+                  "Sculpture",
+                  "Photography",
+                  "Artwork must adhere to the given theme (if applicable).",
+                  "Plagiarism or use of AI-generated work is strictly prohibited.Any violation will lead to immediate disqualification.",
                 ],
                 mandatory_details: [
                   "Artwork Title",
@@ -83,10 +90,17 @@ export const exploreData = {
                   "Dimensions (if physical artwork)",
                   "Artist Statement (150–200 words) explaining the idea, theme, and creative process.",
                 ],
-                file_format:
-                  "High-resolution JPEG/PNG or photograph of physical artwork",
-                pdf_upload_instruction:
-                  'Upload a PDF titled: "ParticipantName_CollegeName_Rangreza.pdf" containing the Unstop submission link or Drive link (with view access) to the artwork and artist statement.',
+                file_format: [
+                  "ParticipantName_Institute_Rangreza.jpg/png/ai/[appropriate image format]",
+                  "(Example: VedantS_IIITNagpur_Rangreza.jpg)",
+                  "Submissions not following the prescribed naming format may be rejected.",
+                ],
+                image_guidelines: [
+                  'Upload a high-resolution image of your artwork',
+                  "The image must be perfectly cropped, with no background distractions.",
+                  "Ensure a proper aspect ratio and that the entire artwork is clearly visible.",
+                  "The final image should accurately represent the original artwork in clarity and color."
+                ]
               },
             },
             {
@@ -142,7 +156,7 @@ export const exploreData = {
         {
           id: "dance_1",
           name: "Show Stopper",
-          organizers: "D-Traxia",
+          organizers: "D-Taraxia",
           type: "Solo Dance",
           mode: "Offline",
           min_team_size: 1,
@@ -171,26 +185,26 @@ export const exploreData = {
               id: "round_1",
               title: "Round 1: Nationwide Online Prelims",
               start_date: "1st February 2026",
-              end_date: "28th February 2026",
+              end_date: "6th March 2026",
 
               description:
-                "Participants must submit a video showcasing their solo dance performance. This round will serve as an eliminator, with selected entries advancing to the on-campus finale.",
+                "All participants are required to complete their registration within the given deadline to be considered for this round.",
 
               submission_requirements: [
-                "Duration: 1–3 minutes",
-                "Participants must upload a PDF titled: 'ParticipantName_College Name_Showstopper.pdf'. Include your contact details (email & phone number) in the PDF. ",
-                "The PDF must contain a Google Drive link to the performance video. Ensure the link has open access — inaccessible submissions will not be evaluated.",
-                "Music and choreography must be original or properly credited.",
+                "Kindly ensure that you fill in all the required details accurately before submitting the form.",
+                "Late or incomplete registrations may not be accepted.",
+                "We encourage everyone to register at the earliest to avoid any last-minute issues.",
+                "(No need to submit any video as an audition clip)",
               ],
             },
             {
               id: "round_2",
               title: "Round 2: On-Campus Elimination Round",
-              start_date: "13th March 2026",
-              end_date: "14th March 2026",
+              start_date: "19th March 2026",
+              // end_date: "14th March 2026",
 
               description:
-                "The '10-12' shortlisted dancers will perform live on campus, in front of a cheering audience and an expert panel of judges.",
+                "The shortlisted dancers will perform live on campus, in front of a cheering audience and an expert panel of judges.",
 
               submission_requirements: [
                 "Time Limit: 4–7 minutes (from an empty stage to an empty stage). [Exceeding the limit will lead to penalties.]",
@@ -203,11 +217,11 @@ export const exploreData = {
             {
               id: "round_3",
               title: "Final Round : On-Campus Finale",
-              start_date: "13th March 2026",
-              end_date: "14th March 2026",
+              start_date: "20th March 2026",
+              // end_date: "14th March 2026",
 
               description:
-                "The '2-3' shortlisted dancers will perform live on campus's main stage, in front of a cheering audience and an expert panel of judges.",
+                "The 5 shortlisted dancers will perform live on campus’s main stage, in front of a cheering audience and an expert panel of judges.",
 
               submission_requirements: [
                 "Time Limit: 4–7 minutes (from an empty stage to an empty stage). [Exceeding the limit will lead to penalties.]",
@@ -242,7 +256,7 @@ export const exploreData = {
         {
           id: "dance_2",
           name: "Melody Hustle",
-          organizers: "D-Traxia",
+          organizers: "D-Taraxia",
           type: "Duo Dance",
           mode: "Offline",
           min_team_size: 2,
@@ -269,25 +283,25 @@ export const exploreData = {
             {
               id: "round_1",
               title: "Round 1: Nationwide Online Prelims",
-              start_date: "1st February 2026",
-              end_date: "28th February 2026",
+              start_date: "4th February 2026",
+              end_date: "6th March 2026",
 
-              description:
-                "Teams must submit a video showcasing their duo performance. This round will serve as an eliminator, with selected pairs advancing to the on-campus finale.",
+              // description:
+              //   "Teams must submit a video showcasing their duo performance. This round will serve as an eliminator, with selected pairs advancing to the on-campus finale.",
 
               submission_requirements: [
-                "Duration: 1–3 minutes",
-                "Participants must upload a PDF titled: 'ParticipantName_CollegeName_MelodyHustle.pdf'. Include your contact details (email & phone number) in the PDF. ",
-                "The PDF must contain a Google Drive link to the performance video. Ensure the link has open access — inaccessible submissions will not be evaluated.",
-                "Music and choreography must be original or properly credited.",
-                "Both performers must be visible throughout the video.",
+                "All participants are required to complete their registration within the given deadline to be considered for this round.",
+                "Kindly ensure that you fill in all the required details accurately before submitting the form.",
+                "Late or incomplete registrations may not be accepted.",
+                "We encourage everyone to register at the earliest to avoid any last-minute issues.",
+                "(No need to submit any video as an audition clip)"
               ],
             },
             {
               id: "round_2",
               title: "Round 2: On-Campus Elimination Round",
-              start_date: "13th March 2026",
-              end_date: "14th March 2026",
+              start_date: "19th March 2026",
+              // end_date: "14th March 2026",
 
               description:
                 "The '10' shortlisted duos will perform live on campus, in front of an enthusiastic audience and expert panel of judges.",
@@ -302,12 +316,12 @@ export const exploreData = {
             },
             {
               id: "round_3",
-              title: "Round 2: On-Campus Final Round",
-              start_date: "13th March 2026",
-              end_date: "14th March 2026",
+              title: "Round 3: On-Campus Final Round",
+              start_date: "20th March 2026 (Tentative)",
+              // end_date: "14th March 2026",
 
               description:
-                "The '2-3' shortlisted duo will perform live on campus’s main stage, in front of a cheering audience and an expert panel of judges.",
+                "The “5” shortlisted duo will perform live on campus’s main stage, in front of a cheering audience and an expert panel of judges.",
 
               submission_requirements: [
                 "Time Limit: 5–7 minutes (from an empty stage to an empty stage). [Exceeding the limit will lead to penalties.]",
@@ -342,7 +356,7 @@ export const exploreData = {
         {
           id: "dance_3",
           name: "Dance Squad",
-          organizers: "D-Traxia",
+          organizers: "D-Taraxia",
           type: "Group Dance",
           mode: "Offline",
           min_team_size: 4,
@@ -370,24 +384,24 @@ export const exploreData = {
               id: "round_1",
               title: "Round 1: Online Prelims",
               start_date: "1st February 2026",
-              end_date: "28th February 2026",
+              end_date: "4th March 2026 (Tentative)",
 
               description:
-                "Teams must submit a video showcasing their duo performance. This round will serve as an eliminator, with selected pairs advancing to the on-campus finale.",
+                "All participants are required to complete their registration within the given deadline to be considered for this round. Kindly ensure that you fill in all the required details accurately before submitting the form. Late or incomplete registrations may not be accepted. We encourage everyone to register at the earliest to avoid any last-minute issues. (No need to submit any video as an audition clip) ",
 
-              submission_requirements: [
-                "Duration: 1–3 minutes",
-                "Participants must upload a PDF titled: 'ParticipantName_CollegeName_DanceSquad.pdf'. Include your contact details (email & phone number) in the PDF. ",
-                "The PDF must contain a Google Drive link to the performance video. Ensure the link has open access — inaccessible submissions will not be evaluated.",
-                "Music and choreography must be original or properly credited.",
-                "All performers must be visible throughout the video.",
-              ],
+              // submission_requirements: [
+              //   "Duration: 1–3 minutes",
+              //   "Participants must upload a PDF titled: 'ParticipantName_CollegeName_DanceSquad.pdf'. Include your contact details (email & phone number) in the PDF. ",
+              //   "The PDF must contain a Google Drive link to the performance video. Ensure the link has open access — inaccessible submissions will not be evaluated.",
+              //   "Music and choreography must be original or properly credited.",
+              //   "All performers must be visible throughout the video.",
+              // ],
             },
             {
               id: "round_2",
               title: "Round 2: On-Campus Elimination Round",
-              start_date: "13th March 2026",
-              end_date: "14th March 2026",
+              start_date: "19th March 2026",
+              end_date: "21th March 2026",
 
               description:
                 "The shortlisted 5-7 squads will perform live on campus, in front of a dynamic audience and an expert panel of judges.",
@@ -403,11 +417,11 @@ export const exploreData = {
             {
               id: "round_3",
               title: "Round 3: On-Campus Final Round",
-              start_date: "13th March 2026",
-              end_date: "14th March 2026",
+              start_date: "19th March 2026",
+              end_date: "21th March 2026",
 
               description:
-                "The '2-3' shortlisted dance groups will perform live on campus’s main stage, in front of a cheering audience and an expert panel of judges.",
+                "The “5” shortlisted dance groups will perform live on campus’s main stage, in front of a cheering audience and an expert panel of judges.",
 
               submission_requirements: [
                 "Time Limit: 6–9 minutes (from an empty stage to an empty stage). [Exceeding the limit will lead to penalties.]",
@@ -435,7 +449,7 @@ export const exploreData = {
 
           contact: {
             name: "Praneeth Siddharth",
-            email: "bt24cse0@064iiitn.ac.in",
+            email: "bt24cse064@iiitn.ac.in",
             phone: "7601004644",
           },
         },
@@ -535,26 +549,55 @@ export const exploreData = {
           stages: [
             {
               id: "round_1",
-              title: "Finale",
+              title: "Online Round",
+              start_date: "",
+              end_date: "",
+
+              description:
+                "The registered participants are required to submit a recorded video of their solo singing performance within the given submission deadline.",
+
+              submission_requirements: [
+                "The video submission link will be sent to registered participants via mail.",
+                "The last date for online submission is 10th March 2026. The shortlisted participants will receive mail.",
+              ],
+            },
+            {
+              id: "round_2",
+              title: "Finale: On-Campus",
               start_date: "",
               end_date: "",
 
               description:
                 "The participants will perform their songs live on campus. This is their moment to shine, showcasing their performances before a live audience and a panel of judges. The performers will perform in the Amphitheatre and finals will be held on Stage.",
 
-              submission_requirements: [
-                "Semi-finals Time Limit: 3+1(sound check) minutes (from an empty stage to an empty stage). Exceeding the time limit will result in penalties.",
-                "Finals Time Limit: 4+1(sound check) minutes (from an empty stage to an empty stage). Exceeding the time limit will result in penalties.",
-                "Exceeding the time limit by 30 seconds will lead to disqualification.",
-                "Any specific technical requirements must be communicated during registration.",
-                "Backtrack should be sent on crescendo@iiitn.ac.in containing Contact details and FILENAME: Team Name/Participant Name_College Name_Event Name.mp4",
-              ],
+              submission_requirements: {
+                rules: [
+                  "The online video to be submitted should not exceed more than 3 minutes",
+                  "Semi-finals Time Limit: 3+1(sound check) minutes (from an empty stage to an empty stage). Exceeding the time limit will result in penalties.",
+                  "Finals Time Limit: 4+1(sound check) minutes (from an empty stage to an empty stage). Exceeding the time limit will result in penalties.",
+                  "Exceeding the time limit by 30 seconds will lead to disqualification.",
+                  "Any specific technical requirements must be communicated during registration.",
+                  "Backtrack should be sent on crescendo@iiitn.ac.in containing Contact details and FILENAME: Team Name/Participant Name_College Name_Event Name.mp4",
+                  "Participants must carry valid Institute ID cards."
+                ],
+                judgement_parameters: [
+                  "Vocal Excellence(50 points)",
+                  "Performance and Expression(20 points)",
+                  "Overall Presentation (10 points)",
+                  "Adherence to Rules and Time Limit",
+                  "Overall Impact",
+                  "Audience Engagement (10 points)",
+                  "Sound Effects",
+                  "Execution (10 points)"
+                ]
+              },
             },
           ],
 
           rules: [
             "Songs can be in Hindi, English or a mixture is also allowed.",
-            "The top 3 will perform on stage",
+            "The top 8 will perform in the Amphitheatre.",
+            "The top 5 will perform on stage (Qualified for finals).",
             "Time limits for both rounds must be adhered to strictly.",
             "Inappropriate content, obscenity, or vulgarity will lead to disqualification.",
             "Judges’ decisions will be final.",
@@ -964,7 +1007,7 @@ export const exploreData = {
 
               submission_requirements: {
                 title: "Rules",
-                rules: [
+                submission_rules: [
                   "Delegates represent assigned countries, NGOs, or organizations.",
                   "The Chair/Moderator guides committee proceedings and maintains order.",
                   "Roll Call is conducted at the beginning of each session; delegates respond with 'present' or 'present and voting'.",
@@ -997,20 +1040,20 @@ export const exploreData = {
             },
           ],
 
-          rules: [
-            "Plays can be in Hindi, English, or bilingual, although short snippets of other languages are allowed.",
-            "The play in the final round should be on the same plot as submitted in Round 1, with minor permissible alterations.",
-            "The use of hazardous items (e.g., fluids, flames, sharp objects) or anything that may damage the stage is strictly prohibited.",
-            "Time limits for both rounds must be adhered to strictly.",
-            "Plagiarism is prohibited. Originality is expected in all performances.",
-            "Solo acts only—each participant performs individually.",
-            "Dialogues must be delivered live; pre-recorded audio is not allowed.",
-            "Video submissions must be clear in both visuals and audio.",
-            "Inappropriate content, obscenity, or vulgarity will lead to disqualification.",
-            "Judges’ decisions will be final.",
-            "In case of any disputes, the decision made by the Organizing Committee (OC) will be final. The OC also holds the right to disqualify any team in case of discrepancies.",
-            "Undergraduate, Postgraduate, and School students are eligible for the competition.",
-          ],
+          // rules: [
+          //   "Plays can be in Hindi, English, or bilingual, although short snippets of other languages are allowed.",
+          //   "The play in the final round should be on the same plot as submitted in Round 1, with minor permissible alterations.",
+          //   "The use of hazardous items (e.g., fluids, flames, sharp objects) or anything that may damage the stage is strictly prohibited.",
+          //   "Time limits for both rounds must be adhered to strictly.",
+          //   "Plagiarism is prohibited. Originality is expected in all performances.",
+          //   "Solo acts only—each participant performs individually.",
+          //   "Dialogues must be delivered live; pre-recorded audio is not allowed.",
+          //   "Video submissions must be clear in both visuals and audio.",
+          //   "Inappropriate content, obscenity, or vulgarity will lead to disqualification.",
+          //   "Judges’ decisions will be final.",
+          //   "In case of any disputes, the decision made by the Organizing Committee (OC) will be final. The OC also holds the right to disqualify any team in case of discrepancies.",
+          //   "Undergraduate, Postgraduate, and School students are eligible for the competition.",
+          // ],
 
           contact: {
             name: "Rutva Gandhi",
@@ -1110,8 +1153,9 @@ export const exploreData = {
             "https://assets.2026.abhivyaktifest.in/images/explore/events/estoria.jpg",
 
           description: [
-            "BAHUMUKHI is a monoact competition that celebrates individuality, emotional depth, and the expressive power of theatre. The event provides performers with a platform to present compelling monologues and character-driven narratives through live performance.",
-            "Participants take complete ownership of their act—as the writer, director, and performer—bringing stories to life through dialogue, expression, and stage presence. The competition encourages originality, emotional authenticity, and bold storytelling.",
+            "AAVAHAN is IIIT Nagpur’s flagship National Stage Play Competition, celebrating the power of theatre as a medium of expression, storytelling, and cultural exchange. Organized by the Estoria Club, the event brings together passionate performers who transform the stage into a space of imagination, emotion, and dialogue.",
+            "From original narratives to inspired dramatic interpretations, AAVAHAN provides teams a platform to present compelling stories that resonate across languages and cultures.",
+            "More than a competition, it is a cultural confluence where creativity, collaboration, and performance excellence take center stage."
           ],
 
           prizes: {
@@ -1125,46 +1169,34 @@ export const exploreData = {
           stages: [
             {
               id: "round_1",
-              title: "Online Preliminary Round (Video Submission)",
-              start_date: "",
-              end_date: "",
-
-              description: "",
-
-              submission_requirements: [
-                "Participants must submit a 2–3 minute monoact performance video.",
-                "The video must be a single continuous take with clear audio and video.",
-                "Shortlisting will be done by the judging panel.",
-                "Selected participants will qualify for the on-campus final round.",
-              ],
-            },
-            {
-              id: "round_2",
-              title: "On-Campus Final Round",
+              title: "On-Campus Performance",
               start_date: "19th March 2026",
               end_date: "21st March 2026",
 
               description: "",
 
               submission_requirements: [
-                "Qualified participants will perform live on stage.",
-                "Time Limit: Maximum 10 minutes (empty stage to empty stage).",
-                "Final results will be based only on this round.",
+                "Mode: Live Stage Play Performance",
+                "Venue: Abhivyakti Stage",
+                "Date: To be finalized",
+                "Performance Time per Team: 15 minutes (including stage setup and clearance)."
               ],
             },
           ],
 
           rules: [
-            "This is a solo performance competition.",
-            "The performance must be original; plagiarism will lead to disqualification.",
-            "Dialogues must be delivered live; pre-recorded dialogue or lip-syncing is not allowed.",
-            "A maximum of two non-performing assistants are allowed for sound or prop handling in the final round.",
-            "Participants must arrange their own props, costumes, and makeup.",
-            "Use of hazardous materials (fire, liquids, sharp objects, or anything that may damage the stage) is strictly prohibited.",
-            "Obscenity, vulgarity, or inappropriate content will result in immediate disqualification.",
-            "Time limits must be strictly followed.",
-            "Participants must carry a valid institute ID for the on-campus round.",
-            "Judges’ decisions will be final and binding.",
+            "Each team may consist of a maximum of 23 members (20 performers + 3 support/backstage members).",
+            "Each performance must not exceed 15 minutes, including stage setup and clearance.",
+            "Exceeding the time limit will result in penalties.",
+            "Teams must arrange and manage their own props, costumes, and instruments.",
+            "Sound and microphone setup will be provided as per available infrastructure.",
+            "Use of hazardous items such as fire, fluids, glass, sharp objects, or anything damaging the stage is strictly prohibited.",
+            "Performances must avoid obscene, vulgar, or offensive content and maintain cultural and social sensitivity.",
+            "Language allowed: Hindi, English, or bilingual (short multilingual snippets permitted).",
+            "Content must be original. Plagiarism or direct imitation of known plays will result in disqualification.",
+            "Each team must register under an official team name and submit a short description of their act.",
+            "All participants must carry valid institute ID cards for verification.",
+            "The decisions of the judges and organizing committee shall be final and binding."
           ],
 
           contact: {
@@ -1209,7 +1241,7 @@ export const exploreData = {
               description: "",
 
               submission_requirements: [
-                "Performance Duration: 15 minutes (from empty stage to empty stage). Exceeding the time limit will result in penalties.",
+                "Performance Duration: 20 minutes (from empty stage to empty stage). Exceeding 1 min. will result in penalties",
                 "Team Composition: 5–20 performing members and Up to 3 non-performing members (for music, props, etc.)",
                 "Props, costumes, and other materials must be arranged by the team.",
                 "Pre-recorded background music or sound effects are permitted if played live by team support members",
@@ -1221,16 +1253,17 @@ export const exploreData = {
           ],
 
           rules: [
-            "Plays can be in Hindi, English, or bilingual, with short snippets of other languages allowed.",
-            "Themes should address social, cultural, or political issues — sensitive topics must be handled responsibly.",
-            "The use of hazardous items (fluids, flames, sharp objects, etc.) is strictly prohibited.",
-            "Time limits must be adhered to strictly.",
-            "Plagiarism is strictly prohibited; originality is mandatory.",
-            "Obscenity, vulgarity, or inappropriate content will lead to immediate disqualification.",
-            "The decision of the judges and organizing committee will be final and binding.",
-            "Participants must maintain discipline and decorum throughout the event.",
-            "Only Undergraduate and Postgraduate students are eligible to participate.",
-            "Teams must report 30 minutes before their scheduled slot at the venue.",
+            "Each team must consist of a maximum of 25 members (22 performers + 3 backstage/support members).",
+            "Each performance must not exceed 20 minutes (including stage setup and clearance).",
+            "Exceeding the time limit by 1 min. will lead to a penalty.",
+            "Teams must carry and manage their own props, costumes, and instruments.",
+            "Use of hazardous items (fire, fluids, glass, etc.) is strictly prohibited.",
+            "Teams must avoid obscene or offensive content; performances should maintain cultural and social sensitivity.",
+            "Language: Hindi, English, or bilingual. Short multilingual snippets are permitted.",
+            "Original content is mandatory. Plagiarism or direct imitation of known plays will result in disqualification.",
+            "Use of pre-recorded songs or background tracks is strictly prohibited. All music and singing must be performed live by the team members or support members.",
+            "Each team must register under an official team name and provide a short description of their act.",
+            "Teams must carry valid institute ID cards for verification."
           ],
 
           contact: {
@@ -1251,9 +1284,9 @@ export const exploreData = {
             "https://assets.2026.abhivyaktifest.in/images/explore/events/estoria.jpg",
 
           description: [
-            "DAHAAD – “The Roar of Expression” – is a street play competition that celebrates the power of performance, dialogue, and message-driven storytelling. It provides a platform for teams to raise their voices on social issues through bold narratives and captivating street theatre.",
-            "With raw energy and powerful emotions, teams will perform thought-provoking stories that challenge perspectives, ignite discussions, and connect with the audience.",
-            "Let your team’s voice roar, your message echo, and your act leave an indelible impact on everyone watching.",
+            "Rasdhara, meaning the flow of emotions, is an online poetry competition that celebrates the art of expression through words.",
+            "Participants will submit self-composed poems showcasing their creativity, emotions, and literary depth.",
+            "The event provides a platform for budding poets to explore themes that reflect social, cultural, and personal dimensions through the medium of poetry."
           ],
 
           prizes: {
@@ -1269,13 +1302,14 @@ export const exploreData = {
             {
               id: "round_1",
               title: "Single Round: Submission-Based Evaluation",
-              start_date: "",
-              end_date: "",
+              start_date: "13th February 2026",
+              end_date: "19th March 2026",
 
               description: [
-                "Rasdhara, meaning the flow of emotions, is an online poetry competition that celebrates the art of expression through words.",
-                "Participants will submit self-composed poems showcasing their creativity, emotions, and literary depth.",
-                "The event provides a platform for budding poets to explore themes that reflect social, cultural, and personal dimensions through the medium of poetry",
+                // "Rasdhara, meaning the flow of emotions, is an online poetry competition that celebrates the art of expression through words.",
+                // "Participants will submit self-composed poems showcasing their creativity, emotions, and literary depth.",
+                // "The event provides a platform for budding poets to explore themes that reflect social, cultural, and personal dimensions through the medium of poetry",
+                "Result announcement on 21st March 2026"
               ],
 
               submission_requirements: [
@@ -1848,7 +1882,7 @@ export const exploreData = {
                     "Online rounds continue until Top 2 teams remain",
                     " These Top 2 teams qualify for Offline Grand Final",
                   ],
-                  Qualification: [],
+                  // Qualification: [],
                 },
               ],
             },
@@ -1872,7 +1906,7 @@ export const exploreData = {
                     "Maps: Organizer-selected or map rotation",
                     "Observers & Casting: Enabled",
                   ],
-                  Qualification: [],
+                  // Qualification: [],
                 },
               ],
             },
@@ -1922,33 +1956,36 @@ export const exploreData = {
           stages: [
             {
               id: "round_1",
-              title: "Stage 1: Preliminary Round",
+              title: "Stage 1: Offline Prelims",
               start_date: "14th & 15th March 2026",
               end_date: "15th March 2026",
 
               description: [
-                "Preliminary rounds will be conducted offline to ensure direct participation and fair play. Players will compete in Single Elimination or Swiss League format based on total registrations.",
+                "Preliminary rounds will be conducted offline to ensure direct participation and fair play. Teams or players will compete in knockout or pool-based formats, depending on the total number of registrations.",
               ],
 
-              submission_requirements: [
-                {
-                  format: [
-                    "Conducted offline",
-                    "Single Elimination / Swiss League (organizer choice)",
-                    "Matches played using Friendly Battles",
-                  ],
-                  match_rules: [
-                    "Match Type: Best of 3 (BO3)",
-                    "Tie-Breaker: Sudden Death (default)",
-                    "Time Limit: Standard game rules",
-                  ],
-                  qualification: [
-                    "Players advance based on match wins",
-                    "Top 10 or Top 12 players qualify for Semi-Finals",
-                    "Qualification decided by win-loss record / points",
-                  ],
-                },
-              ],
+              submission_requirements: {
+                title: "Preliminary Round :",
+                submission_rules: [
+                  {
+                    format: [
+                      "Conducted offline",
+                      "Single Elimination / Swiss League (organizer choice)",
+                      "Matches played using Friendly Battles",
+                    ],
+                    match_rules: [
+                      "Match Type: Best of 3 (BO3)",
+                      "Tie-Breaker: Sudden Death (default)",
+                      "Time Limit: Standard game rules",
+                    ],
+                    qualification: [
+                      "Players advance based on match wins",
+                      "Top 10 or Top 12 players qualify for Semi-Finals",
+                      "Qualification decided by win-loss record / points",
+                    ],
+                  },
+                ]
+              },
             },
             {
               id: "round_2",
@@ -1960,17 +1997,20 @@ export const exploreData = {
                 "Top-performing players from the preliminary rounds advance to the semi-finals, which will be conducted offline at the Abhivyakti venue.",
               ],
 
-              submission_requirements: [
-                {
-                  participants: "8 Qualified Players",
-                  format: [
-                    "Players divided into 2 groups of 4",
-                    "Round-Robin format within groups",
-                    "Top 2 from each group advance to Grand Final (Top 4)",
-                  ],
-                  match_rules: ["Match Type: Best of 3", "Conducted offline"],
-                },
-              ],
+              submission_requirements: {
+                title: "Semi-Finals :",
+                submission_rules: [
+                  {
+                    participants: "8 Qualified Players",
+                    format: [
+                      "Players divided into 2 groups of 4",
+                      "Round-Robin format within groups",
+                      "Top 2 from each group advance to Grand Final (Top 4)",
+                    ],
+                    match_rules: ["Match Type: Best of 3", "Conducted offline"],
+                  },
+                ]
+              },
             },
             {
               id: "round_3",
@@ -1978,25 +2018,28 @@ export const exploreData = {
               start_date: "19th or 20th March 2026",
               end_date: "20th March 2026",
 
-              description: [
-                "The top 4 players compete for the championship title. Semi-finals determine finalists for the ultimate championship match.",
-              ],
+              // description: [
+              //   "Top-performing teams or players from the preliminary rounds will advance to the final stage, which will be conducted offline at the Abhivyakti venue.",
+              // ],
 
-              submission_requirements: [
-                {
-                  participants: "Top 4 Players",
-                  semi_finals: [
-                    "SF1: Rank 1 (Group A) vs Rank 2 (Group B)",
-                    "SF2: Rank 1 (Group B) vs Rank 2 (Group A)",
-                    "Match Type: Best of 3",
-                  ],
-                  grand_final: [
-                    "Winners of SF1 & SF2 compete",
-                    "Match Type: Best of 3",
-                    "Winner declared Tournament Champion",
-                  ],
-                },
-              ],
+              submission_requirements: {
+                title: "Grand Final :",
+                submission_rules: [
+                  {
+                    participants: "Top 4 Players",
+                    semi_finals: [
+                      "SF1: Rank 1 (Group A) vs Rank 2 (Group B)",
+                      "SF2: Rank 1 (Group B) vs Rank 2 (Group A)",
+                      "Match Type: Best of 3",
+                    ],
+                    grand_final: [
+                      "Winners of SF1 & SF2 compete",
+                      "Match Type: Best of 3",
+                      "Winner declared Tournament Champion",
+                    ],
+                  },
+                ]
+              },
             },
           ],
 
