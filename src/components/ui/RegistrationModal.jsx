@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { FaTimes } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
 import { useToast } from "../../contexts/ToastContext";
 import { getEventById } from "../../lib/event-client";
@@ -8,12 +9,12 @@ import {
   isUserRegisteredForEvent,
   registerForIndividualEvent,
 } from "../../lib/registration-client";
-import { createTeam } from "../../lib/team-client";
+import { createTeam, joinTeam } from "../../lib/team-client";
 import { useAuthModal } from "../auth/ModalAuthLayout";
 
 const styles = {
   overlay:
-    "fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-999 p-4",
+    "fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-[1500] p-4",
   modal:
     "bg-[#0f0f0f] rounded-2xl border border-yellow-500/20 shadow-2xl w-[90vw] md:w-full md:max-w-2xl max-h-[80vh] overflow-y-auto",
   header:
@@ -39,6 +40,8 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
   const { user, isAuthenticated } = useAuth();
   const { showToast } = useToast();
   const { openAuth } = useAuthModal();
+  const navigate = useNavigate();
+  const authToastShownRef = useRef(false);
 
   // State management
   const [event, setEvent] = useState(null);
@@ -50,7 +53,9 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
 
   // Team registration state
   const [teamName, setTeamName] = useState("");
+  const [teamCode, setTeamCode] = useState("");
   const [isTeamLeader, setIsTeamLeader] = useState(false);
+  const [expandedAccordion, setExpandedAccordion] = useState(null);
 
   // Load event data on mount
   useEffect(() => {
@@ -79,12 +84,13 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
 
   // Check authentication on mount
   useEffect(() => {
-    if (!isAuthenticated) {
-      showToast("Please login to register", "error");
+    if (!isAuthenticated && !authToastShownRef.current) {
+      authToastShownRef.current = true;
+      showToast("Please log in to register", "error");
       openAuth("signin");
       onClose();
     }
-  }, [isAuthenticated, showToast, openAuth, onClose]);
+  }, [isAuthenticated, openAuth, onClose, showToast]);
 
   // Check if user is team leader (has participated as leader before)
   useEffect(() => {
@@ -136,8 +142,8 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
     }
   };
 
-  // Handle team registration
-  const handleTeamRegister = async () => {
+  // Handle create team
+  const handleCreateTeam = async () => {
     try {
       if (!teamName.trim()) {
         showToast("Please enter a team name", "error");
@@ -165,15 +171,49 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
       });
 
       if (result.success) {
-        showToast("Team created successfully!", "success");
+        showToast("Success! Add Team members from the Profile", "success");
+        onClose();
+        setTimeout(() => {
+          navigate("/myaccount");
+        }, 500);
         if (onSuccess) onSuccess();
-        setTimeout(() => onClose(), 800);
       } else {
         showToast(result.error || "Team creation failed", "error");
       }
     } catch (err) {
       console.error("Team creation error:", err);
       showToast("Team creation error", "error");
+    } finally {
+      setRegistering(false);
+    }
+  };
+
+  // Handle join team
+  const handleJoinTeam = async () => {
+    try {
+      if (!teamCode.trim()) {
+        showToast("Please enter a team code", "error");
+        return;
+      }
+
+      setRegistering(true);
+
+      // Join team
+      const result = await joinTeam(user.id, teamCode.trim());
+
+      if (result.success) {
+        showToast("Successfully joined team!", "success");
+        onClose();
+        setTimeout(() => {
+          navigate("/myaccount");
+        }, 500);
+        if (onSuccess) onSuccess();
+      } else {
+        showToast(result.error || "Failed to join team", "error");
+      }
+    } catch (err) {
+      console.error("Join team error:", err);
+      showToast("Join team error", "error");
     } finally {
       setRegistering(false);
     }
@@ -370,33 +410,117 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
             )}
           </div>
 
-          {/* Team name input */}
-          <div>
-            <label className={styles.label}>Team Name</label>
-            <input
-              type="text"
-              placeholder="Enter your team name"
-              value={teamName}
-              onChange={(e) => setTeamName(e.target.value)}
-              disabled={registering}
-              className={styles.input + " disabled:opacity-50"}
-            />
-            <p className={styles.infoText + " mt-1"}>
-              Choose a unique name for your team
-            </p>
+          {/* Create Team Accordion */}
+          <div className="border border-white/10 rounded-lg overflow-hidden">
+            <button
+              onClick={() =>
+                setExpandedAccordion(
+                  expandedAccordion === "create" ? null : "create",
+                )
+              }
+              className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
+            >
+              <span className="text-white font-semibold flex items-center gap-2">
+                <span>➕</span> Create New Team
+              </span>
+              <span
+                className={`text-gray-400 transition-transform ${
+                  expandedAccordion === "create" ? "rotate-180" : ""
+                }`}
+              >
+                ▼
+              </span>
+            </button>
+            <AnimatePresence>
+              {expandedAccordion === "create" && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="overflow-hidden bg-white/[0.02] border-t border-white/10 p-4 space-y-3"
+                >
+                  <div>
+                    <label className={styles.label}>Team Name</label>
+                    <input
+                      type="text"
+                      placeholder="Enter your team name"
+                      value={teamName}
+                      onChange={(e) => setTeamName(e.target.value)}
+                      disabled={registering}
+                      className={styles.input + " disabled:opacity-50"}
+                    />
+                  </div>
+                  <button
+                    onClick={handleCreateTeam}
+                    disabled={registering}
+                    className={styles.button}
+                  >
+                    {registering ? "Creating Team..." : "Create Team"}
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* Register button */}
-          <button
-            onClick={handleTeamRegister}
-            disabled={registering}
-            className={styles.button}
-          >
-            {registering ? "Creating Team..." : "Create Team"}
-          </button>
+          {/* Join Team Accordion */}
+          <div className="border border-white/10 rounded-lg overflow-hidden mt-2">
+            <button
+              onClick={() =>
+                setExpandedAccordion(
+                  expandedAccordion === "join" ? null : "join",
+                )
+              }
+              className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
+            >
+              <span className="text-white font-semibold flex items-center gap-2">
+                <span>👥</span> Join Existing Team
+              </span>
+              <span
+                className={`text-gray-400 transition-transform ${
+                  expandedAccordion === "join" ? "rotate-180" : ""
+                }`}
+              >
+                ▼
+              </span>
+            </button>
+            <AnimatePresence>
+              {expandedAccordion === "join" && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="overflow-hidden bg-white/[0.02] border-t border-white/10 p-4 space-y-3"
+                >
+                  <div>
+                    <label className={styles.label}>Team Code</label>
+                    <input
+                      type="text"
+                      placeholder="Enter team code"
+                      value={teamCode}
+                      onChange={(e) => setTeamCode(e.target.value)}
+                      disabled={registering}
+                      className={styles.input + " disabled:opacity-50"}
+                    />
+                    <p className={styles.infoText + " mt-2"}>
+                      Ask your team leader for the team code
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleJoinTeam}
+                    disabled={registering}
+                    className={styles.button}
+                  >
+                    {registering ? "Joining Team..." : "Join Team"}
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* Close button */}
-          <button onClick={onClose} className={styles.secondaryBtn}>
+          <button onClick={onClose} className={styles.secondaryBtn + " mt-4"}>
             Cancel
           </button>
         </div>

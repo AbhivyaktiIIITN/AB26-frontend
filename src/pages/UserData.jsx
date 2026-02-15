@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthModal } from "../components/auth/ModalAuthLayout";
 import TeamModal from "../components/ui/TeamModal";
 import { useAuth } from "../contexts/AuthProvider";
+import { useToast } from "../contexts/ToastContext";
+import { signOut } from "../lib/auth-client";
 import {
   getUserPassesAndAccommodations,
   getUserProfile,
@@ -20,14 +24,69 @@ const SkeletonTable = () => (
   </div>
 );
 
+// Format date to readable format (DD MMM YYYY)
+const formatDate = (dateString) => {
+  if (!dateString) return "Not provided";
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return "Not provided";
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  } catch {
+    return "Not provided";
+  }
+};
+
 const UserData = () => {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
+  const { openAuth } = useAuthModal();
+  const { showToast } = useToast();
+  const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null);
   const [regData, setRegData] = useState(null);
   const [passesAccData, setPassesAccData] = useState(null);
   const [error, setError] = useState(null);
   const [showTeamModal, setShowTeamModal] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState(null);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      setIsLoggingOut(true);
+      await signOut();
+      showToast("Logged out successfully", "success");
+      setTimeout(() => navigate("/"), 500);
+    } catch (error) {
+      console.error("Logout error:", error);
+      showToast("Logout failed. Please try again.", "error");
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
+
+  // Show login prompt if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-black p-4 md:p-8 flex items-center justify-center">
+        <div className="bg-gray-900 border border-yellow-500/20 rounded-lg p-8 max-w-md text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">My Account</h2>
+          <p className="text-gray-400 text-lg mb-6">
+            Please log in to access your profile and view your registrations.
+          </p>
+          <button
+            onClick={() => openAuth("signin")}
+            className="bg-[#3C0919] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#5a0d29] transition-all duration-200 hover:shadow-lg"
+          >
+            Sign In
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -44,6 +103,7 @@ const UserData = () => {
 
         setProfileData(profile);
         setRegData(reg);
+
         setPassesAccData(passesAcc);
       } catch (err) {
         console.error("Error fetching user data:", err);
@@ -166,7 +226,7 @@ const UserData = () => {
                   <div className="flex justify-between">
                     <span className="text-gray-400">Date of Birth:</span>
                     <span className="text-white font-medium">
-                      {profileUser?.date_of_birth || "Not provided"}
+                      {formatDate(profileUser?.date_of_birth)}
                     </span>
                   </div>
                 </>
@@ -183,9 +243,11 @@ const UserData = () => {
               <SkeletonTable />
             ) : (
               <div className="space-y-4">
-                <div>
-                  <h3 className="text-sm text-gray-400 mb-2">Teams Leading</h3>
-                  {regUser?.teamsLeading?.length > 0 ? (
+                {regUser?.teamsLeading?.length > 0 && (
+                  <div>
+                    <h3 className="text-sm text-gray-400 mb-2">
+                      Teams Leading
+                    </h3>
                     <div className="space-y-2">
                       {regUser.teamsLeading.map((team) => (
                         <div
@@ -204,26 +266,27 @@ const UserData = () => {
                         </div>
                       ))}
                     </div>
-                  ) : (
-                    <p className="text-gray-500 text-sm italic">
-                      No teams leading
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <h3 className="text-sm text-gray-400 mb-2">Teams Member</h3>
-                  {regUser?.teamsMember?.length > 0 ? (
+                  </div>
+                )}
+                {regUser?.teamsMember?.length > 0 && (
+                  <div>
+                    <h3 className="text-sm text-gray-400 mb-2">Teams Member</h3>
                     <div className="space-y-2">
-                      {regUser.teamsMember.map((team) => (
+                      {regUser.teamsMember.map((member) => (
                         <div
-                          key={team.id}
+                          key={member.id}
                           className="flex items-center justify-between bg-gray-900 border border-gray-700 rounded px-3 py-2 hover:bg-gray-800 transition-all"
                         >
                           <span className="text-white text-sm font-medium">
-                            {team.name}
+                            {member.team?.name}
                           </span>
                           <button
-                            onClick={() => handleTeamClick(team)}
+                            onClick={() => {
+                              handleTeamClick({
+                                ...member.team,
+                                id: member.teamId,
+                              });
+                            }}
                             className="px-3 py-1 text-xs bg-blue-600 hover:bg-blue-500 text-white rounded transition-all cursor-pointer"
                           >
                             View Team
@@ -231,12 +294,8 @@ const UserData = () => {
                         </div>
                       ))}
                     </div>
-                  ) : (
-                    <p className="text-gray-500 text-sm italic">
-                      Not in any teams
-                    </p>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -269,17 +328,41 @@ const UserData = () => {
                   <tbody className="divide-y divide-gray-700">
                     {regUser.registrations.map((reg) => (
                       <tr key={reg.id}>
-                        <td className="px-4 py-3 text-white">
-                          {reg.eventId || "N/A"}
+                        <td className="px-4 py-3">
+                          <div className="flex items-center gap-3">
+                            <span className="text-white font-medium">
+                              {reg.eventId || "N/A"}
+                            </span>
+                            {(reg.status?.toLowerCase() === "active" ||
+                              reg.status?.toLowerCase() === "success") && (
+                              <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-green-900 text-green-400 border border-green-600">
+                                Active
+                              </span>
+                            )}
+                          </div>
                         </td>
                         <td className="px-4 py-3">
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-900 text-red-400 border border-red-600">
+                          <span
+                            className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium ${
+                              reg.status?.toLowerCase() === "active" ||
+                              reg.status?.toLowerCase() === "success"
+                                ? "bg-green-900 text-green-400 border border-green-600"
+                                : "bg-green-900 text-green-400 border border-green-600"
+                            }`}
+                          >
                             {reg.status || "Active"}
                           </span>
                         </td>
                         <td className="px-4 py-3 text-gray-400 text-sm">
                           {reg.created_at
-                            ? new Date(reg.created_at).toLocaleDateString()
+                            ? new Date(reg.created_at).toLocaleDateString(
+                                "en-US",
+                                {
+                                  day: "numeric",
+                                  month: "short",
+                                  year: "numeric",
+                                },
+                              )
                             : "N/A"}
                         </td>
                       </tr>
@@ -326,7 +409,16 @@ const UserData = () => {
                           {pass.passType?.name || "N/A"}
                         </td>
                         <td className="px-4 py-3">
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-900 text-red-400 border border-red-600 capitalize">
+                          <span
+                            className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium capitalize ${
+                              pass.transaction?.status?.toLowerCase() ===
+                                "active" ||
+                              pass.transaction?.status?.toLowerCase() ===
+                                "success"
+                                ? "bg-green-900 text-green-400 border border-green-600"
+                                : "bg-gray-900 text-red-400 border border-red-600"
+                            }`}
+                          >
                             {pass.transaction?.status || "N/A"}
                           </span>
                         </td>
@@ -334,7 +426,11 @@ const UserData = () => {
                           {pass.transaction?.created_at
                             ? new Date(
                                 pass.transaction.created_at,
-                              ).toLocaleDateString()
+                              ).toLocaleDateString("en-US", {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                              })
                             : "N/A"}
                         </td>
                       </tr>
@@ -381,7 +477,16 @@ const UserData = () => {
                           {booking.accommodationType?.name || "N/A"}
                         </td>
                         <td className="px-4 py-3">
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-900 text-red-400 border border-red-600 capitalize">
+                          <span
+                            className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium capitalize ${
+                              booking.transaction?.status?.toLowerCase() ===
+                                "active" ||
+                              booking.transaction?.status?.toLowerCase() ===
+                                "success"
+                                ? "bg-green-900 text-green-400 border border-green-600"
+                                : "bg-gray-900 text-red-400 border border-red-600"
+                            }`}
+                          >
                             {booking.transaction?.status || "Pending"}
                           </span>
                         </td>
@@ -389,7 +494,11 @@ const UserData = () => {
                           {booking.transaction?.created_at
                             ? new Date(
                                 booking.transaction.created_at,
-                              ).toLocaleDateString()
+                              ).toLocaleDateString("en-US", {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                              })
                             : "N/A"}
                         </td>
                       </tr>
@@ -401,6 +510,30 @@ const UserData = () => {
               <p className="text-gray-500 italic">No accommodation bookings</p>
             )}
           </div>
+        </div>
+
+        {/* Logout Button */}
+        <div className="mt-8 flex justify-center pb-8">
+          <button
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+            className="px-6 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 border border-red-500/30 rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
+            </svg>
+            {isLoggingOut ? "Logging out..." : "Log Out"}
+          </button>
         </div>
       </div>
 

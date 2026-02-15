@@ -38,10 +38,10 @@ const UserProfile = ({ user, logout }) => {
 
   // Use serialId for AB ID
   const abId = profileData?.serialId
-    ? `AB${String(profileData.serialId).padStart(5, "0")}`
+    ? `AB-${String(profileData.serialId).padStart(5, "0")}`
     : user?.serialId
-      ? `AB${String(user.serialId).padStart(5, "0")}`
-      : "AB_" + user?.id?.slice(0, 6).toUpperCase();
+      ? `AB-${String(user.serialId).padStart(5, "0")}`
+      : "AB-" + user?.id?.slice(0, 6).toUpperCase();
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -99,7 +99,7 @@ const UserProfile = ({ user, logout }) => {
                   {profileData?.email || user?.email}
                 </p>
                 <div className="mt-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">
-                  ID: {abId}
+                  ID: {loading ? "-" : abId}
                 </div>
               </div>
 
@@ -133,6 +133,7 @@ const UserProfile = ({ user, logout }) => {
                     setIsLoggingOut(true);
                     try {
                       await logout();
+                      setTimeout(() => navigate("/"), 500);
                     } catch (error) {
                       setIsLoggingOut(false);
                     }

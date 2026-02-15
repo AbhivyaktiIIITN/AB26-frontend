@@ -19,6 +19,7 @@ const Navbar = () => {
     try {
       await signOut();
       showToast("Logged out successfully", "success");
+      setTimeout(() => navigate("/"), 500);
     } catch (error) {
       console.error("Logout error:", error);
       showToast("Logout failed. Please try again.", "error");
@@ -74,7 +75,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-999 bg-linear-to-b from-black to-black/10 backdrop-blur-sm tracking-wider">
+      <nav className="fixed top-0 left-0 right-0 z-[1000] bg-linear-to-b from-black to-black/10 backdrop-blur-sm tracking-wider">
         <div className="mx-auto px-6 sm:px-8 lg:px-10">
           <div className="hidden md:flex justify-between items-center h-20 w-full">
             <div
@@ -294,14 +295,22 @@ const Navbar = () => {
             ) : isAuthenticated ? (
               <button
                 onClick={() => navigate("/myaccount")}
-                className="w-8 h-8 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-semibold cursor-pointer hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] transition-all duration-200"
+                className="w-8 h-8 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-semibold cursor-pointer hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] transition-all duration-200 border border-white/20 hover:border-yellow-300"
                 title={user?.name || user?.firstName || "Profile"}
               >
-                {(
-                  user?.name?.charAt(0) ||
-                  user?.firstName?.charAt(0) ||
-                  "U"
-                ).toUpperCase()}
+                {user?.image ? (
+                  <img
+                    src={user.image}
+                    alt="profile"
+                    className="w-full h-full rounded-full object-cover"
+                  />
+                ) : (
+                  (
+                    user?.name?.charAt(0) ||
+                    user?.firstName?.charAt(0) ||
+                    "U"
+                  ).toUpperCase()
+                )}
               </button>
             ) : (
               <button
@@ -319,7 +328,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-9999 block"
+            className="fixed inset-0 z-[1100] block"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

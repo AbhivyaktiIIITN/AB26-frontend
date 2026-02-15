@@ -50,51 +50,51 @@ export const registerForIndividualEvent = async (
   }
 };
 
-export const registerTeamForEvent = async (
-  leaderId,
-  teamId,
+export const submitTeamRegistration = async (
+  registrationId,
   submissionString = "",
 ) => {
   try {
-    if (!leaderId || !teamId) {
+    if (!registrationId) {
       return {
         success: false,
-        error: "Missing required parameters: leaderId and teamId",
+        error: "Missing required parameter: registrationId",
       };
     }
 
-    const response = await fetch(`${BASE_URL}/api/register/team`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${BASE_URL}/api/registration/${registrationId}/submit`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          submissionString: submissionString || "",
+        }),
       },
-      credentials: "include",
-      body: JSON.stringify({
-        leaderId,
-        teamId: String(teamId),
-        submissionString,
-      }),
-    });
+    );
 
     const data = await response.json();
 
     if (!response.ok) {
       return {
         success: false,
-        error: data.error || "Failed to register team for event",
+        error: data.error || "Failed to submit team registration",
       };
     }
 
     return {
       success: true,
       data: data.registration,
-      message: data.message || "Team registered successfully",
+      message: data.message || "Team submission updated successfully",
     };
   } catch (error) {
-    console.error("Team registration error:", error);
+    console.error("Team submission error:", error);
     return {
       success: false,
-      error: error.message || "An error occurred during team registration",
+      error: error.message || "An error occurred during submission",
     };
   }
 };
@@ -286,7 +286,7 @@ export const cancelTeamRegistration = async (registrationId, leaderId) => {
 
 export default {
   registerForIndividualEvent,
-  registerTeamForEvent,
+  submitTeamRegistration,
   isUserRegisteredForEvent,
   isTeamRegisteredForEvent,
   getUserRegistrations,

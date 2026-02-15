@@ -153,13 +153,13 @@ export default function TestPay() {
 
   if (dataLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-20">
+      <div className="min-h-screen bg-black flex items-center justify-center pt-20">
         <p className="text-white text-lg">
           Loading passes and accommodations...
         </p>
       </div>
     );
-  }
+  } 
 
   return (
     <div className="min-h-screen bg-black pt-24 pb-12 px-6 sm:px-8 lg:px-10">
@@ -201,7 +201,7 @@ export default function TestPay() {
 
                   <button
                     onClick={() => handleBuyPass(pass)}
-                    disabled={!isAuthenticated || loadingPassId === pass.id}
+                    disabled={loadingPassId === pass.id}
                     className="w-full px-6 py-3 bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     {loadingPassId === pass.id ? "Processing..." : "Buy Now"}
@@ -256,10 +256,7 @@ export default function TestPay() {
 
                   <button
                     onClick={() => handleBuyAccommodation(accommodation)}
-                    disabled={
-                      !isAuthenticated ||
-                      loadingAccommodationId === accommodation.id
-                    }
+                    disabled={loadingAccommodationId === accommodation.id}
                     className="w-full px-6 py-3 bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     {loadingAccommodationId === accommodation.id

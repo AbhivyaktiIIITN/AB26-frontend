@@ -23,7 +23,8 @@ export const createTeam = async (teamData) => {
 
     return {
       success: true,
-      data: data.team,
+      team: data.team,
+      registration: data.registration,
       message: data.message || "Team created successfully",
     };
   } catch (error) {
@@ -60,7 +61,7 @@ export const joinTeam = async (userId, teamCode) => {
 
     return {
       success: true,
-      data: data.team,
+      team: data.team,
       message: data.message || "Joined team successfully",
     };
   } catch (error) {
@@ -94,7 +95,8 @@ export const getTeam = async (teamId) => {
 
     return {
       success: true,
-      data: data.team,
+      team: data.team,
+      registrationId: data.registrationId,
       message: "Team fetched successfully",
     };
   } catch (error) {
@@ -143,7 +145,7 @@ export const leaveTeam = async (teamId, userId) => {
   }
 };
 
-export const removeMember = async (teamId, memberId, leaderId) => {
+export const removeMember = async (leaderId, teamId, memberIdToRemove) => {
   try {
     const response = await fetch(`${BASE_URL}/api/team/remove`, {
       method: "POST",
@@ -152,9 +154,9 @@ export const removeMember = async (teamId, memberId, leaderId) => {
       },
       credentials: "include",
       body: JSON.stringify({
-        teamId,
-        memberId,
         leaderId,
+        teamId,
+        memberIdToRemove,
       }),
     });
 

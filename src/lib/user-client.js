@@ -114,9 +114,90 @@ export const getUserBySerialId = async (serialId) => {
   }
 };
 
+export const updateUserProfile = async (userId, profileData) => {
+  try {
+    // Transform profileData to propertiesToUpdate format
+    const propertiesToUpdate = {};
+
+    if (profileData.collegeName)
+      propertiesToUpdate.collegeName = profileData.collegeName;
+    if (profileData.phoneNumber)
+      propertiesToUpdate.phoneNumber = profileData.phoneNumber;
+    if (profileData.dateOfBirth)
+      propertiesToUpdate.date_of_birth = profileData.dateOfBirth;
+
+    const response = await fetch(`${API_BASE_URL}/api/user/profile/update`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        userId,
+        propertiesToUpdate,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to update user profile: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    return {
+      success: false,
+      error: error.message || "Failed to update profile",
+    };
+  }
+};
+
+// Helper function to check if profile fields are missing
+export const checkMissingProfileFields = async (userId) => {
+  try {
+    const result = await getUserProfile(userId);
+
+    if (!result.success || !result.user) {
+      return {
+        isComplete: false,
+        missingFields: ["phoneNumber", "collegeName"],
+        user: null,
+      };
+    }
+
+    const user = result.user;
+    const missingFields = [];
+
+    // Check for missing required fields
+    if (!user.phoneNumber || user.phoneNumber.trim() === "") {
+      missingFields.push("phoneNumber");
+    }
+    if (!user.collegeName || user.collegeName.trim() === "") {
+      missingFields.push("collegeName");
+    }
+    // date_of_birth is optional, just informational
+
+    return {
+      isComplete: missingFields.length === 0,
+      missingFields,
+      user,
+    };
+  } catch (error) {
+    console.error("Error checking profile fields:", error);
+    return {
+      isComplete: false,
+      missingFields: ["phoneNumber", "collegeName"],
+      user: null,
+    };
+  }
+};
+
 export default {
   getUserProfile,
   getUserRegData,
   getUserPassesAndAccommodations,
   getUserBySerialId,
+  updateUserProfile,
+  checkMissingProfileFields,
 };

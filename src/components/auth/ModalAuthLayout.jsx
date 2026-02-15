@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { createContext, useContext, useEffect, useState } from "react";
-import { ForgotPassword, SignIn, SignUp } from "./";
+import { ForgotPassword, ProfileCompletionModal, SignIn, SignUp } from "./";
 
 const AuthModalContext = createContext();
 
@@ -48,9 +48,13 @@ export const AuthModalProvider = ({ children }) => {
 const ModalAuthLayout = () => {
   const { mode, isOpen, closeAuth, switchMode } = useAuthModal();
 
-  // escape key
+  // escape key (disabled for profile-completion)
   useEffect(() => {
-    const handleEscape = (e) => e.key === "Escape" && closeAuth();
+    const handleEscape = (e) => {
+      if (mode !== "profile-completion") {
+        e.key === "Escape" && closeAuth();
+      }
+    };
     if (isOpen) {
       document.addEventListener("keydown", handleEscape);
       document.body.style.overflow = "hidden";
@@ -59,7 +63,7 @@ const ModalAuthLayout = () => {
       document.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = "unset";
     };
-  }, [isOpen, closeAuth]);
+  }, [isOpen, closeAuth, mode]);
 
   return (
     <AnimatePresence>
@@ -69,8 +73,8 @@ const ModalAuthLayout = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15, ease: "easeOut" }}
-          className="fixed inset-0 z-999 overflow-auto bg-black/25 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={closeAuth}
+          className="fixed inset-0 z-[2000] overflow-auto bg-black/25 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={mode !== "profile-completion" ? closeAuth : undefined}
         >
           <motion.div
             key={mode}
@@ -86,25 +90,27 @@ const ModalAuthLayout = () => {
             className="relative bg-white rounded-lg shadow-xl max-w-6xl w-full h-fit sm:max-h-[75vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* close button */}
-            <button
-              onClick={closeAuth}
-              className="absolute bg-white top-4 right-4 z-10 text-gray-400 hover:text-gray-600 cursor-pointer hover:bg-gray-200 transition-colors rounded-full p-1"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            {/* close button - hidden for profile-completion */}
+            {mode !== "profile-completion" && (
+              <button
+                onClick={closeAuth}
+                className="absolute bg-white top-4 right-4 z-10 text-gray-400 hover:text-gray-600 cursor-pointer hover:bg-gray-200 transition-colors rounded-full p-1"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            )}
 
             <div className="bg-white rounded-lg overflow-hidden">
               <div className="w-full">
@@ -127,6 +133,12 @@ const ModalAuthLayout = () => {
                   <ForgotPassword
                     onSwitchToSignIn={() => switchMode("signin")}
                     onClose={closeAuth}
+                  />
+                )}
+                {mode === "profile-completion" && (
+                  <ProfileCompletionModal
+                    onClose={closeAuth}
+                    onSuccess={() => closeAuth()}
                   />
                 )}
               </div>

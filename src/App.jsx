@@ -1,14 +1,19 @@
 import { Analytics } from "@vercel/analytics/react";
-import Lenis from "lenis";
-import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
+import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { AuthModalProvider } from "./components/auth/ModalAuthLayout";
+import {
+  AuthModalProvider,
+  useAuthModal,
+} from "./components/auth/ModalAuthLayout";
 import Footer from "./components/common/Footer/Footer";
 import Navbar from "./components/common/Navbar/Navbar";
 import NotFound from "./components/not-found/NotFound";
+import { useAuth } from "./contexts/AuthProvider";
 import { ToastProvider } from "./contexts/ToastContext";
+import { checkMissingProfileFields } from "./lib/user-client";
 import About from "./pages/About";
 import CancellationAndRefunds from "./pages/CancellationAndRefunds";
 import Contact from "./pages/Contact";
@@ -23,9 +28,38 @@ import Teams from "./pages/Teams";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import TestPay from "./pages/TestPay";
 import UserData from "./pages/UserData";
-import Gallery from "./pages/Gallery";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Profile completion checker
+const ProfileCompletionChecker = () => {
+  const { user, isAuthenticated } = useAuth();
+  const { openAuth, mode, isOpen } = useAuthModal();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (!isAuthenticated || !user) return;
+
+    // Only check if modal is not already open
+    if (isOpen) return;
+
+    const checkProfile = async () => {
+      try {
+        const result = await checkMissingProfileFields(user.id);
+        if (!result.isComplete && result.missingFields.length > 0) {
+          openAuth("profile-completion");
+        }
+      } catch (err) {
+        console.error("Error checking profile:", err);
+      }
+    };
+
+    const timer = setTimeout(checkProfile, 500);
+    return () => clearTimeout(timer);
+  }, [isAuthenticated, user, pathname, isOpen, openAuth]);
+
+  return null;
+};
 
 function App() {
   // useEffect(() => {
@@ -46,7 +80,7 @@ function App() {
     });
 
     // Connect Lenis to GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+    lenis.on("scroll", ScrollTrigger.update);
 
     // Use GSAP's ticker to drive Lenis for perfect synchronization
     gsap.ticker.add((time) => {
@@ -81,6 +115,7 @@ function App() {
       {/* Auth modal provider */}
       <AuthModalProvider>
         <Analytics />
+        <ProfileCompletionChecker />
         <ScrollToTop />
         <div className="min-h-screen">
           {/* obv the navbar */}
