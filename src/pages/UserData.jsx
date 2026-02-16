@@ -5,6 +5,7 @@ import TeamModal from "../components/ui/TeamModal";
 import { useAuth } from "../contexts/AuthProvider";
 import { useToast } from "../contexts/ToastContext";
 import { signOut } from "../lib/auth-client";
+import { getEventById } from "../lib/event-client";
 import {
   getUserPassesAndAccommodations,
   getUserProfile,
@@ -41,10 +42,12 @@ const formatDate = (dateString) => {
 };
 
 const UserData = () => {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, isLoading: authLoading } = useAuth();
   const { openAuth } = useAuthModal();
   const { showToast } = useToast();
   const navigate = useNavigate();
+
+  // All state hooks MUST be at the top, before any conditional returns
   const [profileData, setProfileData] = useState(null);
   const [regData, setRegData] = useState(null);
   const [passesAccData, setPassesAccData] = useState(null);
@@ -52,6 +55,64 @@ const UserData = () => {
   const [showTeamModal, setShowTeamModal] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [eventNames, setEventNames] = useState({});
+
+  // All effect hooks MUST be at the top, before any conditional returns
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!user?.id || !isAuthenticated) return;
+
+      try {
+        setError(null);
+
+        const [profile, reg, passesAcc] = await Promise.all([
+          getUserProfile(user.id),
+          getUserRegData(user.id),
+          getUserPassesAndAccommodations(user.id),
+        ]);
+
+        setProfileData(profile);
+        setRegData(reg);
+        setPassesAccData(passesAcc);
+      } catch (err) {
+        console.error("Error fetching user data:", err);
+        setError(err.message || "Failed to fetch user data");
+      }
+    };
+
+    fetchUserData();
+  }, [user?.id, isAuthenticated]);
+
+  // Fetch event names for registrations
+  useEffect(() => {
+    const fetchEventNames = async () => {
+      if (!regData?.user?.registrations) return;
+
+      const eventIdSet = new Set(
+        regData.user.registrations.map((reg) => reg.eventId).filter(Boolean),
+      );
+
+      if (eventIdSet.size === 0) return;
+
+      const names = {};
+      const fetches = Array.from(eventIdSet).map((eventId) =>
+        getEventById(eventId)
+          .then((res) => {
+            if (res.success && res.event?.name) {
+              names[eventId] = res.event.name;
+            }
+          })
+          .catch(() => {
+            // Silently fail, will show ID as fallback
+          }),
+      );
+
+      await Promise.all(fetches);
+      setEventNames(names);
+    };
+
+    fetchEventNames();
+  }, [regData?.user?.registrations]);
 
   // Handle logout
   const handleLogout = async () => {
@@ -67,6 +128,17 @@ const UserData = () => {
       setIsLoggingOut(false);
     }
   };
+
+  // Wait for authentication state to be determined before rendering anything
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-black p-4 md:p-8 flex items-center justify-center">
+        <div className="text-gray-400 text-center">
+          <div className="text-lg">Loading...</div>
+        </div>
+      </div>
+    );
+  }
 
   // Show login prompt if not authenticated
   if (!isAuthenticated) {
@@ -87,32 +159,6 @@ const UserData = () => {
       </div>
     );
   }
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (!user?.id) return;
-
-      try {
-        setError(null);
-
-        const [profile, reg, passesAcc] = await Promise.all([
-          getUserProfile(user.id),
-          getUserRegData(user.id),
-          getUserPassesAndAccommodations(user.id),
-        ]);
-
-        setProfileData(profile);
-        setRegData(reg);
-
-        setPassesAccData(passesAcc);
-      } catch (err) {
-        console.error("Error fetching user data:", err);
-        setError(err.message || "Failed to fetch user data");
-      }
-    };
-
-    fetchUserData();
-  }, [user?.id]);
 
   const handleTeamClick = (team) => {
     setSelectedTeam(team);
@@ -315,7 +361,7 @@ const UserData = () => {
                   <thead>
                     <tr className="border-b border-gray-700">
                       <th className="px-4 py-3 text-sm text-gray-400">
-                        Event ID
+                        Event Name
                       </th>
                       <th className="px-4 py-3 text-sm text-gray-400">
                         Status
@@ -331,7 +377,7 @@ const UserData = () => {
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
                             <span className="text-white font-medium">
-                              {reg.eventId || "N/A"}
+                              {eventNames[reg.eventId] || reg.eventId || "N/A"}
                             </span>
                             {(reg.status?.toLowerCase() === "active" ||
                               reg.status?.toLowerCase() === "success") && (
