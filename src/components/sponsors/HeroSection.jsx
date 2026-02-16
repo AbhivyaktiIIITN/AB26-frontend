@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import "./HeroSection.css";
+import { useNavigate } from "react-router-dom";
 
 const stageBg = "https://assets.2026.abhivyaktifest.in/src/assets/background/background-curtains.webp";
 const abhivyaktiText = "https://assets.2026.abhivyaktifest.in/src/assets/branding/abhivyakti text-yellow.webp";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <section className="sponsor-hero">
       {/* Background */}
@@ -38,7 +40,7 @@ const HeroSection = () => {
 
       {/* CTA */}
       <div className="hero-cta">
-        <button className="cta-btn">Contact Us</button>
+        <button className="cta-btn" onClick={() => navigate("/contact")}>Contact Us</button>
       </div>
 
       {/* Bottom meta */}
