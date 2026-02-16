@@ -33,8 +33,13 @@ const Navbar = () => {
     "/events": "Events | Abhivyakti 26",
     "/sponsors": "Sponsors | Abhivyakti 26",
     "/teams": "Teams | Abhivyakti 26",
-    // "/contact": "Contact Us | Abhivyakti 26",
+    "/contact": "Contact Us | Abhivyakti 26",
     "/developers": "Developers | Abhivyakti 26",
+    "/gallery": "Gallery | Abhivyakti 26",
+    "/privacy": "Privacy Policy | Abhivyakti 26",
+    "/terms": "Terms & Conditions | Abhivyakti 26",
+    "/shipping": "Shipping Policy | Abhivyakti 26",
+    "/cancellation": "Cancellation & Refund | Abhivyakti 26",
   };
 
   useEffect(() => {
@@ -60,7 +65,8 @@ const Navbar = () => {
     { path: "/passes", label: "Passes & Stay" },
     { path: "/sponsors", label: "Sponsors" },
     { path: "/teams", label: "Team" },
-    { path: "/contact", label: "Contact Us" },
+    { path: "/gallery", label: "Gallery" },
+    // { path: "/contact", label: "Contact Us" },
   ];
 
   const isActive = (path) => location.pathname === path;

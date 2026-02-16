@@ -28,6 +28,7 @@ import Teams from "./pages/Teams";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import TestPay from "./pages/TestPay";
 import UserData from "./pages/UserData";
+import Gallery from "./pages/Gallery";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -137,7 +138,7 @@ function App() {
             <Route path="/shipping" element={<ShippingPolicy />} />
             <Route path="/cancellation" element={<CancellationAndRefunds />} />
             <Route path="/myaccount" element={<UserData />} />
-            {/* <Route path="/gallery" element={<Gallery />} /> */}
+            <Route path="/gallery" element={<Gallery />} />
           </Routes>
 
           <Footer />
