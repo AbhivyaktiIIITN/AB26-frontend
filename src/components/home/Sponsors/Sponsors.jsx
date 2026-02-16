@@ -2,6 +2,11 @@ import ComingSoon from "../../common/ComingSoon/ComingSoon";
 import "../GuestsSpeakers/GuestsSpeakers.css";
 import SponsorCard from "./sponsorCard";
 
+const sectionConfig = {
+    subtitle: "Backing the Experience",
+    showSubtitle: true,
+  };
+
 const Sponsors = () => {
   const topSponsors = [
     { logo: "/Images/Sponsors/s1.png", alt: "Sponsor 1" },
@@ -26,13 +31,27 @@ const Sponsors = () => {
   ];
 
   return (
-    <div className="relative pb-20">
-      <h1
-        className="tracking-wide uppercase ml-20 text-5xl sm:text-6xl md:text-8xl text-[#FDB931]"
-        style={{ fontFamily: "'Adqila', serif", fontWeight: 400 }}
-      >SPONSORS</h1>
-      <br /><br />
-      <ComingSoon/>
+    <div className="px-3 md:px-15">
+      <div className="section-title">
+        {sectionConfig.showSubtitle && (
+          <div className="subtitle-line">
+            <span className="line"></span>
+            <span className="subtitle-text">{sectionConfig.subtitle}</span>
+          </div>
+        )}
+
+        <h1
+          className="tracking-wide uppercase text-5xl sm:text-6xl md:text-8xl"
+          style={{ fontFamily: "'Aquila', serif", fontWeight: 400 }}
+        >
+          {/* <span className="text-white">GUESTS & </span>
+          <br /> */}
+          <span className="text-[#FDB931]">SPONSORS</span>
+        </h1>
+      </div>
+      <br />
+      <br />
+      <ComingSoon />
       {/* <div className="relative z-10 w-full flex flex-col gap-8 sm:gap-12">
         <div className="w-full overflow-hidden">
           <div className="flex gap-8 sm:gap-15 w-max animate-[marquee-right_30s_linear_infinite]">

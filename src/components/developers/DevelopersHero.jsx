@@ -1,18 +1,16 @@
 import { motion } from "framer-motion";
 import "./DeveloperHero.css";
 
-const abhivyaktiText = "https://assets.2026.abhivyaktifest.in/src/assets/branding/abhivyakti text-yellow.webp";
-const stageBg = "https://assets.2026.abhivyaktifest.in/src/assets/background/background-curtains.webp";
+const abhivyaktiText =
+  "https://assets.2026.abhivyaktifest.in/src/assets/branding/abhivyakti text-yellow.webp";
+const stageBg =
+  "https://assets.2026.abhivyaktifest.in/src/assets/background/background-curtains.webp";
 
 const DeveloperHero = () => {
   return (
     <section className="team-hero">
-
       {/* Background */}
-      <div
-        className="hero-bg"
-        style={{ backgroundImage: `url(${stageBg})`, }}
-      />
+      <div className="hero-bg" style={{ backgroundImage: `url(${stageBg})` }} />
 
       {/* ABHIVYAKTI branding */}
       <div className="hero-branding">
@@ -58,9 +56,10 @@ const DeveloperHero = () => {
               const progress = Math.min(timeElapsed / duration, 1);
 
               // Easing function (easeInOutQuad)
-              const ease = progress < 0.5
-                ? 2 * progress * progress
-                : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+              const ease =
+                progress < 0.5
+                  ? 2 * progress * progress
+                  : 1 - Math.pow(-2 * progress + 2, 2) / 2;
 
               window.scrollTo(0, startPosition + distance * ease);
 
@@ -72,8 +71,20 @@ const DeveloperHero = () => {
             requestAnimationFrame(animation);
           }}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 9L12 15L18 9" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6 9L12 15L18 9"
+              stroke="white"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </button>
       </div>
@@ -88,7 +99,6 @@ const DeveloperHero = () => {
 
       {/* Fade to content */}
       <div className="hero-to-content-gradient" />
-
     </section>
   );
 };

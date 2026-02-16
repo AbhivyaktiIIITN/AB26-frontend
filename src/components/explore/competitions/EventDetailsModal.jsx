@@ -15,11 +15,13 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
   const [activeTab, setActiveTab] = useState("description");
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
 
-  // Lock body scroll
+  // Lock body scroll and disable Lenis
   useEffect(() => {
     document.body.style.overflow = "hidden";
+    window.lenis?.stop(); // Stop the background smooth scroll
     return () => {
       document.body.style.overflow = "";
+      window.lenis?.start(); // Restart it when closed
     };
   }, []);
 
@@ -298,7 +300,11 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
 
   return createPortal(
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div
+        className={styles.modal}
+        onClick={(e) => e.stopPropagation()}
+        data-lenis-prevent
+      >
         <button
           className={styles.closeButton}
           onClick={onClose}

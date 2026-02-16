@@ -3,6 +3,12 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { motion, useScroll, useTransform } from "motion/react";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import "../GuestsSpeakers/GuestsSpeakers.css";
+
+const sectionConfig = {
+  subtitle: "The Annual Cultural Festival",
+  showSubtitle: true,
+};
 
 // Error Boundary for 3D content
 class ErrorBoundary extends React.Component {
@@ -25,7 +31,9 @@ class ErrorBoundary extends React.Component {
 }
 
 const MagicianModel = (props) => {
-  const { scene } = useGLTF("https://assets.2026.abhivyaktifest.in/3d-Models/magician_3d_model.glb");
+  const { scene } = useGLTF(
+    "https://assets.2026.abhivyaktifest.in/3d-Models/magician_3d_model.glb",
+  );
   const meshRef = useRef();
   const [isDesktop, setIsDesktop] = useState(false);
   const [currentScale, setCurrentScale] = useState(3.2);
@@ -80,7 +88,9 @@ const MagicianModel = (props) => {
   );
 };
 
-useGLTF.preload("https://assets.2026.abhivyaktifest.in/3d-Models/magician_3d_model.glb");
+useGLTF.preload(
+  "https://assets.2026.abhivyaktifest.in/3d-Models/magician_3d_model.glb",
+);
 
 const About = () => {
   const sectionRef = useRef(null);
@@ -96,13 +106,16 @@ const About = () => {
     <section
       ref={sectionRef}
       className="w-full h-fit bg-cover bg-center relative overflow-hidden"
-      style={{ backgroundImage: "url('https://assets.2026.abhivyaktifest.in/images/Home/image2.jpg')" }}
+      style={{
+        backgroundImage:
+          "url('https://assets.2026.abhivyaktifest.in/images/Home/image2.jpg')",
+      }}
     >
       {/* Darkening Overlay */}
-      <motion.div
+      {/* <motion.div
         style={{ opacity }}
         className="absolute inset-0 bg-black z-0 pointer-events-none"
-      />
+      /> */}
 
       {/* Light Rays - positioned to match typical "rays from top" composition */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
@@ -123,9 +136,13 @@ const About = () => {
         />
       </div>
 
-      <div className="w-full h-full bg-black/70 relative z-10">
-        <div className="w-full h-fit flex flex-col">
-          <div className="px-6 pt-16 pb-4 w-full h-fit bg-linear-to-b from-black/95 to-transparent flex items-center gap-3 sm:gap-4">
+      <div 
+        className="w-full h-full relative z-10"
+        style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.70) 10%, rgba(0,0,0,0.70) 90%, rgba(0,0,0,0.95) 100%)" }}
+      >
+        <div className="px-2 sm:px-24 pt-16 pb-4 w-full h-fit flex flex-col">
+          {/* <div className="section-container"> */}
+          {/* <div className="px-6 pt-16 pb-4 w-full h-fit bg-linear-to-b from-black/95 to-transparent flex items-center gap-3 sm:gap-4">
             <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
@@ -156,8 +173,6 @@ const About = () => {
                 </motion.span>
               ))}
             </motion.div>
-          </div>
-          <div className="grow w-full h-fit px-8 flex flex-col">
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -167,8 +182,31 @@ const About = () => {
                 delay: 2,
               }}
               className="w-full max-w-150 h-16 bg-contain bg-center bg-no-repeat"
-              style={{ backgroundImage: "url('https://assets.2026.abhivyaktifest.in/images/Home/aboutab.png')" }}
+              style={{
+                backgroundImage:
+                  "url('https://assets.2026.abhivyaktifest.in/images/Home/aboutab.png')",
+              }}
             ></motion.div>
+          </div> */}
+
+          <div className="section-title">
+            {sectionConfig.showSubtitle && (
+              <div className="subtitle-line">
+                <span className="line"></span>
+                <span className="subtitle-text">{sectionConfig.subtitle}</span>
+              </div>
+            )}
+
+            <h1
+              className="tracking-wide uppercase text-5xl sm:text-6xl md:text-8xl"
+              style={{ fontFamily: "'Aquila', serif", fontWeight: 400 }}
+            >
+              <span className="text-white">About </span>
+              {""}
+              <span className="text-[#FDB931]">abhivyakti</span>
+            </h1>
+          </div>
+          <div className="grow w-full h-fit px-8 flex flex-col">
             <div className="grow sm:px-3 py-6 w-full flex flex-col md:flex-row justify-evenly items-center gap-6">
               <div className="hidden w-full h-100 md:w-1/2 md:h-150 md:flex items-center justify-center">
                 <ErrorBoundary>
@@ -217,8 +255,16 @@ const About = () => {
                   }}
                   className="w-full text-white md:text-xl text-justify"
                 >
-                  Abhivyakti, the annual cultural fest of IIIT Nagpur, is a grand celebration of expression and artistry. It serves as a dynamic platform for students to showcase their talents and foster collaboration, transforming the campus into a vibrant hub of creative brilliance.
-                  The festival features an immersive blend of music, dance, and theatre alongside signature pro-shows and stunning art exhibitions. Every segment is designed to inspire and entertain, inviting the community to explore their potential within a high-energy carnival atmosphere.
+                  Abhivyakti, the annual cultural fest of IIIT Nagpur, is a
+                  grand celebration of expression and artistry. It serves as a
+                  dynamic platform for students to showcase their talents and
+                  foster collaboration, transforming the campus into a vibrant
+                  hub of creative brilliance. The festival features an immersive
+                  blend of music, dance, and theatre alongside signature
+                  pro-shows and stunning art exhibitions. Every segment is
+                  designed to inspire and entertain, inviting the community to
+                  explore their potential within a high-energy carnival
+                  atmosphere.
                 </motion.div>
                 <div className="mt-6 w-full md:w-fit grid place-items-center">
                   <button

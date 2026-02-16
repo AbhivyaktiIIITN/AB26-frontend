@@ -2,7 +2,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import {
   AuthModalProvider,
@@ -62,6 +62,8 @@ const ProfileCompletionChecker = () => {
 };
 
 function App() {
+  const lenisRef = useRef(null); // Create a reference to store Lenis instance
+
   // useEffect(() => {
   //   document.documentElement.style.setProperty(
   //     "--asset-base-url",
@@ -79,6 +81,8 @@ function App() {
       smoothWheel: true,
     });
 
+    lenisRef.current = lenis; // Save the instance to the ref
+
     // Connect Lenis to GSAP ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
 
@@ -89,6 +93,9 @@ function App() {
 
     // Disable GSAP's lag smoothing to prevent stuttering
     gsap.ticker.lagSmoothing(0);
+
+    // Expose the Lenis instance globally so modals can control it
+    window.lenis = lenis;
 
     return () => {
       lenis.destroy();

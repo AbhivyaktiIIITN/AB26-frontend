@@ -58,10 +58,12 @@ const ModalAuthLayout = () => {
     if (isOpen) {
       document.addEventListener("keydown", handleEscape);
       document.body.style.overflow = "hidden";
+      window.lenis?.stop(); // Stop the background smooth scroll
     }
     return () => {
       document.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = "unset";
+      window.lenis?.start(); // Restart it when closed
     };
   }, [isOpen, closeAuth, mode]);
 
@@ -89,6 +91,7 @@ const ModalAuthLayout = () => {
             }}
             className="relative bg-white rounded-lg shadow-xl max-w-6xl w-full h-fit sm:max-h-[75vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
+            data-lenis-prevent
           >
             {/* close button - hidden for profile-completion */}
             {mode !== "profile-completion" && (

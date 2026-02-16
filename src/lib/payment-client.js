@@ -69,7 +69,7 @@ export const initializeRazorpay = (orderData, userDetails, purchaseType) => {
         amount: orderData.amount,
         currency: orderData.currency,
         order_id: orderData.orderId,
-        name: "AB26 Event",
+        name: "Abhivyakti Fest",
         description: description,
         handler: function (response) {
           resolve(response);
@@ -78,9 +78,6 @@ export const initializeRazorpay = (orderData, userDetails, purchaseType) => {
           name: userDetails.name || "Guest User",
           email: userDetails.email || "",
           contact: userDetails.contact || "",
-        },
-        theme: {
-          color: "#667eea",
         },
         modal: {
           ondismiss: function () {

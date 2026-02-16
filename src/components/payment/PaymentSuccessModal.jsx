@@ -1,14 +1,29 @@
+import { useEffect } from "react";
+
 const PaymentSuccessModal = ({
   isOpen,
   onClose,
   paymentData = {},
   onViewDashboard = null,
 }) => {
+  // Disable Lenis smooth scroll when modal is open
+  useEffect(() => {
+    if (!isOpen) return;
+    window.lenis?.stop(); // Stop the background smooth scroll
+
+    return () => {
+      window.lenis?.start(); // Restart it when closed
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1350]">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 relative">
+      <div
+        className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 relative"
+        data-lenis-prevent
+      >
         {/* Close button */}
         <button
           onClick={onClose}

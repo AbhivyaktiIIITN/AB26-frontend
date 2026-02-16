@@ -8,21 +8,24 @@
 
 @font-face {
   font-family: "Besta Baru";
-  src: url("https://assets.2026.abhivyaktifest.in/fonts/BestaBaru.otf") format("opentype");
+  src: url("https://assets.2026.abhivyaktifest.in/fonts/BestaBaru.otf")
+    format("opentype");
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: "BudmoJigglish";
-  src: url("https://assets.2026.abhivyaktifest.in/src/assets/fonts/budmo jigglish.otf") format("opentype");
+  src: url("https://assets.2026.abhivyaktifest.in/src/assets/fonts/budmo jigglish.otf")
+    format("opentype");
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Aquila";
-  src: url("https://assets.2026.abhivyaktifest.in/fonts/aqila-demoversion-regular.otf") format("opentype");
+  src: url("https://assets.2026.abhivyaktifest.in/fonts/aqila-demoversion-regular.otf")
+    format("opentype");
   font-weight: 400;
   font-display: swap;
 }
@@ -45,6 +48,17 @@ html.lenis body {
 
 .lenis.lenis-stopped {
   overflow: hidden;
+}
+
+.lenis-stopped {
+  overflow: hidden !important;
+}
+
+/* Ensure scrollable content within modal scrolls smoothly */
+[data-lenis-prevent] {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .lenis.lenis-smooth iframe {

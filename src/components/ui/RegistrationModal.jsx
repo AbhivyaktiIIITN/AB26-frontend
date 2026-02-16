@@ -82,6 +82,15 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
     loadEvent();
   }, [eventId, showToast]);
 
+  // Disable Lenis smooth scroll when modal is open
+  useEffect(() => {
+    window.lenis?.stop(); // Stop the background smooth scroll
+
+    return () => {
+      window.lenis?.start(); // Restart it when closed
+    };
+  }, []);
+
   // Check authentication on mount
   useEffect(() => {
     if (!isAuthenticated && !authToastShownRef.current) {
@@ -384,6 +393,7 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
         transition={{ duration: 0.2 }}
         className={styles.modal}
         onClick={(e) => e.stopPropagation()}
+        data-lenis-prevent
       >
         <div className={styles.header}>
           <h2 className={styles.title}>{event.name}</h2>
@@ -421,7 +431,7 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
               className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
             >
               <span className="text-white font-semibold flex items-center gap-2">
-                <span>➕</span> Create New Team
+                Create New Team
               </span>
               <span
                 className={`text-gray-400 transition-transform ${
@@ -438,7 +448,7 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="overflow-hidden bg-white/[0.02] border-t border-white/10 p-4 space-y-3"
+                  className="overflow-hidden bg-white/2 border-t border-white/10 p-4 space-y-3"
                 >
                   <div>
                     <label className={styles.label}>Team Name</label>
@@ -474,7 +484,7 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
               className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
             >
               <span className="text-white font-semibold flex items-center gap-2">
-                <span>👥</span> Join Existing Team
+                Join Existing Team
               </span>
               <span
                 className={`text-gray-400 transition-transform ${
@@ -491,7 +501,7 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="overflow-hidden bg-white/[0.02] border-t border-white/10 p-4 space-y-3"
+                  className="overflow-hidden bg-white/2 border-t border-white/10 p-4 space-y-3"
                 >
                   <div>
                     <label className={styles.label}>Team Code</label>

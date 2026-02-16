@@ -3,7 +3,8 @@
    ======================================== */
 @font-face {
   font-family: var(--font-besta-baru);
-  src: url('https://assets.2026.abhivyaktifest.in/fonts/BestaBaru.otf') format('opentype');
+  src: url("https://assets.2026.abhivyaktifest.in/fonts/BestaBaru.otf")
+    format("opentype");
   font-weight: 400;
   font-style: normal;
 }
@@ -45,7 +46,7 @@
   background-color: #ffffff;
 }
 .subtitle-text {
-  font-size: 0.85rem;
+  font-size: 16px;
   font-weight: 400;
   letter-spacing: 0.15em;
   color: #ffffff;
@@ -281,6 +282,9 @@
   }
   .section-container {
     padding: 0 10px;
+  }
+  .subtitle-text {
+    font-size: 12px;
   }
   .cards-wrapper {
     padding: 40px 0;

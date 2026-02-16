@@ -1,6 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import ExploreCard from "./ExploreCards";
 
+const sectionConfig = {
+  subtitle: "Voices That Inspire",
+  showSubtitle: true,
+};
+
 const Explore = () => {
   const navigate = useNavigate();
 
@@ -22,21 +27,31 @@ const Explore = () => {
   return (
     <section className="relative w-full h-fit overflow-x-hidden">
       <div className="relative px-4 sm:px-10 lg:px-20 pt-10 pb-12 sm:pb-20 flex flex-col items-center gap-10 sm:gap-14">
-        <div className="flex items-center gap-3 sm:gap-4">
-          <div className="w-8 sm:w-12 h-0.5 bg-white/80 rounded-full" />
-          <span className="text-white text-xs sm:text-base tracking-widest uppercase font-light">
-            On Stage and Beyond
-          </span>
-          <div className="w-8 sm:w-12 h-0.5 bg-white/80 rounded-full" />
+        <div className="flex flex-col items-center gap-5 sm:gap-10 sm:pb-6">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="w-8 sm:w-12 h-0.5 bg-white/80 rounded-full" />
+            <span className="text-white text-xs sm:text-base tracking-widest font-light">
+              On Stage and Beyond
+            </span>
+            <div className="w-8 sm:w-12 h-0.5 bg-white/80 rounded-full" />
+          </div>
+          <h1
+            className="tracking-wide uppercase text-5xl sm:text-6xl md:text-8xl"
+            style={{ fontFamily: "'Aquila', serif", fontWeight: 400 }}
+          >
+            {/* <span className="text-white">GUESTS & </span>
+          <br /> */}
+            <span className="text-[#FDB931]">explore</span>
+          </h1>
         </div>
 
-        <div
+        {/* <div
           className="w-full h-8 sm:h-12 bg-contain bg-center bg-no-repeat"
           style={{
             backgroundImage:
               "url('https://assets.2026.abhivyaktifest.in/images/Home/EXPLORE.png')",
           }}
-        />
+        /> */}
 
         <div className="w-full max-w-275 mx-auto flex flex-wrap justify-center gap-y-12 sm:gap-y-16 gap-x-10 lg:gap-x-16 mt-10">
           <ExploreCard

@@ -3,6 +3,11 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
+const sectionConfig = {
+  subtitle: "Canvas of Voices and Vibes",
+  showSubtitle: true,
+};
+
 // Error Boundary for 3D content
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -27,7 +32,9 @@ class ErrorBoundary extends React.Component {
 // 1. MODEL COMPONENT (Dynamic Interactable)
 // ------------------------------------------------------------------
 const MaskModel = (props) => {
-  const { scene } = useGLTF("https://assets.2026.abhivyaktifest.in/3d-Models/gold_masquerade_mask.glb");
+  const { scene } = useGLTF(
+    "https://assets.2026.abhivyaktifest.in/3d-Models/gold_masquerade_mask.glb",
+  );
   const meshRef = useRef();
   const lightRef = useRef(); // Dynamic glossy light
 
@@ -101,7 +108,9 @@ const MaskModel = (props) => {
   );
 };
 
-useGLTF.preload("https://assets.2026.abhivyaktifest.in/3d-Models/gold_masquerade_mask.glb");
+useGLTF.preload(
+  "https://assets.2026.abhivyaktifest.in/3d-Models/gold_masquerade_mask.glb",
+);
 
 // ------------------------------------------------------------------
 // 2. MAIN COMPONENT
@@ -117,64 +126,73 @@ const AboutTheme = () => {
   }, []);
 
   return (
-    <section className="relative w-full min-h-screen text-[#D4AF37] overflow-hidden flex flex-col justify-center px-6 md:px-16 py-8 md:py-12">
-      <div className="w-full mb-12 md:mb-24 relative z-20">
+    <section className="relative w-full text-[#D4AF37] overflow-hidden flex flex-col justify-center px-2 md:px-16 py-8 md:py-12">
+      <div className="section-title">
+        {sectionConfig.showSubtitle && (
+          <div className="subtitle-line">
+            <span className="line"></span>
+            <span className="subtitle-text">{sectionConfig.subtitle}</span>
+          </div>
+        )}
+
         <h1
           className="tracking-wide uppercase text-5xl sm:text-6xl md:text-8xl"
           style={{ fontFamily: "'Aquila', serif", fontWeight: 400 }}
         >
-          <span className="text-white">About </span>
-          <span className="text-[#FDB931]">Theme</span>
+          <span className="text-white">about</span>{" "}
+          <span className="text-[#FDB931]">theme</span>
         </h1>
       </div>
 
       {/* CONTENT GRID */}
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-12 gap-8 md:gap-16 items-start relative z-20">
+      <div className="w-full px-5 gap-6 md:gap-8 lg:gap-12 relative z-20 flex flex-col md:flex-row md:items-start">
         {/* COL 1: TITLE */}
-        {/* 
-                   Mobile: Stacked 
-                   Tablet & Laptop (md - 2xl): Col 1, Row 1 
-                   Desktop (2xl+): Col 1-3 
-                */}
-        <div className="md:col-span-1 2xl:col-span-3 flex flex-col items-start pt-2">
-          <span className="text-[#FDB931] text-lg md:text-xl lg:text-2xl tracking-[0.2em] uppercase font-serif mb-2">
+        <div className="flex flex-row flex-wrap md:flex-col items-center md:items-start gap-2 md:gap-0 justify-center md:justify-start w-full md:w-auto md:flex-shrink-0">
+          <span
+            className="text-[#FDB931] text-2xl sm:text-3xl md:text-3xl lg:text-5xl xl:text-6xl font-serif tracking-widest uppercase leading-tight"
+            style={{ fontFamily: "'Besta Baru', serif", fontWeight: 400 }}
+          >
             The
           </span>
-          <h2 className="text-[#FDB931] text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-serif tracking-widest uppercase leading-tight">
+          <h2
+            className="text-[#FDB931] text-2xl sm:text-3xl md:text-3xl lg:text-5xl xl:text-6xl font-serif tracking-widest uppercase leading-tight"
+            style={{ fontFamily: "'Besta Baru', serif", fontWeight: 400 }}
+          >
             Enchanted
           </h2>
-          <h2 className="text-[#FDB931] text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-serif tracking-widest uppercase leading-tight mt-0">
+          <h2
+            className="text-[#FDB931] text-2xl sm:text-3xl md:text-3xl lg:text-5xl xl:text-6xl font-serif tracking-widest uppercase leading-tight mt-0"
+            style={{ fontFamily: "'Besta Baru', serif", fontWeight: 400 }}
+          >
             Circus
           </h2>
         </div>
-
         {/* COL 2: PARAGRAPH */}
-        {/* 
-                   Mobile: Stacked 
-                   Tablet & Laptop (md - 2xl): Col 1, Row 2 (Stacked below title) 
-                   Desktop (2xl+): Col 4-8 (Center)
-                */}
-        <div className="pr-4 md:pr-0 md:col-span-1 md:row-start-2 2xl:col-span-5 2xl:col-start-auto 2xl:row-start-auto md:px-0 2xl:pl-20 2xl:pr-8">
+        <div className="w-full md:flex-1 md:px-4 lg:px-8">
           <p
-            className="leading-relaxed tracking-wide text-justify opacity-90 text-base md:text-lg lg:text-xl"
+            className="leading-relaxed  text-justify opacity-90 text-base md:text-lg lg:text-xl"
             style={{
               fontFamily: "'Gabarito', sans-serif",
               fontWeight: 500,
               color: "white",
             }}
           >
-            The Enchanted Circus is an invitation to leave the ordinary behind and step into a realm where the impossible feels like home. It is a celebration of the whimsical and the purely joyful, transforming our campus into a spectacle of golden lights and laughter. At its heart, this theme is a tribute to that breathtaking moment of wonder when art and melody fill the night.
-            We are creating a Midnight Carnival wrapped in velvet and stardust, blending vintage charm with surreal magic. In this arena, there are no spectators, only participants in the magic. The Enchanted Circus is your playground, a reminder that when we come together, we create a spectacle that lingers in the heart long after the curtains fall.
+            The Enchanted Circus is an invitation to leave the ordinary behind
+            and step into a realm where the impossible feels like home. It is a
+            celebration of the whimsical and the purely joyful, transforming our
+            campus into a spectacle of golden lights and laughter. At its heart,
+            this theme is a tribute to that breathtaking moment of wonder when
+            art and melody fill the night. We are creating a Midnight Carnival
+            wrapped in velvet and stardust, blending vintage charm with surreal
+            magic. In this arena, there are no spectators, only participants in
+            the magic. The Enchanted Circus is your playground, a reminder that
+            when we come together, we create a spectacle that lingers in the
+            heart long after the curtains fall.
           </p>
         </div>
 
-        {/* COL 3: MASK CONTAINER (Static) */}
-        {/* 
-                   Mobile: Hidden 
-                   Tablet & Laptop (md - 2xl): Col 2, Row 1-2 (Full Height Right Side) 
-                   Desktop (2xl+): Col 9-12 (Right Side)
-                */}
-        <div className="hidden md:flex md:col-span-1 md:col-start-2 md:row-start-1 md:row-span-2 2xl:col-span-4 2xl:col-start-auto 2xl:row-start-auto 2xl:row-span-1 relative h-100 md:h-full lg:h-150 w-full items-center">
+        {/* COL 3: MASK CONTAINER (3D Model) */}
+        <div className="hidden xl:flex md:w-80 lg:w-96 xl:w-md 2xl:w-lg md:shrink-0 relative h-100 md:h-auto md:min-h-150 w-full items-center justify-center">
           {isDesktop && (
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] z-10 pointer-events-auto">
               <ErrorBoundary>
