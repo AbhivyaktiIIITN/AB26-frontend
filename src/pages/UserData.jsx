@@ -4,6 +4,7 @@ import { useAuthModal } from "../components/auth/ModalAuthLayout";
 import TeamModal from "../components/ui/TeamModal";
 import { useAuth } from "../contexts/AuthProvider";
 import { useToast } from "../contexts/ToastContext";
+import { serialIdToABID } from "../utils/abid-utils";
 import { signOut } from "../lib/auth-client";
 import { getEventById } from "../lib/event-client";
 import {
@@ -221,7 +222,7 @@ const UserData = () => {
                 <span className="text-gray-400 text-sm mr-2">AB ID:</span>
                 <span className="text-red-500 font-bold text-lg">
                   {profileUser?.serialId ? (
-                    `AB${String(profileUser.serialId).padStart(5, "0")}`
+                    serialIdToABID(profileUser.serialId)
                   ) : (
                     <SkeletonLoader />
                   )}
@@ -381,20 +382,19 @@ const UserData = () => {
                             </span>
                             {(reg.status?.toLowerCase() === "active" ||
                               reg.status?.toLowerCase() === "success") && (
-                              <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-green-900 text-green-400 border border-green-600">
-                                Active
-                              </span>
-                            )}
+                                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-green-900 text-green-400 border border-green-600">
+                                  Active
+                                </span>
+                              )}
                           </div>
                         </td>
                         <td className="px-4 py-3">
                           <span
-                            className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium ${
-                              reg.status?.toLowerCase() === "active" ||
+                            className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium ${reg.status?.toLowerCase() === "active" ||
                               reg.status?.toLowerCase() === "success"
-                                ? "bg-green-900 text-green-400 border border-green-600"
-                                : "bg-green-900 text-green-400 border border-green-600"
-                            }`}
+                              ? "bg-green-900 text-green-400 border border-green-600"
+                              : "bg-green-900 text-green-400 border border-green-600"
+                              }`}
                           >
                             {reg.status || "Active"}
                           </span>
@@ -402,13 +402,13 @@ const UserData = () => {
                         <td className="px-4 py-3 text-gray-400 text-sm">
                           {reg.created_at
                             ? new Date(reg.created_at).toLocaleDateString(
-                                "en-US",
-                                {
-                                  day: "numeric",
-                                  month: "short",
-                                  year: "numeric",
-                                },
-                              )
+                              "en-US",
+                              {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                              },
+                            )
                             : "N/A"}
                         </td>
                       </tr>
@@ -455,28 +455,19 @@ const UserData = () => {
                           {pass.passType?.name || "N/A"}
                         </td>
                         <td className="px-4 py-3">
-                          <span
-                            className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium capitalize ${
-                              pass.transaction?.status?.toLowerCase() ===
-                                "active" ||
-                              pass.transaction?.status?.toLowerCase() ===
-                                "success"
-                                ? "bg-green-900 text-green-400 border border-green-600"
-                                : "bg-gray-900 text-red-400 border border-red-600"
-                            }`}
-                          >
-                            {pass.transaction?.status || "N/A"}
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium capitalize bg-green-900 text-green-400 border border-green-600">
+                            {pass.status || "Active"}
                           </span>
                         </td>
                         <td className="px-4 py-3 text-gray-400 text-sm">
-                          {pass.transaction?.created_at
+                          {pass.createdAt || pass.created_at
                             ? new Date(
-                                pass.transaction.created_at,
-                              ).toLocaleDateString("en-US", {
-                                day: "numeric",
-                                month: "short",
-                                year: "numeric",
-                              })
+                              pass.createdAt || pass.created_at,
+                            ).toLocaleDateString("en-US", {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                            })
                             : "N/A"}
                         </td>
                       </tr>
@@ -523,28 +514,19 @@ const UserData = () => {
                           {booking.accommodationType?.name || "N/A"}
                         </td>
                         <td className="px-4 py-3">
-                          <span
-                            className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium capitalize ${
-                              booking.transaction?.status?.toLowerCase() ===
-                                "active" ||
-                              booking.transaction?.status?.toLowerCase() ===
-                                "success"
-                                ? "bg-green-900 text-green-400 border border-green-600"
-                                : "bg-gray-900 text-red-400 border border-red-600"
-                            }`}
-                          >
-                            {booking.transaction?.status || "Pending"}
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium capitalize bg-green-900 text-green-400 border border-green-600">
+                            {booking.status || "Active"}
                           </span>
                         </td>
                         <td className="px-4 py-3 text-gray-400 text-sm">
-                          {booking.transaction?.created_at
+                          {booking.createdAt || booking.created_at
                             ? new Date(
-                                booking.transaction.created_at,
-                              ).toLocaleDateString("en-US", {
-                                day: "numeric",
-                                month: "short",
-                                year: "numeric",
-                              })
+                              booking.createdAt || booking.created_at,
+                            ).toLocaleDateString("en-US", {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                            })
                             : "N/A"}
                         </td>
                       </tr>

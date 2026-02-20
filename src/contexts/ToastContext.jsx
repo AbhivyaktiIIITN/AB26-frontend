@@ -13,7 +13,14 @@ export const useToast = () => {
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
-  const showToast = useCallback((message, type = "success") => {
+  const showToast = useCallback((rawMessage, type = "success") => {
+    let message = typeof rawMessage === "string" ? rawMessage : "Something went wrong";
+
+    // Prevent raw JS JSON parsing errors from reaching the UI
+    if (message.includes("JSON") || message.includes("Unexpected token")) {
+      message = "Server Error: Invalid response from server";
+    }
+
     const id = Date.now();
     const newToast = { id, message, type };
 

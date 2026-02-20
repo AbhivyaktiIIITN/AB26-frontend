@@ -122,6 +122,14 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
           showToast("First name is required", "error");
           return false;
         }
+        if (!formData.lastName.trim()) {
+          showToast("Last name is required", "error");
+          return false;
+        }
+        if (!formData.dateOfBirth) {
+          showToast("Date of birth is required", "error");
+          return false;
+        }
         return true;
       case 2:
         if (!formData.collegeName.trim()) {
@@ -381,7 +389,8 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
-                placeholder="Last Name (Optional)"
+                placeholder="Last Name"
+                required
                 className="p-3 sm:p-4 border-2 border-gray-600 text-sm sm:text-base transition-all duration-200 focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951] placeholder-gray-400"
               />
               <div className="relative w-full">
@@ -391,6 +400,7 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
                   value={formData.dateOfBirth}
                   onChange={handleChange}
                   onClick={(e) => e.target.showPicker?.()}
+                  required
                   className={`w-full p-3 sm:p-4 border-2 border-gray-600 rounded-none bg-transparent
                   text-sm sm:text-base transition-all duration-200 cursor-pointer
                   focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951]
@@ -471,11 +481,10 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
                   onChange={(e) => handleOtpChange(e.target.value, idx)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
                   onPaste={idx === 0 ? handlePaste : undefined}
-                  className={`w-12 h-14 text-center text-xl font-semibold border-2 rounded-md transition-all duration-200 focus:outline-none ${
-                    digit
-                      ? "border-green-500 bg-green-50 text-green-800"
-                      : "border-gray-600 focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951]"
-                  }`}
+                  className={`w-12 h-14 text-center text-xl font-semibold border-2 rounded-md transition-all duration-200 focus:outline-none ${digit
+                    ? "border-green-500 bg-green-50 text-green-800"
+                    : "border-gray-600 focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951]"
+                    }`}
                   autoComplete="one-time-code"
                 />
               ))}

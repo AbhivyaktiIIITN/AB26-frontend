@@ -74,16 +74,18 @@ export default function ProfileCompletionModal({ onClose, onSuccess }) {
         return;
       }
 
+      if (!dateOfBirth) {
+        showToast("Please enter your date of birth", "error");
+        return;
+      }
+
       setLoading(true);
 
       const profileData = {
         collegeName: collegeName.trim(),
         phoneNumber: phoneNumber.trim(),
+        dateOfBirth: new Date(dateOfBirth),
       };
-
-      if (dateOfBirth) {
-        profileData.dateOfBirth = new Date(dateOfBirth);
-      }
 
       const result = await updateUserProfile(user.id, profileData);
 
@@ -172,6 +174,7 @@ export default function ProfileCompletionModal({ onClose, onSuccess }) {
                 onChange={(e) => setDateOfBirth(e.target.value)}
                 onClick={(e) => e.target.showPicker?.()}
                 disabled={loading}
+                required
                 className={`w-full p-3 sm:p-4 border-2 border-gray-600 rounded-none bg-transparent
                   text-sm sm:text-base transition-all duration-200 cursor-pointer
                   focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951]
@@ -184,7 +187,7 @@ export default function ProfileCompletionModal({ onClose, onSuccess }) {
               {/* Fake placeholder */}
               {!dateOfBirth && (
                 <span className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm sm:text-base pointer-events-none z-0">
-                  Date of Birth (Optional)
+                  Date of Birth
                 </span>
               )}
             </div>

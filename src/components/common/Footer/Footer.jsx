@@ -24,7 +24,7 @@ function Footer() {
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Shipping Policy", href: "/shipping" },
     { label: "Cancellation & Refunds", href: "/cancellation" },
-  ]
+  ];
 
   return (
     <footer className="font-[Gabarito] text-white w-full flex flex-col overflow-x-hidden">
@@ -79,8 +79,7 @@ function Footer() {
             </div>
 
             <div className="w-full md:flex-1 min-w-0">
-              <div
-                className="grid grid-cols-2 xl:grid-cols-4 gap-y-8 gap-x-10 md:gap-x-14 lg:gap-x-20 ">
+              <div className="grid grid-cols-2 xl:grid-cols-4 gap-y-8 gap-x-10 md:gap-x-14 lg:gap-x-20 ">
                 <div className="flex flex-col gap-2 sm:gap-4 w-full md:w-auto md:min-w-35 xl:w-32">
                   <h3 className="text-base md:text-lg font-normal leading-tight tracking-widest">
                     Quick Links

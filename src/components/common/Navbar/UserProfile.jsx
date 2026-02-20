@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { serialIdToABID } from "../../../utils/abid-utils.js";
 import { getUserProfile } from "../../../lib/user-client";
 
 const UserProfile = ({ user, logout }) => {
@@ -37,11 +38,10 @@ const UserProfile = ({ user, logout }) => {
   }, [isOpen, user?.id, profileData]);
 
   // Use serialId for AB ID
-  const abId = profileData?.serialId
-    ? `AB-${String(profileData.serialId).padStart(5, "0")}`
-    : user?.serialId
-      ? `AB-${String(user.serialId).padStart(5, "0")}`
-      : "AB-" + user?.id?.slice(0, 6).toUpperCase();
+  const abId =
+    serialIdToABID(profileData?.serialId) ||
+    serialIdToABID(user?.serialId) ||
+    "ABXXXXX";
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);

@@ -12,13 +12,9 @@ import {
   removeMember,
 } from "../../lib/team-client";
 import { getUserPassesAndAccommodations } from "../../lib/user-client";
+import { abidToSerialId } from "../../utils/abid-utils";
 
-// Helper function to convert ABID to serial ID
-const abidToSerialId = (abid) => {
-  if (!abid) return null;
-  const num = parseInt(abid.replace(/[^0-9]/g, ""));
-  return isNaN(num) ? null : num;
-};
+
 
 const TeamModal = ({ teamId, eventId, onClose, onSuccess }) => {
   const { user: currentUser } = useAuth();
@@ -448,11 +444,10 @@ const TeamModal = ({ teamId, eventId, onClose, onSuccess }) => {
                         return (
                           <tr
                             key={member.userId}
-                            className={`border-b border-white/5 transition ${
-                              isCurrentUser
-                                ? "bg-yellow-500/10 border-l-2 border-l-yellow-500"
-                                : "hover:bg-white/5"
-                            }`}
+                            className={`border-b border-white/5 transition ${isCurrentUser
+                              ? "bg-yellow-500/10 border-l-2 border-l-yellow-500"
+                              : "hover:bg-white/5"
+                              }`}
                           >
                             <td className="px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-base text-gray-400">
                               {idx + 1}
@@ -475,11 +470,10 @@ const TeamModal = ({ teamId, eventId, onClose, onSuccess }) => {
                             {isLeader && (
                               <td className="text-center px-2 sm:px-3 py-1 sm:py-2">
                                 <span
-                                  className={`text-xs sm:text-base rounded font-medium ${
-                                    memberPasses[member.userId]
-                                      ? " text-green-400"
-                                      : " text-red-400"
-                                  }`}
+                                  className={`text-xs sm:text-base rounded font-medium ${memberPasses[member.userId]
+                                    ? " text-green-400"
+                                    : " text-red-400"
+                                    }`}
                                 >
                                   {memberPasses[member.userId]
                                     ? "Eligible"

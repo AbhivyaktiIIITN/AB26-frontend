@@ -1,5 +1,4 @@
 import TshirtImg from "../../public/tshirt.svg";
-import PayButton from "../Razorpay/PayButton";
 
 function Product() {
   return (
@@ -25,17 +24,12 @@ function Product() {
             ₹24
           </span>
 
-          <PayButton
-            amount={24}
-            currency="INR"
-            receipt="event_pass_123" //reciept number optional 
-            userId={1}
-            title="IIITN Abhivyakti26"
-            description="Event Passes"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg"
+          <button
+            disabled
+            className="bg-gray-400 text-white px-6 py-2 rounded-lg cursor-not-allowed"
           >
-            Pay Now
-          </PayButton>
+            Payments Disabled
+          </button>
 
         </div>
 
