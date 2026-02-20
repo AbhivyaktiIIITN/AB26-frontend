@@ -805,11 +805,17 @@ export const exploreData = {
           max_team_size: 5,
           bg_img:
             "https://assets.2026.abhivyaktifest.in/images/explore/events/probe.png",
+          theme: [
+            "Theme: The Choice to Escape",
+            "Every escape begins with a decision.A decision to walk away, to break free, to confront, or to change. The Choice to Escape explores the moment when a character stands at a crossroads, between staying and leaving, silence and expression, fear and freedom.",
+            "Escape doesn’t always mean running away from a place. It can be escaping expectations, relationships, identity, routine, or even one’s own thoughts. Through this theme, we invite filmmakers to tell stories where a single choice leads to transformation, whether it brings liberation, consequences, or self discovery.",
+            "Participants are encouraged to interpret the theme creatively across genres and narratives, while focusing on strong storytelling and the impact of one defining decision."
+          ],
 
           description: [
-            "Step into the future of storytelling with Director’s Cut, where cinema meets interactivity. This is not a conventional short film contest. Participants must work within a given theme and create an immersive 5–10 minute short film where the audience actively influences how the story unfolds.",
-            "Genres are open—suspense, romance, sci‑fi, comedy, or experimental—but the film must clearly integrate interactive decision points. Creativity, narrative control, and execution matter more than scale or budget.",
-            "This competition challenges filmmakers to blend storytelling, structure, and audience engagement into a single cohesive cinematic experience.",
+            "Step into the future of storytelling with Director’s Cut, where cinema meets creativity. This is not just another short film competition but a platform for filmmakers to explore storytelling within the creative boundaries of a given theme.",
+            "Participants are required to create an original 8 to 10 minute short film based on the theme that will be released 30 days prior to the event. Each film must closely align with the announced theme while reflecting the participant’s unique interpretation, vision, and cinematic style. Whether it is suspense, romance, science fiction, or comedy, every genre is welcome.",
+            "Blend creativity, technical skill, and storytelling excellence to craft a compelling cinematic experience and showcase your filmmaking prowess on screen.",
           ],
 
           prizes: {
@@ -824,14 +830,13 @@ export const exploreData = {
           stages: [
             {
               id: "round_1",
-              title: "Trailer Submission (Online)",
-              start_date: "",
-              end_date: "",
+              title: "Round 1: Trailer Submission (Online)",
+              start_date: "9th February 2026",
+              end_date: "13th March 2026",
 
               description: [
                 "Participants must submit a 1‑minute trailer based on the given theme.",
-                "Deadline: 1 week prior to the event.",
-                "The trailer should clearly hint at the concept and interactive element.",
+                "Deadline - 13th March 2026."
               ],
 
               submission_requirements: [
@@ -839,19 +844,19 @@ export const exploreData = {
                 "Presentation Mode: Personal device (laptop, tablet, or USB drive).",
               ],
             },
-            {
-              id: "round_2",
-              title: "Finalist Selection",
-              start_date: "",
-              end_date: "",
+            // {
+            //   id: "round_2",
+            //   title: "Finalist Selection",
+            //   start_date: "",
+            //   end_date: "",
 
-              description: [
-                "Teams will be shortlisted based on the trailer.",
-                "Only selected finalists will proceed to the final round.",
-              ],
+            //   description: [
+            //     "Teams will be shortlisted based on the trailer.",
+            //     "Only selected finalists will proceed to the final round.",
+            //   ],
 
-              submission_requirements: "",
-            },
+            //   submission_requirements: "",
+            // },
             {
               id: "round_3",
               title: "On‑Campus Presentation (Offline)",
@@ -860,15 +865,18 @@ export const exploreData = {
 
               description: [
                 "Finalists must present the complete 5–10 minute short film on campus on the day of the event.",
-                "Films must be presented on the team’s own device (laptop, tablet, or USB drive).",
+                // "Films must be presented on the team’s own device (laptop, tablet, or USB drive).",
               ],
 
-              submission_requirements: [
-                "Team name",
-                "Contact details",
-                "Brief description of the story",
-                "Explanation of the interactive element",
-              ],
+              submission_requirements: {
+                title: "Evaluation Criteria",
+                rules: [
+                  "Creativity: Originality of the concept and uniqueness in interpreting the theme.",
+                  "Theme Alignment: Effectiveness in incorporating and presenting the announced theme within the narrative.",
+                  "Storytelling: Quality of plot, characters, and visual presentation.",
+                  "Execution: Technical quality and smooth integration of the interactive moments.",
+                ]
+              },
             },
           ],
 
