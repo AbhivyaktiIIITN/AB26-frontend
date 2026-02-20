@@ -139,7 +139,7 @@ function Footer() {
                         href="tel:+917506103104"
                         className="text-sm md:text-base font-normal leading-tight tracking-widest text-neutral-200 no-underline transition-colors duration-200 hover:text-white"
                       >
-                        +91 7506103104
+                        +91 8109134887
                       </a>
                     </li>
                   </ul>

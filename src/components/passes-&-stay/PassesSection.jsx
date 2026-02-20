@@ -187,7 +187,7 @@ const PassesSection = () => {
                             disabled={isLoading || !isLive || isSoldOut}
                             style={{ opacity: (isLoading || !isLive || isSoldOut) ? 0.6 : 1, cursor: (isLoading || !isLive || isSoldOut) ? 'not-allowed' : 'pointer' }}
                         >
-                            {isLoading ? "Redirecting..." : !isLive ? "Coming Soon" : isSoldOut ? (isAccommodation ? "Unavailable" : "Unavailable") : "Buy Now"}
+                            {isLoading ? "Redirecting..." : !isLive ? "Coming Soon" : isSoldOut ? (isAccommodation ? "Unavailable" : "Unavailable") : "Register"}
                         </button>
                     </div>
                 </motion.div>

@@ -102,6 +102,44 @@ const About = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.6], [0, 0.8]);
   const raysOpacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 0]);
 
+
+  const iframeRef = useRef(null);
+  const [playerReady, setPlayerReady] = useState(false);
+
+  const playerRef = useRef(null);
+
+  useEffect(() => {
+    const tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.body.appendChild(tag);
+
+    window.onYouTubeIframeAPIReady = () => {
+      playerRef.current = new window.YT.Player("aboutVideo", {
+        events: {
+          onReady: () => setPlayerReady(true),
+        },
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!playerReady || !playerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          playerRef.current.playVideo();
+          // playerRef.current.unMute();
+        }
+      },
+      { threshold: 0.6 }
+    );
+
+    observer.observe(iframeRef.current);
+
+    return () => observer.disconnect();
+  }, [playerReady]);
+
   return (
     <section
       ref={sectionRef}
@@ -136,7 +174,7 @@ const About = () => {
         />
       </div>
 
-      <div 
+      <div
         className="w-full h-full relative z-10"
         style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.70) 10%, rgba(0,0,0,0.70) 90%, rgba(0,0,0,0.95) 100%)" }}
       >
@@ -279,19 +317,20 @@ const About = () => {
           </div>
         </div>
         <div className="px-4 sm:px-8 pt-8 sm:pt-12 pb-16 sm:pb-24 grid place-items-center">
-          {/* <div className="w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-230 border-2 border-white/30 backdrop-blur-2xl p-3 sm:p-5 md:px-16 md:py-8 rounded-2xl sm:rounded-3xl lg:rounded-4xl">
+          <div className="w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-230 border-2 border-white/30 backdrop-blur-2xl p-3 sm:p-5 md:px-16 md:py-8 rounded-2xl sm:rounded-3xl lg:rounded-4xl">
             <div className="w-full aspect-video sm:h-120 border-4 border-double border-amber-200/30 overflow-hidden rounded-xl sm:rounded-2xl lg:rounded-3xl">
               <iframe
+                id="aboutVideo"
+                ref={iframeRef}
                 width="100%"
                 height="100%"
-                src="https://www.youtube.com/embed/droNt6x2P7E"
-                title='"The Greatest Show" Background Animation'
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
+                src="https://www.youtube.com/embed/JAPkAl-JcNs?enablejsapi=1&mute=1&playsinline=1"
+                title="Abhivyakti Aftermovie"
+                allow="autoplay; encrypted-media"
                 allowFullScreen
-              ></iframe>
+              />
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </section>
