@@ -6,6 +6,7 @@ import styles from "./EventDetailsModal.module.css";
 
 const TABS = [
   { key: "description", label: "Descriptions" },
+  { key: "theme", label: "Theme" },
   { key: "timelines", label: "Stages & Timelines" },
   { key: "rules", label: "Rules" },
   { key: "contact", label: "Contact Organizers" },
@@ -83,7 +84,7 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
                       </h4>
                       {Array.isArray(
                         stage.submission_requirements.rules ||
-                          stage.submission_requirements,
+                        stage.submission_requirements,
                       ) ? (
                         <ul>
                           {(
@@ -288,6 +289,20 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
             )}
           </div>
         );
+      case "theme":
+        return (
+          <div className={styles.descriptionContent}>
+            {Array.isArray(event.theme) ? (
+              event.theme.map((desc, index) => (
+                <p key={index} className={styles.paragraph}>
+                  {desc}
+                </p>
+              ))
+            ) : (
+              <p className={styles.paragraph}>{event.theme}</p>
+            )}
+          </div>
+        );
       default:
         return null;
     }
@@ -336,15 +351,18 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
           </div>
 
           <div className={styles.tabs}>
-            {TABS.map((tab) => (
-              <button
-                key={tab.key}
-                className={`${styles.tabButton} ${activeTab === tab.key ? styles.active : ""}`}
-                onClick={() => setActiveTab(tab.key)}
-              >
-                {tab.label}
-              </button>
-            ))}
+            {TABS
+              .filter(tab => tab.key !== "theme" || event.theme)
+              .map((tab) => (
+                <button
+                  key={tab.key}
+                  className={`${styles.tabButton} ${activeTab === tab.key ? styles.active : ""
+                    }`}
+                  onClick={() => setActiveTab(tab.key)}
+                >
+                  {tab.label}
+                </button>
+              ))}
           </div>
 
           <div className={styles.tabContent}>{renderTabContent()}</div>
