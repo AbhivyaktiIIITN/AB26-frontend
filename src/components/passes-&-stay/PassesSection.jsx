@@ -163,10 +163,11 @@ const PassesSection = () => {
                                 </div>
                             )}
                             {isLive && (
-                                <div style={{ textAlign: 'center', fontSize: '0.95rem', color: isSoldOut ? '#ef4444' : '#ffdab9', fontWeight: 'bold', fontStyle: 'italic' }}>
+                                <div style={{ textAlign: 'center', fontSize: '0.95rem', color: '#ffdab9', fontWeight: 'bold', fontStyle: 'italic' }}>
                                     {isSoldOut
-                                        ? "Fully Sold Out"
-                                        : `Hurry Up! Only ${available} Spots Remaining!`
+                                        // ? "Fully Sold Out"
+                                        // : `Hurry Up! Only ${available} Spots Remaining!`
+                                        ? "" : "Early Bird Offer !!"
                                     }
                                 </div>
                             )}
@@ -174,14 +175,19 @@ const PassesSection = () => {
                     </div>
 
                     <div className={styles.cardFooter}>
-                        <span className={styles.priceDisplay}>{isLive && apiItem.price ? `₹${apiItem.price}` : template.fallbackPrice}</span>
+                        <div className={styles.priceContainer}>
+                            {isLive && apiItem.price && template.basePrice && apiItem.price !== Number(template.basePrice) && (
+                                <span className={styles.oldPrice}>₹{template.basePrice}</span>
+                            )}
+                            <span className={styles.priceDisplay}>{isLive && apiItem.price ? `₹${apiItem.price}` : template.fallbackPrice}</span>
+                        </div>
                         <button
                             className={styles.buyBtn}
                             onClick={onBuy}
                             disabled={isLoading || !isLive || isSoldOut}
                             style={{ opacity: (isLoading || !isLive || isSoldOut) ? 0.6 : 1, cursor: (isLoading || !isLive || isSoldOut) ? 'not-allowed' : 'pointer' }}
                         >
-                            {isLoading ? "Redirecting..." : !isLive ? "Unavailable" : isSoldOut ? (isAccommodation ? "Fully Booked" : "Sold Out") : "Buy Now"}
+                            {isLoading ? "Redirecting..." : !isLive ? "Coming Soon" : isSoldOut ? (isAccommodation ? "Unavailable" : "Unavailable") : "Buy Now"}
                         </button>
                     </div>
                 </motion.div>

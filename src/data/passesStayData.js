@@ -6,10 +6,11 @@ export const passTemplates = [
         title: "THE FLASH PASS",
         subtitle: "Flexibility on the Go",
         details: [
-            { label: "One the Fly", text: "Entry to specific on-spot events, fun zone activities, and mini-games." },
+            { label: "On the Fly", text: "Entry to specific on-spot events, fun zone activities, and mini-games." },
             { label: "Best for", text: "The casual visitors looking for quick fun and impulsive challenges." }
         ],
-        fallbackPrice: "Event wise"
+        basePrice: "1199",
+        fallbackPrice: "₹---"
     },
     {
         id: 2,
@@ -21,7 +22,8 @@ export const passTemplates = [
             { label: "The Swag", text: "Official Abhivyakti '26 Limited Edition Merch." },
             { label: "Best for", text: "The hardcore participants who want to own the stage and the nights." }
         ],
-        fallbackPrice: "₹1199"
+        basePrice: "900",
+        fallbackPrice: "₹---"
     },
     {
         id: 3,
@@ -31,7 +33,8 @@ export const passTemplates = [
             { label: "The Big Nights", text: "Entry to all Pronites and Pro-shows (Concert, DJ Night, Comedy)" },
             { label: "Best for", text: "The vibe-seekers who are here for the energy and the artists." }
         ],
-        fallbackPrice: "₹599"
+        basePrice: "1199",
+        fallbackPrice: "₹---"
     }
 ];
 
@@ -44,7 +47,8 @@ export const accommodationTemplates = [
             { label: "", text: "Private Double or 4-person sharing rooms.\nAir-Conditioned (AC), Attached private washrooms.\nFood charges applicable (Optional add-on)." }
         ],
         gender: "Boys Only",
-        fallbackPrice: "₹1199"
+        basePrice: "2000",
+        fallbackPrice: "₹---"
     },
     {
         id: 2,
@@ -54,7 +58,8 @@ export const accommodationTemplates = [
             { label: "", text: "Common Hall Arrangement (Floor bedding).\nShared washrooms, Non-AC ventilation.\nFood not included (Available at food stalls/mess)." }
         ],
         gender: "Boys Only",
-        fallbackPrice: "₹1199"
+        basePrice: "1500",
+        fallbackPrice: "₹---"
     },
     {
         id: 3,
@@ -64,6 +69,7 @@ export const accommodationTemplates = [
             { label: "", text: "Private Double or 4-person sharing rooms.\nAir-Conditioned (AC), Attached private washrooms.\nFood charges applicable (Optional add-on)." }
         ],
         gender: "Girls Only",
-        fallbackPrice: "₹1199"
+        basePrice: "2000",
+        fallbackPrice: "₹---"
     }
 ];

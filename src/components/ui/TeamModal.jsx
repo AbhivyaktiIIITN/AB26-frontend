@@ -579,7 +579,7 @@ const TeamModal = ({ teamId, eventId, onClose, onSuccess }) => {
                               onChange={(e) =>
                                 setAbidInput(e.target.value.toUpperCase())
                               }
-                              placeholder="Enter ABID"
+                              placeholder="Enter ABID of the team members"
                               className="flex-1 px-2 sm:px-3 py-1 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50 text-sm sm:text-base"
                               onKeyPress={(e) =>
                                 e.key === "Enter" && handleSearchUser()
