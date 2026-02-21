@@ -173,6 +173,7 @@ const TeamSection = () => {
       <TeamGroup title="STALLS" members={stallsTeam} />
       <TeamGroup title="DISCO" members={discoTeam} />
       <TeamGroup title="MULTIMEDIA" members={multimediaTeam} />
+      <TeamGroup title="EM-LOGI & OPS TEAM" members={emLogiOpsTeam} />
       <ClubGroup title="DOT SLASH" members={dotSlashTeam} />
       <ClubGroup title="ELEVATE" members={elevateTeam} />
       <ClubGroup title="STROKES" members={strokesTeam} />
