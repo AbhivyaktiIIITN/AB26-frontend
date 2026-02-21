@@ -466,6 +466,8 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
                 We've sent a 6‑digit code to{" "}
                 <span className="font-semibold text-gray-800">{userEmail}</span>
                 . Enter it below.
+                <br />
+                <span className="text-sm text-gray-400 mt-2 block">Please check your spam or junk folder as well.</span>
               </p>
             </div>
 

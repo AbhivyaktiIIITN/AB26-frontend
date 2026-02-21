@@ -128,10 +128,10 @@ function Footer() {
                   <ul className="flex flex-col sm:gap-2">
                     <li>
                       <a
-                        href="mailto:abhivyakti@iiitn.ac.in"
+                        href="mailto:support@abhivyaktifest.in"
                         className="text-sm md:text-base font-normal leading-tight tracking-widest text-neutral-200 no-underline transition-colors duration-200 hover:text-white"
                       >
-                        abhivyakti@iiitn.ac.in
+                        support@abhivyaktifest.in
                       </a>
                     </li>
                     <li>
