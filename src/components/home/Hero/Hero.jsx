@@ -293,7 +293,7 @@ const Hero = () => {
             </div>
             <div className="w-[calc((100%-150px)/2)] h-0.5 rounded-full bg-white"></div>
           </div>
-          <div className="w-full md:w-fit h-full grid place-items-center">
+          <div className="hidden md:block w-full md:w-fit h-full grid place-items-center">
             <button
               type="button"
               className="mt-2.5 md:mt-0 w-10 bg-amber-400 cursor-pointer aspect-square rounded-2xl bg-contain bg-center bg-no-repeat duration-300 active:scale-85"
