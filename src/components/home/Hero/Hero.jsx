@@ -26,14 +26,14 @@ const Hero = () => {
 
   return (
     <section
-      className="w-full pt-20 h-screen bg-center bg-no-repeat bg-cover"
+      className="relative w-full pt-16 md:pt-20 h-[100svh] min-h-[550px] flex flex-col bg-center bg-no-repeat bg-cover overflow-hidden"
       style={{ backgroundImage: "url('https://assets.2026.abhivyaktifest.in/hero.webp')" }}
     >
       <div
         className="absolute inset-0 bg-linear-to-b from-black/80 from-0% via-black/50 via-80% to-black/90 to-100%"
       ></div>
-      <div className="w-full h-full flex flex-col relative">
-        <div className="flex-1 px-4 sm:px-10 md:px-15 py-10 w-full h-fit flex flex-col gap-2 items-center justify-center">
+      <div className="w-full flex-1 flex flex-col relative z-10">
+        <div className="flex-1 px-4 sm:px-10 md:px-15 py-4 sm:py-10 w-full flex flex-col gap-2 items-center justify-center">
           {/* THE ENCHANTED CIRCUS text */}
           <div className="w-full max-w-[60%] sm:max-w-140">
             <svg
@@ -266,7 +266,7 @@ const Hero = () => {
             </svg>
           </motion.div>
         </div>
-        <div className="p-6 w-full h-fit flex flex-col md:flex-row gap-x-10 gap-y-3">
+        <div className="p-4 sm:p-6 pb-6 lg:pb-8 w-full shrink-0 flex flex-col md:flex-row gap-x-10 gap-y-3">
           <div className="w-full md:w-fit flex justify-center items-center gap-2">
             <div className="flex flex-col md:flex-row md:gap-4 items-center">
               <div className="h-10 aspect-square">
