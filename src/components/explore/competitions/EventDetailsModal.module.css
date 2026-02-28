@@ -16,9 +16,11 @@
 
 .modal {
   width: 70vw;
-  max-width: 1200px; /* or whatever your design needs */
+  max-width: 1200px;
+  /* or whatever your design needs */
   height: 70vh;
-  background: #0e0e0e; /*#0e0e0e;*/
+  background: #0e0e0e;
+  /*#0e0e0e;*/
   border-radius: 20px;
   padding: 1.5rem;
   position: relative;
@@ -31,8 +33,10 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
+
 .modal::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  display: none;
+  /* Chrome/Safari */
 }
 
 /* Desktop Adjustments for Alignment */
@@ -58,7 +62,8 @@
 }
 
 .closeButton:hover {
-  color: #ff4757; /* Red color on hover */
+  color: #ff4757;
+  /* Red color on hover */
   transform: scale(1.1);
 }
 
@@ -99,15 +104,18 @@
   .header {
     padding-left: 0;
     margin-bottom: 1.5rem;
-    padding-right: 0; /* Reset padding, we are moving it below */
-    margin-top: 4rem; /* Push below close button */
+    padding-right: 0;
+    /* Reset padding, we are moving it below */
+    margin-top: 4rem;
+    /* Push below close button */
     text-align: left;
   }
 
   .closeButton {
     top: 1rem;
     right: 1rem;
-    left: auto; /* Reset left */
+    left: auto;
+    /* Reset left */
     background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(4px);
   }
@@ -127,7 +135,6 @@
   color: white;
   margin: 0;
   line-height: 1.1;
-  text-transform: uppercase;
 }
 
 .subHeader {
@@ -157,18 +164,21 @@
 
 .unstopLink:hover {
   opacity: 1;
-  color: white; /* Text stays white */
+  color: white;
+  /* Text stays white */
 }
 
 .unstopLink:hover .unstopIcon {
-  background: #007bff; /* Blue icon bg on hover */
+  background: #007bff;
+  /* Blue icon bg on hover */
   color: white;
 }
 
 .unstopIcon {
   width: 24px;
   height: 24px;
-  background: white; /* Placeholder if no icon */
+  background: white;
+  /* Placeholder if no icon */
   border-radius: 50%;
   /* Replace with actual Unstop logo if available */
   color: black;
@@ -177,7 +187,8 @@
   justify-content: center;
   font-weight: bold;
   font-size: 12px;
-  transition: all 0.2s; /* Add transition */
+  transition: all 0.2s;
+  /* Add transition */
 }
 
 /* Tabs */
@@ -226,12 +237,14 @@
 }
 
 .tabButton.active {
-  color: #ff4757; /* Red accent color */
+  color: #ff4757;
+  /* Red accent color */
   font-weight: 500;
 }
 
 .tabButton.active::after {
-  display: none; /* Remove underline */
+  display: none;
+  /* Remove underline */
 }
 
 .tabContent {
@@ -334,7 +347,8 @@
 .timelineContainer {
   display: flex;
   flex-direction: column;
-  gap: 0; /* Remove gap, we'll use padding/margin for flow */
+  gap: 0;
+  /* Remove gap, we'll use padding/margin for flow */
   position: relative;
   padding-left: 1rem;
 }
@@ -367,13 +381,16 @@
 .stageCard::before {
   content: "";
   position: absolute;
-  left: -1.5rem; /* Match margin-left */
-  top: 1.5rem; /* Align with header roughly */
+  left: -1.5rem;
+  /* Match margin-left */
+  top: 1.5rem;
+  /* Align with header roughly */
   width: 12px;
   height: 12px;
   background: #ffd700;
   border-radius: 50%;
-  transform: translateX(-50%); /* Center on the line */
+  transform: translateX(-50%);
+  /* Center on the line */
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
 }
 
@@ -393,7 +410,8 @@
 
 .stageDate {
   font-size: 0.9rem;
-  color: #ffd700; /* Highlight date */
+  color: #ffd700;
+  /* Highlight date */
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -421,6 +439,7 @@
   font-size: 0.95rem;
   line-height: 1.6;
 }
+
 .stageDescription p {
   margin-bottom: 0.8rem;
 }
@@ -658,7 +677,8 @@
   .header {
     padding-left: 0;
     margin-bottom: 1rem;
-    padding-right: 3rem; /* Safely clear close button */
+    padding-right: 3rem;
+    /* Safely clear close button */
     text-align: left;
     margin-top: 2rem;
   }

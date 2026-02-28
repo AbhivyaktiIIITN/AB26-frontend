@@ -5,13 +5,13 @@ import EventCard from "./EventCard";
 import EventDetailsModal from "./EventDetailsModal";
 
 const TICKETS = [
+    { id: "speaking_art", image: "https://assets.2026.abhivyaktifest.in/images/explore/tickets/speaking_art.webp", name: "Speaking Art" },
     { id: "fine_arts", image: "https://assets.2026.abhivyaktifest.in/images/explore/tickets/fine_arts.webp", name: "Fine Arts" },
     { id: "dance", image: "https://assets.2026.abhivyaktifest.in/images/explore/tickets/dance.webp", name: "Dance" },
     { id: "music", image: "https://assets.2026.abhivyaktifest.in/images/explore/tickets/music.webp", name: "Music" },
     { id: "digital_arts", image: "https://assets.2026.abhivyaktifest.in/images/explore/tickets/digital_art.webp", name: "Digital Art" },
-    { id: "speaking_art", image: "https://assets.2026.abhivyaktifest.in/images/explore/tickets/speaking_art.webp", name: "Speaking Art" },
     { id: "dramatics", image: "https://assets.2026.abhivyaktifest.in/images/explore/tickets/dramatics.webp", name: "Dramatics" },
-    { id: "AB_events", image: "https://assets.2026.abhivyaktifest.in/images/explore/tickets/spotlight.webp", name: "AB Events" }, // Mapped spotlight image to AB_events
+    { id: "AB_events", image: "https://assets.2026.abhivyaktifest.in/images/explore/tickets/spotlight.webp", name: "AB Events" },
     { id: "esports", image: "https://assets.2026.abhivyaktifest.in/images/explore/tickets/esports.webp", name: "Esports" },
 ];
 

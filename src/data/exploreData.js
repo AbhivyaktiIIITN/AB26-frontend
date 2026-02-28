@@ -980,7 +980,7 @@ export const exploreData = {
       events: [
         {
           id: "speaking_art_1",
-          name: "ABMUN",
+          name: "abMUN",
           organizers: "Orator",
           type: "Model United Nations",
           mode: "Offline",

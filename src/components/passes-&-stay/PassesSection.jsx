@@ -10,10 +10,14 @@ import { getUserProfile } from "../../lib/user-client";
 import { useAuth } from "../../contexts/AuthProvider";
 import { useToast } from "../../contexts/ToastContext";
 import { passTemplates, accommodationTemplates } from "../../data/passesStayData";
+import { useProfileCheck } from "../../hooks/useProfileCheck";
+import { useAuthModal } from "../auth/ModalAuthLayout";
 
 const PassesSection = () => {
     const { user, isAuthenticated } = useAuth();
     const { showToast } = useToast();
+    const { openAuth } = useAuthModal();
+    const { requireCompleteProfile } = useProfileCheck();
 
     const [passes, setPasses] = useState([]);
     const [accommodations, setAccommodations] = useState([]);
@@ -75,11 +79,13 @@ const PassesSection = () => {
     };
 
     const handleBuyPass = async (pass) => {
-        if (!isAuthenticated) {
-            showToast("Please login first", "error");
+        setLoadingPassId(pass.id);
+        const canProceed = await requireCompleteProfile();
+        if (!canProceed) {
+            setLoadingPassId(null);
             return;
         }
-        setLoadingPassId(pass.id);
+
         try {
             const { order } = await createPaymentOrder({ passTypeId: pass.id });
             showToast("Redirecting to payment...", "success");
@@ -93,11 +99,13 @@ const PassesSection = () => {
     };
 
     const handleBuyAccommodation = async (accommodation) => {
-        if (!isAuthenticated) {
-            showToast("Please login first", "error");
+        setLoadingAccommodationId(accommodation.id);
+        const canProceed = await requireCompleteProfile();
+        if (!canProceed) {
+            setLoadingAccommodationId(null);
             return;
         }
-        setLoadingAccommodationId(accommodation.id);
+
         try {
             const { order } = await createPaymentOrder({ accommodationTypeId: accommodation.id });
             showToast("Redirecting to payment...", "success");

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthModal } from "../components/auth/ModalAuthLayout";
+import FAQHint from "../components/ui/FAQHint";
 import TeamModal from "../components/ui/TeamModal";
 import { useAuth } from "../contexts/AuthProvider";
 import { useToast } from "../contexts/ToastContext";
@@ -574,6 +575,7 @@ const UserData = () => {
           onSuccess={handleCloseTeamModal}
         />
       )}
+      <FAQHint label="How to add team members" />
     </div>
   );
 };

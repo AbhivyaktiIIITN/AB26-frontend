@@ -6,6 +6,7 @@ import ExploreHero from "@/components/explore/ExploreHero";
 import ComingSoon from "../components/common/ComingSoon/ComingSoon";
 import ExploreTabs from "../components/explore/ExploreTabs";
 import Competitions from "../components/explore/competitions/Competitions";
+import FAQHint from "../components/ui/FAQHint";
 
 const VALID_TABS = ["proShows", "competitions", "streetActivity"];
 
@@ -46,6 +47,7 @@ const Explore = () => {
           <ComingSoon />
         )}
       </section>
+      <FAQHint label="How registration works" />
     </main>
   );
 };

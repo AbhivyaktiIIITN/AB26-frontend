@@ -304,14 +304,6 @@ const About = () => {
                   explore their potential within a high-energy carnival
                   atmosphere.
                 </motion.div>
-                <div className="mt-6 w-full md:w-fit grid place-items-center">
-                  <button
-                    type="button"
-                    className="px-5 py-1.5 border border-[#676767] bg-linear-to-b from-[#3e1b08] to-[#602410] text-white rounded-md"
-                  >
-                    Explore Theme
-                  </button>
-                </div>
               </div>
             </div>
           </div>

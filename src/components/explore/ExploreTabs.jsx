@@ -5,7 +5,7 @@ import styles from "./explore.module.css";
 const TABS = [
     { key: "proShows", label: "Pro-shows" },
     { key: "competitions", label: "Competitions" },
-    { key: "streetActivity", label: "Street - Activity" },
+    { key: "streetActivity", label: "Street-Activity" },
 ];
 
 const ExploreTabs = ({ activeTab, onTabChange }) => {

@@ -6,13 +6,17 @@ import { useToast } from "../../../contexts/ToastContext";
 import { signOut } from "../../../lib/auth-client";
 import { useAuthModal } from "../../auth/ModalAuthLayout";
 import UserProfile from "./UserProfile";
+import { FiInfo, FiUsers, FiImage, FiChevronDown } from "react-icons/fi";
+import { LuHandshake } from "react-icons/lu";
 
 const Navbar = () => {
   const { openAuth } = useAuthModal();
   const { user, isAuthenticated, isLoading } = useAuth();
   const { showToast } = useToast();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileMoreOpen, setIsMobileMoreOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -36,10 +40,8 @@ const Navbar = () => {
     "/contact": "Contact Us | Abhivyakti 26",
     "/developers": "Developers | Abhivyakti 26",
     "/gallery": "Gallery | Abhivyakti 26",
-    "/privacy": "Privacy Policy | Abhivyakti 26",
-    "/terms": "Terms & Conditions | Abhivyakti 26",
-    "/shipping": "Shipping Policy | Abhivyakti 26",
-    "/cancellation": "Cancellation & Refund | Abhivyakti 26",
+    "/legal": "Legal | Abhivyakti 26",
+    "/policies": "Policies | Abhivyakti 26",
   };
 
   useEffect(() => {
@@ -58,16 +60,20 @@ const Navbar = () => {
 
   const showSVG = location.pathname !== "/" || isScrolled;
 
-  const navLinks = [
+  const mobileMainLinks = [
     { path: "/", label: "Home" },
-    { path: "/about", label: "About" },
     { path: "/events", label: "Events" },
     { path: "/passes", label: "Passes & Stay" },
-    { path: "/sponsors", label: "Sponsors" },
-    { path: "/teams", label: "Team" },
-    { path: "/gallery", label: "Gallery" },
-    // { path: "/contact", label: "Contact Us" },
   ];
+
+  const dropdownItems = [
+    { path: "/about", label: "About", desc: "Know our story", icon: FiInfo },
+    { path: "/sponsors", label: "Sponsors", desc: "Our partners", icon: LuHandshake },
+    { path: "/teams", label: "Teams", desc: "Meet the crew", icon: FiUsers },
+    { path: "/gallery", label: "Gallery", desc: "Past highlights", icon: FiImage },
+  ];
+
+  const isDropdownActive = dropdownItems.some((item) => location.pathname === item.path);
 
   const isActive = (path) => location.pathname === path;
 
@@ -81,7 +87,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[1000] bg-linear-to-b from-black to-black/10 backdrop-blur-sm tracking-wider">
+      <nav className="fixed top-0 left-0 right-0 z-1000 bg-linear-to-b from-black to-black/10 backdrop-blur-sm tracking-wider">
         <div className="mx-auto px-6 sm:px-8 lg:px-10">
           <div className="hidden md:flex justify-between items-center h-20 w-full">
             <div
@@ -218,20 +224,64 @@ const Navbar = () => {
             </div>
 
             {/* Navigation Menu */}
-            <div className="flex items-center space-x-4 lg:space-x-6 xl:space-x-9 font-normal text-sm lg:text-base xl:text-lg shrink-0">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`transition-colors ${
-                    isActive(link.path)
-                      ? "text-yellow-500 font-semibold"
-                      : "text-white hover:text-yellow-300"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            <div className="flex h-full items-center space-x-4 lg:space-x-6 xl:space-x-9 font-normal text-sm lg:text-base xl:text-lg shrink-0">
+              <Link to="/" className={`transition-colors ${isActive("/") ? "text-yellow-500 font-semibold" : "text-white hover:text-yellow-300"}`}>
+                Home
+              </Link>
+              <Link to="/events" className={`transition-colors ${isActive("/events") ? "text-yellow-500 font-semibold" : "text-white hover:text-yellow-300"}`}>
+                Events
+              </Link>
+              <Link to="/passes" className={`transition-colors ${isActive("/passes") ? "text-yellow-500 font-semibold" : "text-white hover:text-yellow-300"}`}>
+                Passes & Stay
+              </Link>
+
+              <div
+                className="relative h-full flex items-center"
+                onMouseEnter={() => setIsDropdownOpen(true)}
+                onMouseLeave={() => setIsDropdownOpen(false)}
+              >
+                <div className={`flex items-center gap-1 cursor-pointer transition-colors ${isDropdownActive ? "text-yellow-500 font-semibold" : "text-white hover:text-yellow-300"}`}>
+                  More <FiChevronDown className={`transition-transform duration-300 ${isDropdownOpen ? "rotate-180" : ""}`} />
+                </div>
+
+                <AnimatePresence>
+                  {isDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 15 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute top-[80%] -left-8 mt-2 w-[260px] lg:w-[280px] bg-[#1a1a1a]/95 backdrop-blur-md border border-white/5 rounded-md p-3 shadow-2xl z-50 overflow-hidden"
+                    >
+                      <div className="flex flex-col gap-1">
+                        {dropdownItems.map((item, idx) => {
+                          const Icon = item.icon;
+                          return (
+                            <Link
+                              key={idx}
+                              to={item.path}
+                              onClick={() => setIsDropdownOpen(false)}
+                              className="group flex flex-row items-center gap-4 px-2 py-2 rounded-md hover:bg-white/5 transition-all duration-300 cursor-pointer"
+                            >
+                              <div className="w-11 h-11 lg:w-12 lg:h-12 shrink-0 rounded-[14px] bg-white/5 flex items-center justify-center text-gray-300 group-hover:bg-white/10 group-hover:text-white transition-all duration-300">
+                                <Icon className="w-5 h-5" />
+                              </div>
+                              <div className="flex flex-col">
+                                <span className={`font-medium text-[14px] lg:text-[15px] transition-colors leading-snug ${isActive(item.path) ? "text-yellow-400" : "text-white group-hover:text-yellow-300"}`}>{item.label}</span>
+                                <span className="text-gray-400 text-[12px] lg:text-[13px] font-normal leading-snug">{item.desc}</span>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <Link to="/contact" className={`transition-colors ${isActive("/contact") ? "text-yellow-500 font-semibold" : "text-white hover:text-yellow-300"}`}>
+                Contact Us
+              </Link>
             </div>
 
             {/* Auth Buttons / Profile */}
@@ -334,7 +384,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-[1100] block"
+            className="fixed inset-0 z-1100 block"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -372,7 +422,7 @@ const Navbar = () => {
               </button>
 
               {/* Navigation */}
-              {navLinks.map((link, index) => (
+              {mobileMainLinks.map((link, index) => (
                 <motion.div
                   key={link.path}
                   initial={{ opacity: 0, y: -20 }}
@@ -386,17 +436,74 @@ const Navbar = () => {
                 >
                   <Link
                     to={link.path}
-                    className={`text-2xl transition-colors ${
-                      isActive(link.path)
-                        ? "text-yellow-300 font-semibold"
-                        : "font-normal hover:text-gray-300"
-                    }`}
+                    className={`text-2xl transition-colors ${isActive(link.path)
+                      ? "text-yellow-300 font-semibold"
+                      : "font-normal hover:text-gray-300"
+                      }`}
                     onClick={closeMobileMenu}
                   >
                     {link.label}
                   </Link>
                 </motion.div>
               ))}
+
+              {/* Mobile More Accordion */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.3, delay: mobileMainLinks.length * 0.08, ease: "easeOut" }}
+                className="flex flex-col items-center w-full"
+              >
+                <button
+                  onClick={() => setIsMobileMoreOpen(!isMobileMoreOpen)}
+                  className={`flex items-center gap-2 text-2xl transition-colors outline-none cursor-pointer ${isDropdownActive ? "text-yellow-300 font-semibold" : "font-normal text-white hover:text-gray-300"}`}
+                >
+                  More
+                  <FiChevronDown className={`transition-transform duration-300 ${isMobileMoreOpen ? "rotate-180" : ""}`} />
+                </button>
+                <AnimatePresence>
+                  {isMobileMoreOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                      animate={{ opacity: 1, height: "auto", marginTop: 24 }}
+                      exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                      className="flex flex-col items-center gap-6 overflow-hidden"
+                    >
+                      {dropdownItems.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                          <Link
+                            key={item.path}
+                            to={item.path}
+                            onClick={closeMobileMenu}
+                            className={`flex items-center gap-3 transition-colors ${isActive(item.path) ? "text-yellow-400" : "text-gray-300 hover:text-white"}`}
+                          >
+                            <Icon className="w-5 h-5 opacity-80" />
+                            <span className="text-xl font-medium">{item.label}</span>
+                          </Link>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
+              {/* Contact Us */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.3, delay: (mobileMainLinks.length + 1) * 0.08, ease: "easeOut" }}
+              >
+                <Link
+                  to="/contact"
+                  className={`text-2xl transition-colors ${isActive("/contact") ? "text-yellow-300 font-semibold" : "font-normal hover:text-gray-300 text-white"}`}
+                  onClick={closeMobileMenu}
+                >
+                  Contact Us
+                </Link>
+              </motion.div>
 
               {/* Auth Buttons / Profile */}
               {isLoading ? (
@@ -405,23 +512,22 @@ const Navbar = () => {
                   <div className="h-6 w-24 bg-gray-600 rounded animate-pulse"></div>
                 </div>
               ) : isAuthenticated ? (
-                <div className="flex flex-col items-center gap-4 mt-8">
-                  <div className="w-12 h-12 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white text-xl font-semibold">
-                    {(
-                      user?.name?.charAt(0) ||
-                      user?.firstName?.charAt(0) ||
-                      "U"
-                    ).toUpperCase()}
-                  </div>
-                  <p className="text-white text-xl font-medium">
-                    {user?.name || user?.firstName || "Profile"}
-                  </p>
+                <div className="flex flex-col items-center gap-4 pt-8">
+                  <button
+                    onClick={() => {
+                      navigate("/myaccount");
+                      closeMobileMenu();
+                    }}
+                    className="px-5 py-2 bg-linear-to-b from-[#4f3b40] to-[#7D1128] cursor-pointer text-white font-medium rounded-lg hover:opacity-90 transition-opacity text-xl outline-none"
+                  >
+                    My Profile
+                  </button>
                   <button
                     onClick={() => {
                       handleLogout();
                       closeMobileMenu();
                     }}
-                    className="text-red-400 hover:text-red-300 transition-colors font-medium text-lg"
+                    className="text-red-400 hover:text-red-300 transition-colors font-medium text-lg cursor-pointer outline-none"
                   >
                     Logout
                   </button>

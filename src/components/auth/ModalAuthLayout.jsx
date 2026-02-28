@@ -51,9 +51,7 @@ const ModalAuthLayout = () => {
   // escape key (disabled for profile-completion)
   useEffect(() => {
     const handleEscape = (e) => {
-      if (mode !== "profile-completion") {
-        e.key === "Escape" && closeAuth();
-      }
+      e.key === "Escape" && closeAuth();
     };
     if (isOpen) {
       document.addEventListener("keydown", handleEscape);
@@ -76,7 +74,7 @@ const ModalAuthLayout = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15, ease: "easeOut" }}
           className="fixed inset-0 z-[2000] overflow-auto bg-black/25 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={mode !== "profile-completion" ? closeAuth : undefined}
+          onClick={closeAuth}
         >
           <motion.div
             key={mode}
@@ -93,27 +91,25 @@ const ModalAuthLayout = () => {
             onClick={(e) => e.stopPropagation()}
             data-lenis-prevent
           >
-            {/* close button - hidden for profile-completion */}
-            {mode !== "profile-completion" && (
-              <button
-                onClick={closeAuth}
-                className="absolute bg-white top-4 right-4 z-10 text-gray-400 hover:text-gray-600 cursor-pointer hover:bg-gray-200 transition-colors rounded-full p-1"
+            {/* close button */}
+            <button
+              onClick={closeAuth}
+              className="absolute bg-white top-4 right-4 z-10 text-gray-400 hover:text-gray-600 cursor-pointer hover:bg-gray-200 transition-colors rounded-full p-1"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            )}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
 
             <div className="bg-white rounded-lg overflow-hidden">
               <div className="w-full">

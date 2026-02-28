@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { FaEnvelope, FaPhone, FaTimes, FaTrophy } from "react-icons/fa";
 import RegistrationModal from "../../ui/RegistrationModal";
 import styles from "./EventDetailsModal.module.css";
+import { useProfileCheck } from "../../../hooks/useProfileCheck";
 
 const TABS = [
   { key: "description", label: "Descriptions" },
@@ -15,6 +16,8 @@ const TABS = [
 const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
   const [activeTab, setActiveTab] = useState("description");
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
+  const [isChecking, setIsChecking] = useState(false);
+  const { requireCompleteProfile } = useProfileCheck();
 
   // Lock body scroll and disable Lenis
   useEffect(() => {
@@ -369,10 +372,17 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
 
           <div className={styles.actions}>
             <button
-              onClick={() => setShowRegistrationModal(true)}
+              onClick={async () => {
+                setIsChecking(true);
+                const canProceed = await requireCompleteProfile();
+                setIsChecking(false);
+                if (canProceed) setShowRegistrationModal(true);
+              }}
+              disabled={isChecking}
               className={styles.actionButton}
+              style={{ opacity: isChecking ? 0.7 : 1, cursor: isChecking ? "not-allowed" : "pointer" }}
             >
-              Register Here
+              {isChecking ? "Checking..." : "Register Here"}
             </button>
           </div>
         </div>

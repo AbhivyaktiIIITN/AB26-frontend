@@ -20,10 +20,9 @@ function Footer() {
 
   const organizationLinks = [
     { label: "Contact Us", href: "/contact" },
-    { label: "Terms & Conditions", href: "/terms" },
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Shipping Policy", href: "/shipping" },
-    { label: "Cancellation & Refunds", href: "/cancellation" },
+    { label: "FAQs", href: "/faq" },
+    { label: "Legal", href: "/legal" },
+    { label: "Policies", href: "/policies" },
   ];
 
   return (
@@ -66,7 +65,7 @@ function Footer() {
           />
         </div>
         <div className="absolute bg-linear-to-b from-black to-20% to-black/20 inset-x-0 top-0 w-full px-4 sm:px-5 md:px-8 lg:px-12 xl:px-26 py-4 sm:py-5 md:py-9 lg:py-11 xl:py-12 z-1 pointer-events-none flex flex-col justify-start items-stretch min-h-full overflow-hidden">
-          <div className="pointer-events-auto flex flex-col md:flex-row gap-8 lg:gap-10 xl:gap-22 max-w-306.75 items-start mx-auto w-full">
+          <div className="pointer-events-auto flex flex-col md:flex-row gap-8 lg:gap-10 xl:gap-22 max-w-[90%] items-start mx-auto w-full">
             <div className="flex flex-col w-full gap-2 sm:4 md:w-auto md:max-w-95 xl:w-109 shrink-0">
               <h3 className="text-base md:text-lg font-normal leading-tight tracking-widest">
                 ABHIVYAKTI, IIIT NAGPUR
@@ -129,9 +128,9 @@ function Footer() {
                     <li>
                       <a
                         href="mailto:support@abhivyaktifest.in"
-                        className="text-sm md:text-base font-normal leading-tight tracking-widest text-neutral-200 no-underline transition-colors duration-200 hover:text-white"
+                        className="text-sm md:text-base font-normal leading-tight tracking-widest text-neutral-200 no-underline transition-colors duration-200 hover:text-white wrap-anywhere"
                       >
-                        support@abhivyaktifest.in
+                        support@<wbr />abhivyaktifest.in
                       </a>
                     </li>
                     <li>
@@ -174,21 +173,21 @@ function Footer() {
                     >
                       <FaLinkedin size={24} />
                     </a>
-                    <a
+                    {/* <a
                       href="https://x.com/AIiitn"
                       className="inline-flex items-center justify-center text-neutral-200 transition-colors duration-200 hover:text-white"
                       aria-label="Twitter"
                       target="_blank"
                     >
                       <FaXTwitter size={24} />
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="sm:hidden flex-1"></div>
-          <p className="pointer-events-auto text-xl font-semibold leading-normal tracking-wide text-white/80 my-[6%] text-center">
+          <p className="pointer-events-auto sm:text-xl text-base font-semibold leading-normal tracking-wide text-white/80 my-[6%] text-center">
             Abhivyakti 2026 @All Rights Reserved
             <br />
             Meet our{" "}
