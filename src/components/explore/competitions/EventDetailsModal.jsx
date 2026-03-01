@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { FaEnvelope, FaPhone, FaTimes, FaTrophy } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import RegistrationModal from "../../ui/RegistrationModal";
 import styles from "./EventDetailsModal.module.css";
 import { useProfileCheck } from "../../../hooks/useProfileCheck";
@@ -18,6 +19,7 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const { requireCompleteProfile } = useProfileCheck();
+  const navigate = useNavigate();
 
   // Lock body scroll and disable Lenis
   useEffect(() => {
@@ -440,6 +442,9 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
           minTeamSize={event.min_team_size || 1}
           onClose={() => setShowRegistrationModal(false)}
           onCloseEvent={onClose}
+          {...(event.customForm === "mun" && {
+            onMunProceed: () => { setShowRegistrationModal(false); onClose(); navigate("/register/abmun"); }
+          })}
         />
       )}
     </div>,

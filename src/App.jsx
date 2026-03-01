@@ -19,6 +19,7 @@ import Developers from "./pages/Developers";
 import Explore from "./pages/Explore";
 import Home from "./pages/Home";
 import LegalPolicies from "./pages/LegalPolicies";
+import MUNRegistration from "./pages/MUNRegistration";
 import PassesStay from "./pages/PassesStay";
 import RefundPolicies from "./pages/RefundPolicies";
 import Sponsors from "./pages/Sponsors";
@@ -111,6 +112,7 @@ function App() {
             <Route path="/legal" element={<LegalPolicies />} />
             <Route path="/policies" element={<RefundPolicies />} />
             <Route path="/myaccount" element={<UserData />} />
+            <Route path="/register/abmun" element={<MUNRegistration />} />
             {/* <Route path="/gallery" element={<Gallery />} /> */}
           </Routes>
 

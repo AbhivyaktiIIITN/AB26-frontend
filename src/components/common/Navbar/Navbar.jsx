@@ -6,7 +6,7 @@ import { useToast } from "../../../contexts/ToastContext";
 import { signOut } from "../../../lib/auth-client";
 import { useAuthModal } from "../../auth/ModalAuthLayout";
 import UserProfile from "./UserProfile";
-import { FiInfo, FiUsers, FiImage, FiChevronDown } from "react-icons/fi";
+import { FiMail, FiUsers, FiImage, FiChevronDown } from "react-icons/fi";
 import { LuHandshake } from "react-icons/lu";
 
 const Navbar = () => {
@@ -62,15 +62,16 @@ const Navbar = () => {
 
   const mobileMainLinks = [
     { path: "/", label: "Home" },
+    { path: "/about", label: "About" },
     { path: "/events", label: "Events" },
     { path: "/passes", label: "Passes & Stay" },
   ];
 
   const dropdownItems = [
-    { path: "/about", label: "About", desc: "Know our story", icon: FiInfo },
     { path: "/sponsors", label: "Sponsors", desc: "Our partners", icon: LuHandshake },
     { path: "/teams", label: "Teams", desc: "Meet the crew", icon: FiUsers },
     { path: "/gallery", label: "Gallery", desc: "Past highlights", icon: FiImage },
+    { path: "/contact", label: "Contact Us", desc: "Get in touch", icon: FiMail },
   ];
 
   const isDropdownActive = dropdownItems.some((item) => location.pathname === item.path);
@@ -228,6 +229,9 @@ const Navbar = () => {
               <Link to="/" className={`transition-colors ${isActive("/") ? "text-yellow-500 font-semibold" : "text-white hover:text-yellow-300"}`}>
                 Home
               </Link>
+              <Link to="/about" className={`transition-colors ${isActive("/about") ? "text-yellow-500 font-semibold" : "text-white hover:text-yellow-300"}`}>
+                About
+              </Link>
               <Link to="/events" className={`transition-colors ${isActive("/events") ? "text-yellow-500 font-semibold" : "text-white hover:text-yellow-300"}`}>
                 Events
               </Link>
@@ -278,10 +282,6 @@ const Navbar = () => {
                   )}
                 </AnimatePresence>
               </div>
-
-              <Link to="/contact" className={`transition-colors ${isActive("/contact") ? "text-yellow-500 font-semibold" : "text-white hover:text-yellow-300"}`}>
-                Contact Us
-              </Link>
             </div>
 
             {/* Auth Buttons / Profile */}
@@ -378,10 +378,10 @@ const Navbar = () => {
             )}
           </div>
         </div>
-      </nav>
+      </nav >
 
       {/* Mobile Overlay */}
-      <AnimatePresence>
+      < AnimatePresence >
         {isMobileMenuOpen && (
           <motion.div
             className="fixed inset-0 z-1100 block"
@@ -489,21 +489,6 @@ const Navbar = () => {
                 </AnimatePresence>
               </motion.div>
 
-              {/* Contact Us */}
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.3, delay: (mobileMainLinks.length + 1) * 0.08, ease: "easeOut" }}
-              >
-                <Link
-                  to="/contact"
-                  className={`text-2xl transition-colors ${isActive("/contact") ? "text-yellow-300 font-semibold" : "font-normal hover:text-gray-300 text-white"}`}
-                  onClick={closeMobileMenu}
-                >
-                  Contact Us
-                </Link>
-              </motion.div>
 
               {/* Auth Buttons / Profile */}
               {isLoading ? (
@@ -557,8 +542,9 @@ const Navbar = () => {
               )}
             </motion.div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        )
+        }
+      </AnimatePresence >
     </>
   );
 };

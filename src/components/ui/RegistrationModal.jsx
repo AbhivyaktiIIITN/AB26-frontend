@@ -36,7 +36,7 @@ const styles = {
   infoText: "text-sm text-gray-400",
 };
 
-export default function RegistrationModal({ eventId, onClose, onSuccess }) {
+export default function RegistrationModal({ eventId, onClose, onSuccess, onMunProceed }) {
   const { user, isAuthenticated } = useAuth();
   const { showToast } = useToast();
   const { openAuth } = useAuthModal();
@@ -139,7 +139,12 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
       if (result.success) {
         showToast("Successfully registered!", "success");
         if (onSuccess) onSuccess();
-        setTimeout(() => onClose(), 800);
+
+        if (onMunProceed) {
+          onMunProceed();
+        } else {
+          setTimeout(() => onClose(), 800);
+        }
       } else {
         showToast(result.error || "Registration failed", "error");
       }
@@ -300,8 +305,8 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
     );
   }
 
-  // Individual Event Registration
-  if (!event.isTeamEvent) {
+  // Individual Event Registration (or MUN flow)
+  if (!event.isTeamEvent || onMunProceed) {
     return (
       <motion.div
         initial={{ opacity: 0 }}
@@ -337,26 +342,41 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
               </p>
             </div>
 
-            {/* Submission input */}
-            <div>
-              <label className="block text-base font-medium text-gray-300 mb-2">
-                Submission Link{" "}
-                <span className="text-gray-400 text-sm font-normal">
-                  (Optional)
-                </span>
-              </label>
-              <textarea
-                rows="4"
-                placeholder="Paste your submission link (Google Drive, GitHub, etc.)"
-                value={submissionString}
-                onChange={(e) => setSubmissionString(e.target.value)}
-                disabled={registering}
-                className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-base placeholder-gray-500 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20 transition resize-none disabled:opacity-50"
-              />
-              <p className="text-sm text-gray-400 mt-1">
-                You can add submission details after registration if needed
-              </p>
-            </div>
+            {/* Submission input — hidden for MUN */}
+            {!onMunProceed && (
+              <div>
+                <label className="block text-base font-medium text-gray-300 mb-2">
+                  Submission Link{" "}
+                  <span className="text-gray-400 text-sm font-normal">
+                    (Optional)
+                  </span>
+                </label>
+                <textarea
+                  rows="4"
+                  placeholder="Paste your submission link (Google Drive, GitHub, etc.)"
+                  value={submissionString}
+                  onChange={(e) => setSubmissionString(e.target.value)}
+                  disabled={registering}
+                  className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-base placeholder-gray-500 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20 transition resize-none disabled:opacity-50"
+                />
+                <p className="text-sm text-gray-400 mt-1">
+                  You can add submission details after registration if needed
+                </p>
+              </div>
+            )}
+
+            {/* MUN info blurb */}
+            {onMunProceed && (
+              <div className="p-4 bg-white/5 border border-white/10 rounded-lg space-y-2">
+                <p className="text-white font-medium text-sm">This is a specialised registration.</p>
+                <p className="text-gray-400 text-sm">You'll be automatically registered, and then taken to a dedicated form where you must select:</p>
+                <ul className="text-gray-400 text-sm list-disc list-inside space-y-1">
+                  <li>Committee preferences (1st &amp; 2nd choice)</li>
+                  <li>Portfolio preferences within each committee</li>
+                  <li>Co-delegate details (optional / required for IPL)</li>
+                </ul>
+              </div>
+            )}
 
             {/* Register button */}
             <button
@@ -364,7 +384,9 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
               disabled={registering}
               className={styles.button}
             >
-              {registering ? "Registering..." : "Register Now"}
+              {onMunProceed
+                ? registering ? "Registering..." : "Register & Choose Committee"
+                : registering ? "Registering..." : "Register Now"}
             </button>
 
             {/* Close button */}
@@ -434,9 +456,8 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
                 Create New Team
               </span>
               <span
-                className={`text-gray-400 transition-transform ${
-                  expandedAccordion === "create" ? "rotate-180" : ""
-                }`}
+                className={`text-gray-400 transition-transform ${expandedAccordion === "create" ? "rotate-180" : ""
+                  }`}
               >
                 ▼
               </span>
@@ -487,9 +508,8 @@ export default function RegistrationModal({ eventId, onClose, onSuccess }) {
                 Join Existing Team
               </span>
               <span
-                className={`text-gray-400 transition-transform ${
-                  expandedAccordion === "join" ? "rotate-180" : ""
-                }`}
+                className={`text-gray-400 transition-transform ${expandedAccordion === "join" ? "rotate-180" : ""
+                  }`}
               >
                 ▼
               </span>

@@ -984,6 +984,7 @@ export const exploreData = {
           organizers: "Orator",
           type: "Model United Nations",
           mode: "Offline",
+          customForm: "mun",       //  Triggers special RegistrationModal info -> navigates to /register/abmun
           min_team_size: 1,
           max_team_size: 2,
           bg_img:
