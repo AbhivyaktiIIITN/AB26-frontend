@@ -171,6 +171,7 @@ export default function ProfileCompletionModal({ onClose, onSuccess }) {
               <input
                 type="date"
                 value={dateOfBirth}
+                max="2020-12-31"
                 onChange={(e) => setDateOfBirth(e.target.value)}
                 onClick={(e) => e.target.showPicker?.()}
                 disabled={loading}

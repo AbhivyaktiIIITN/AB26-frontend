@@ -398,6 +398,7 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
                   type="date"
                   name="dateOfBirth"
                   value={formData.dateOfBirth}
+                  max="2020-12-31"
                   onChange={handleChange}
                   onClick={(e) => e.target.showPicker?.()}
                   required

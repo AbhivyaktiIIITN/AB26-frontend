@@ -2,9 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import { useToast } from "../contexts/ToastContext";
-import { isUserRegisteredForEvent } from "../lib/registration-client";
 import { registerForMUN } from "../lib/mun-client";
-import { getUserProfile, getUserBySerialId } from "../lib/user-client";
+import { getUserProfile, getUserBySerialId, getUserRegData } from "../lib/user-client";
 import { abidToSerialId, serialIdToABID } from "../utils/abid-utils";
 
 const BASE_URL =
@@ -445,7 +444,10 @@ const MUNRegistration = () => {
         setSubmitting(true);
         try {
             // Verify they have the base MUN registration in the generic Registration table first
-            const isBaseRegistered = await isUserRegisteredForEvent(user.id, ABMUN_EVENT_ID);
+            const regData = await getUserRegData(user.id);
+            const registrations = regData?.user?.registrations || [];
+            const isBaseRegistered = registrations.some((reg) => reg.eventId === ABMUN_EVENT_ID);
+
             if (!isBaseRegistered) {
                 showToast("You must first register for the MUN event via the Events page before submitting preferences.", "error");
                 setSubmitting(false);
@@ -466,7 +468,6 @@ const MUNRegistration = () => {
             const result = await registerForMUN(payload);
 
             if (result.success) {
-                if (DRAFT_KEY) localStorage.removeItem(DRAFT_KEY);
                 showToast("Successfully registered for abMUN!", "success");
                 navigate("/myaccount"); // Or wherever you want them to land
             } else {

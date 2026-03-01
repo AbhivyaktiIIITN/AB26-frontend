@@ -88,12 +88,14 @@ const UserData = () => {
   // Fetch event names for registrations
   useEffect(() => {
     const fetchEventNames = async () => {
-      if (!regData?.user?.registrations) return;
+      if (!regData?.user) return;
 
-      const eventIdSet = new Set(
-        regData.user.registrations.map((reg) => reg.eventId).filter(Boolean),
-      );
+      const evtIds = [];
+      const u = regData.user;
+      if (u.registrations) u.registrations.forEach(r => r.eventId && evtIds.push(r.eventId));
+      if (u.teamsMember) u.teamsMember.forEach(r => r.team?.eventId && evtIds.push(r.team.eventId));
 
+      const eventIdSet = new Set(evtIds);
       if (eventIdSet.size === 0) return;
 
       const names = {};
@@ -114,7 +116,7 @@ const UserData = () => {
     };
 
     fetchEventNames();
-  }, [regData?.user?.registrations]);
+  }, [regData?.user]);
 
   // Handle logout
   const handleLogout = async () => {
@@ -186,6 +188,20 @@ const UserData = () => {
   const regUser = regData?.user;
   const passesData = passesAccData?.passes;
   const accommodationsData = passesAccData?.accommodations;
+
+  let combinedRegistrations = [];
+  if (regUser) {
+    const individualRegs = regUser.registrations?.map(r => ({ ...r, type: r.eventId === 'speaking_art_1' ? 'MUN' : 'Individual' })) || [];
+    const teamRegs = regUser.teamsMember?.map(member => ({
+      id: member.teamId,
+      eventId: member.team?.eventId,
+      type: 'Team',
+      status: member.team?.status,
+      teamData: { ...member.team, id: member.teamId }
+    })) || [];
+
+    combinedRegistrations = [...individualRegs, ...teamRegs];
+  }
 
   return (
     <div className="min-h-screen pt-32 md:pt-32 bg-black p-4 md:p-8">
@@ -282,135 +298,114 @@ const UserData = () => {
             </div>
           </div>
 
-          {/* Teams Card */}
+          {/* Passes & Accommodations Card */}
           <div className="bg-black border border-gray-700 rounded-lg p-6">
             <h2 className="text-xl font-bold text-red-500 mb-4 border-b border-gray-700 pb-3">
-              Teams
+              Passes & Accommodations
             </h2>
-            {!regUser ? (
-              <SkeletonTable />
-            ) : (
-              <div className="space-y-4">
-                {regUser?.teamsLeading?.length > 0 && (
+            <div className="space-y-6">
+              {!passesData && !accommodationsData ? (
+                <SkeletonTable />
+              ) : (
+                <>
+                  {/* Passes */}
                   <div>
-                    <h3 className="text-sm text-gray-400 mb-2">
-                      Teams Leading
-                    </h3>
-                    <div className="space-y-2">
-                      {regUser.teamsLeading.map((team) => (
-                        <div
-                          key={team.id}
-                          className="flex items-center justify-between bg-gray-900 border border-gray-700 rounded px-3 py-2 hover:bg-gray-800 transition-all"
-                        >
-                          <span className="text-white text-sm font-medium">
-                            {team.name}
-                          </span>
-                          <button
-                            onClick={() => handleTeamClick(team)}
-                            className="px-3 py-1 text-xs bg-blue-600 hover:bg-blue-500 text-white rounded transition-all cursor-pointer"
-                          >
-                            View Team
-                          </button>
-                        </div>
-                      ))}
-                    </div>
+                    <h3 className="text-sm font-semibold text-gray-400 mb-3 tracking-wider uppercase">Passes</h3>
+                    {passesData?.length > 0 ? (
+                      <div className="space-y-2">
+                        {passesData.map((pass) => (
+                          <div key={pass.id} className="flex items-center justify-between bg-gray-900 border border-gray-800 rounded px-3 py-2">
+                            <span className="text-white text-sm font-medium">{pass.passType?.name || "N/A"}</span>
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium uppercase bg-green-900/50 text-green-400 border border-green-800">
+                              {pass.status || "Active"}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-gray-600 text-sm italic">No passes purchased</p>
+                    )}
                   </div>
-                )}
-                {regUser?.teamsMember?.length > 0 && (
+
+                  {/* Accommodations */}
                   <div>
-                    <h3 className="text-sm text-gray-400 mb-2">Teams Member</h3>
-                    <div className="space-y-2">
-                      {regUser.teamsMember.map((member) => (
-                        <div
-                          key={member.id}
-                          className="flex items-center justify-between bg-gray-900 border border-gray-700 rounded px-3 py-2 hover:bg-gray-800 transition-all"
-                        >
-                          <span className="text-white text-sm font-medium">
-                            {member.team?.name}
-                          </span>
-                          <button
-                            onClick={() => {
-                              handleTeamClick({
-                                ...member.team,
-                                id: member.teamId,
-                              });
-                            }}
-                            className="px-3 py-1 text-xs bg-blue-600 hover:bg-blue-500 text-white rounded transition-all cursor-pointer"
-                          >
-                            View Team
-                          </button>
-                        </div>
-                      ))}
-                    </div>
+                    <h3 className="text-sm font-semibold text-gray-400 mb-3 tracking-wider uppercase">Accommodations</h3>
+                    {accommodationsData?.length > 0 ? (
+                      <div className="space-y-2">
+                        {accommodationsData.map((booking) => (
+                          <div key={booking.id} className="flex items-center justify-between bg-gray-900 border border-gray-800 rounded px-3 py-2">
+                            <span className="text-white text-sm font-medium">{booking.accommodationType?.name || "N/A"}</span>
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium uppercase bg-green-900/50 text-green-400 border border-green-800">
+                              {booking.status || "Active"}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-gray-600 text-sm italic">No accommodation bookings</p>
+                    )}
                   </div>
-                )}
-              </div>
-            )}
+                </>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Registrations */}
+        {/* Combined Event Registrations Table */}
         <div className="mb-8">
           <div className="bg-black border border-gray-700 rounded-lg p-6">
             <h2 className="text-xl font-bold text-red-500 mb-4 border-b border-gray-700 pb-3">
-              Registrations
+              Event Registrations
             </h2>
             {!regUser ? (
               <SkeletonTable />
-            ) : regUser?.registrations?.length > 0 ? (
+            ) : combinedRegistrations.length > 0 ? (
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
                   <thead>
                     <tr className="border-b border-gray-700">
-                      <th className="px-4 py-3 text-sm text-gray-400">
-                        Event Name
-                      </th>
-                      <th className="px-4 py-3 text-sm text-gray-400">
-                        Status
-                      </th>
-                      <th className="px-4 py-3 text-sm text-gray-400">
-                        Registered At
-                      </th>
+                      <th className="px-4 py-3 text-sm text-gray-400">Event Name</th>
+                      <th className="px-4 py-3 text-sm text-gray-400">Type</th>
+                      <th className="px-4 py-3 text-sm text-gray-400">Status</th>
+                      <th className="px-4 py-3 text-sm text-gray-400 text-right">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-700">
-                    {regUser.registrations.map((reg) => (
-                      <tr key={reg.id}>
+                    {combinedRegistrations.map((reg, idx) => (
+                      <tr key={`${reg.type}-${reg.id}-${idx}`}>
                         <td className="px-4 py-3">
-                          <div className="flex items-center gap-3">
-                            <span className="text-white font-medium">
-                              {eventNames[reg.eventId] || reg.eventId || "N/A"}
-                            </span>
-                            {(reg.status?.toLowerCase() === "active" ||
-                              reg.status?.toLowerCase() === "success") && (
-                                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-green-900 text-green-400 border border-green-600">
-                                  Active
-                                </span>
-                              )}
-                          </div>
+                          <span className="text-white font-medium">
+                            {eventNames[reg.eventId] || reg.eventId || "N/A"}
+                          </span>
                         </td>
                         <td className="px-4 py-3">
-                          <span
-                            className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium ${reg.status?.toLowerCase() === "active" ||
-                              reg.status?.toLowerCase() === "success"
-                              ? "bg-green-900 text-green-400 border border-green-600"
-                              : "bg-green-900 text-green-400 border border-green-600"
-                              }`}
-                          >
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold ${reg.type === 'Team' ? 'bg-blue-900/50 text-blue-400 border border-blue-800' : reg.type === 'MUN' ? 'bg-yellow-900/40 text-yellow-500 border border-yellow-700' : 'bg-purple-900/50 text-purple-400 border border-purple-800'}`}>
+                            {reg.type}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-green-900/50 text-green-400 border border-green-800 capitalize">
                             {reg.status || "Active"}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-gray-400 text-sm">
-                          {reg.created_at
-                            ? new Date(reg.created_at).toLocaleDateString(
-                              "en-US",
-                              {
-                                day: "numeric",
-                                month: "short",
-                                year: "numeric",
-                              },
-                            )
-                            : "N/A"}
+                        <td className="px-4 py-3 text-right">
+                          {reg.type === "Team" ? (
+                            <button
+                              onClick={() => handleTeamClick(reg.teamData)}
+                              className="px-3 py-1.5 text-xs bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded transition-all cursor-pointer"
+                            >
+                              View Team
+                            </button>
+                          ) : reg.type === "MUN" ? (
+                            <button
+                              onClick={() => navigate("/register/abmun")}
+                              className="px-3 py-1.5 text-xs bg-yellow-900/30 hover:bg-yellow-900/60 text-yellow-500 border border-yellow-700 rounded transition-all cursor-pointer"
+                            >
+                              Edit Entry
+                            </button>
+                          ) : (
+                            <span className="text-gray-500 font-mono text-xs">-</span>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -419,124 +414,6 @@ const UserData = () => {
               </div>
             ) : (
               <p className="text-gray-500 italic">No registrations yet</p>
-            )}
-          </div>
-        </div>
-
-        {/* Passes */}
-        <div className="mb-8">
-          <div className="bg-black border border-gray-700 rounded-lg p-6">
-            <h2 className="text-xl font-bold text-red-500 mb-4 border-b border-gray-700 pb-3">
-              Passes
-            </h2>
-            {!passesData ? (
-              <SkeletonTable />
-            ) : passesData?.length > 0 ? (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
-                  <thead>
-                    <tr className="border-b border-gray-700">
-                      <th className="px-4 py-3 text-sm text-gray-400">Sr No</th>
-                      <th className="px-4 py-3 text-sm text-gray-400">
-                        Pass Name
-                      </th>
-                      <th className="px-4 py-3 text-sm text-gray-400">
-                        Status
-                      </th>
-                      <th className="px-4 py-3 text-sm text-gray-400">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-700">
-                    {passesData.map((pass, idx) => (
-                      <tr key={pass.id}>
-                        <td className="px-4 py-3 text-white font-medium">
-                          {idx + 1}
-                        </td>
-                        <td className="px-4 py-3 text-white">
-                          {pass.passType?.name || "N/A"}
-                        </td>
-                        <td className="px-4 py-3">
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium capitalize bg-green-900 text-green-400 border border-green-600">
-                            {pass.status || "Active"}
-                          </span>
-                        </td>
-                        <td className="px-4 py-3 text-gray-400 text-sm">
-                          {pass.createdAt || pass.created_at
-                            ? new Date(
-                              pass.createdAt || pass.created_at,
-                            ).toLocaleDateString("en-US", {
-                              day: "numeric",
-                              month: "short",
-                              year: "numeric",
-                            })
-                            : "N/A"}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <p className="text-gray-500 italic">No passes purchased</p>
-            )}
-          </div>
-        </div>
-
-        {/* Accommodations */}
-        <div className="mb-8">
-          <div className="bg-black border border-gray-700 rounded-lg p-6">
-            <h2 className="text-xl font-bold text-red-500 mb-4 border-b border-gray-700 pb-3">
-              Accommodation Bookings
-            </h2>
-            {!accommodationsData ? (
-              <SkeletonTable />
-            ) : accommodationsData?.length > 0 ? (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
-                  <thead>
-                    <tr className="border-b border-gray-700">
-                      <th className="px-4 py-3 text-sm text-gray-400">Sr No</th>
-                      <th className="px-4 py-3 text-sm text-gray-400">
-                        Accommodation Name
-                      </th>
-                      <th className="px-4 py-3 text-sm text-gray-400">
-                        Status
-                      </th>
-                      <th className="px-4 py-3 text-sm text-gray-400">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-700">
-                    {accommodationsData.map((booking, idx) => (
-                      <tr key={booking.id}>
-                        <td className="px-4 py-3 text-white font-medium">
-                          {idx + 1}
-                        </td>
-                        <td className="px-4 py-3 text-white">
-                          {booking.accommodationType?.name || "N/A"}
-                        </td>
-                        <td className="px-4 py-3">
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium capitalize bg-green-900 text-green-400 border border-green-600">
-                            {booking.status || "Active"}
-                          </span>
-                        </td>
-                        <td className="px-4 py-3 text-gray-400 text-sm">
-                          {booking.createdAt || booking.created_at
-                            ? new Date(
-                              booking.createdAt || booking.created_at,
-                            ).toLocaleDateString("en-US", {
-                              day: "numeric",
-                              month: "short",
-                              year: "numeric",
-                            })
-                            : "N/A"}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <p className="text-gray-500 italic">No accommodation bookings</p>
             )}
           </div>
         </div>
