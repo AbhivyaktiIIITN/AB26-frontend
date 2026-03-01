@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import { useToast } from "../contexts/ToastContext";
+import { isUserRegisteredForEvent } from "../lib/registration-client";
 import { registerForMUN } from "../lib/mun-client";
 import { getUserProfile, getUserBySerialId } from "../lib/user-client";
 import { abidToSerialId, serialIdToABID } from "../utils/abid-utils";
@@ -443,6 +444,14 @@ const MUNRegistration = () => {
 
         setSubmitting(true);
         try {
+            // Verify they have the base MUN registration in the generic Registration table first
+            const isBaseRegistered = await isUserRegisteredForEvent(user.id, ABMUN_EVENT_ID);
+            if (!isBaseRegistered) {
+                showToast("You must first register for the MUN event via the Events page before submitting preferences.", "error");
+                setSubmitting(false);
+                return;
+            }
+
             // Construct exact payload for DB
             const payload = {
                 d1AbId: d1AbId.trim(),
@@ -598,11 +607,11 @@ const MUNRegistration = () => {
                             disabled={submitting}
                             className="flex-1 py-3 bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-base tracking-wide"
                         >
-                            {submitting ? "Submitting…" : "Submit →"}
+                            {submitting ? "Submitting…" : "Submit"}
                         </button>
                     </div>
                     <p className="mt-3 text-center text-xs text-gray-700">
-                        Changes after submission require contacting Orator directly.
+                        Changes can be made before the deadline.
                     </p>
 
                 </form>
