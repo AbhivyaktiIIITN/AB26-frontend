@@ -146,3 +146,26 @@
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.4);
 }
+
+@media (max-width: 768px) {
+    .content {
+        padding: 1.25rem;
+    }
+
+    .eventName {
+        font-size: 1.5rem;
+    }
+
+    .organizers {
+        font-size: 0.85rem;
+    }
+
+    .prizeValue {
+        font-size: 1rem;
+    }
+
+    .moreInfoBtn {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+    }
+}

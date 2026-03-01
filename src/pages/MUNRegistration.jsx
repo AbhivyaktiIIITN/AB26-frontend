@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import { useToast } from "../contexts/ToastContext";
-import { registerForMUN } from "../lib/mun-client";
+import { registerForMUN, getMUNRegistration } from "../lib/mun-client";
 import { getUserProfile, getUserBySerialId, getUserRegData } from "../lib/user-client";
 import { abidToSerialId, serialIdToABID } from "../utils/abid-utils";
 
@@ -11,7 +11,6 @@ const BASE_URL =
 
 const ABMUN_EVENT_ID = "speaking_art_1";
 
-// TODO: Replace TBD portfolios/teams with actual agenda items if needed
 const COMMITTEES = [
     {
         id: "mahabharata",
@@ -344,6 +343,7 @@ const MUNRegistration = () => {
         (async () => {
             setProfileLoading(true);
             try {
+                // Fetch basic user profile
                 const res = await getUserProfile(user.id);
                 if (res?.success && res?.user) {
                     const u = res.user;
@@ -352,10 +352,30 @@ const MUNRegistration = () => {
                     setD1Name(finalName);
                     setD1AbId(serialIdToABID(u.serialId) || String(u.ab_id || ""));
                 }
+
+                // Check for existing MUN registration in Database
+                const munRes = await getMUNRegistration();
+                if (munRes?.success && munRes?.registration) {
+                    const r = munRes.registration;
+
+                    // Look up Committee IDs from their Labels
+                    const c1Obj = COMMITTEES.find(c => c.label === r.committee1);
+                    if (c1Obj) setPref1(c1Obj.id);
+                    if (r.portfolios1) setPortfolios1(r.portfolios1);
+                    if (r.coDelegate1AbId) setD2AbId1(r.coDelegate1AbId);
+
+                    const c2Obj = COMMITTEES.find(c => c.label === r.committee2);
+                    if (c2Obj) setPref2(c2Obj.id);
+                    if (r.portfolios2) setPortfolios2(r.portfolios2);
+                    if (r.coDelegate2AbId) setD2AbId2(r.coDelegate2AbId);
+
+                    localStorage.removeItem(`mun_draft_${user.id}`); // Discard cache if backend data arrives
+                    return; // Skip reading drafted local storage if DB already exists
+                }
             } catch { /* silent */ }
             finally { setProfileLoading(false); }
 
-            // Restore draft (after profile so identity fields aren't overwritten)
+            // Restore draft only if there was no active Database registration
             const saved = localStorage.getItem(`mun_draft_${user.id}`);
             if (saved) {
                 try {
@@ -373,9 +393,7 @@ const MUNRegistration = () => {
         })();
     }, [user]);
 
-    // ── Reset portfolios when committee changes ─────────────────────────────────
-    useEffect(() => { setPortfolios1(["", "", ""]); }, [pref1]);
-    useEffect(() => { setPortfolios2(["", "", ""]); }, [pref2]);
+    // Reset portfolios on MANUAL committee change inside UI instead of reactive useEffect
 
     // ── Co-delegate lookups ───────────────────────────────────────────────────
     const handleD2Change = (setAbId, setLookup) => async (val) => {
@@ -414,6 +432,19 @@ const MUNRegistration = () => {
     const handleD2Change1 = handleD2Change(setD2AbId1, setD2Lookup1);
     const handleD2Change2 = handleD2Change(setD2AbId2, setD2Lookup2);
 
+    // Bootstrap draft lookups natively after identity/functions execute
+    useEffect(() => {
+        if (d1AbId) {
+            if (d2AbId1.length === 7 && !d2Lookup1.name && !d2Lookup1.error && !d2Lookup1.loading) {
+                handleD2Change1(d2AbId1);
+            }
+            if (d2AbId2.length === 7 && !d2Lookup2.name && !d2Lookup2.error && !d2Lookup2.loading) {
+                handleD2Change2(d2AbId2);
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [d1AbId, d2AbId1, d2AbId2]);
+
     // ── Submit ──────────────────────────────────────────────────────────────────
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -449,8 +480,9 @@ const MUNRegistration = () => {
             const isBaseRegistered = registrations.some((reg) => reg.eventId === ABMUN_EVENT_ID);
 
             if (!isBaseRegistered) {
-                showToast("You must first register for the MUN event via the Events page before submitting preferences.", "error");
+                showToast("First register for the abMUN event before submitting preferences.", "error");
                 setSubmitting(false);
+                navigate("/events");
                 return;
             }
 
@@ -562,7 +594,10 @@ const MUNRegistration = () => {
                         title="1st Preference"
                         committees={COMMITTEES}
                         committee={pref1}
-                        onCommitteeChange={setPref1}
+                        onCommitteeChange={(val) => {
+                            setPref1(val);
+                            setPortfolios1(["", "", ""]);
+                        }}
                         portfolios={portfolios1}
                         onPortfolioChange={(idx, val) => {
                             const next = [...portfolios1];
@@ -580,7 +615,10 @@ const MUNRegistration = () => {
                         title="2nd Preference"
                         committees={pref2Committees}
                         committee={pref2}
-                        onCommitteeChange={setPref2}
+                        onCommitteeChange={(val) => {
+                            setPref2(val);
+                            setPortfolios2(["", "", ""]);
+                        }}
                         portfolios={portfolios2}
                         onPortfolioChange={(idx, val) => {
                             const next = [...portfolios2];

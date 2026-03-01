@@ -8,6 +8,7 @@ import { useToast } from "../contexts/ToastContext";
 import { serialIdToABID } from "../utils/abid-utils";
 import { signOut } from "../lib/auth-client";
 import { getEventById } from "../lib/event-client";
+import { getMUNRegistrationByAbId } from "../lib/mun-client";
 import {
   getUserPassesAndAccommodations,
   getUserProfile,
@@ -58,6 +59,7 @@ const UserData = () => {
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [eventNames, setEventNames] = useState({});
+  const [coDelegateRegs, setCoDelegateRegs] = useState([]);
 
   // All effect hooks MUST be at the top, before any conditional returns
   useEffect(() => {
@@ -76,6 +78,21 @@ const UserData = () => {
         setProfileData(profile);
         setRegData(reg);
         setPassesAccData(passesAcc);
+
+        // Fetch co-delegate MUN registrations if they have an AB ID
+        if (profile?.user?.serialId) {
+          const abId = serialIdToABID(profile.user.serialId);
+          if (abId) {
+            try {
+              const munRes = await getMUNRegistrationByAbId(abId);
+              if (munRes?.success && munRes?.registration) {
+                setCoDelegateRegs([munRes.registration]);
+              }
+            } catch (munErr) {
+              console.error("Failed to fetch MUN co-delegate info:", munErr);
+            }
+          }
+        }
       } catch (err) {
         console.error("Error fetching user data:", err);
         setError(err.message || "Failed to fetch user data");
@@ -191,7 +208,11 @@ const UserData = () => {
 
   let combinedRegistrations = [];
   if (regUser) {
-    const individualRegs = regUser.registrations?.map(r => ({ ...r, type: r.eventId === 'speaking_art_1' ? 'MUN' : 'Individual' })) || [];
+    const individualRegs = regUser.registrations?.map(r => ({
+      ...r,
+      type: r.eventId === 'speaking_art_1' ? 'MUN' : 'Individual',
+      displayName: r.eventId === 'speaking_art_1' ? 'abMUN' : null
+    })) || [];
     const teamRegs = regUser.teamsMember?.map(member => ({
       id: member.teamId,
       eventId: member.team?.eventId,
@@ -200,7 +221,15 @@ const UserData = () => {
       teamData: { ...member.team, id: member.teamId }
     })) || [];
 
-    combinedRegistrations = [...individualRegs, ...teamRegs];
+    const coDelRegs = coDelegateRegs.map(reg => ({
+      id: reg.id || `codel-${reg.eventId}`,
+      eventId: reg.eventId || 'speaking_art_1',
+      displayName: 'abMUN',
+      type: 'MUN (Co-Delegate)',
+      status: 'Registered',
+    }));
+
+    combinedRegistrations = [...individualRegs, ...teamRegs, ...coDelRegs];
   }
 
   return (
@@ -375,11 +404,11 @@ const UserData = () => {
                       <tr key={`${reg.type}-${reg.id}-${idx}`}>
                         <td className="px-4 py-3">
                           <span className="text-white font-medium">
-                            {eventNames[reg.eventId] || reg.eventId || "N/A"}
+                            {reg.displayName || eventNames[reg.eventId] || reg.eventId || "N/A"}
                           </span>
                         </td>
                         <td className="px-4 py-3">
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold ${reg.type === 'Team' ? 'bg-blue-900/50 text-blue-400 border border-blue-800' : reg.type === 'MUN' ? 'bg-yellow-900/40 text-yellow-500 border border-yellow-700' : 'bg-purple-900/50 text-purple-400 border border-purple-800'}`}>
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold ${reg.type === 'Team' ? 'bg-blue-900/50 text-blue-400 border border-blue-800' : reg.type === 'MUN' ? 'bg-yellow-900/40 text-yellow-500 border border-yellow-700' : reg.type === 'MUN (Co-Delegate)' ? 'bg-cyan-900/40 text-cyan-400 border border-cyan-700' : 'bg-purple-900/50 text-purple-400 border border-purple-800'}`}>
                             {reg.type}
                           </span>
                         </td>
@@ -403,6 +432,8 @@ const UserData = () => {
                             >
                               Edit Entry
                             </button>
+                          ) : reg.type === "MUN (Co-Delegate)" ? (
+                            <span className="text-gray-500 font-mono text-xs">-</span>
                           ) : (
                             <span className="text-gray-500 font-mono text-xs">-</span>
                           )}

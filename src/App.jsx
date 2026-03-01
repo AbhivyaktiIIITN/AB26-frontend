@@ -107,7 +107,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/passes" element={<PassesStay />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/testpay" element={<TestPay />} />
+            {/* <Route path="/testpay" element={<TestPay />} /> */}
             <Route path="/faq" element={<FAQ />} />
             <Route path="/legal" element={<LegalPolicies />} />
             <Route path="/policies" element={<RefundPolicies />} />

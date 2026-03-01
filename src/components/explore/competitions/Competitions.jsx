@@ -19,11 +19,8 @@ const Competitions = () => {
     const [activeTicket, setActiveTicket] = useState(null); // Initially null
     const [selectedEvent, setSelectedEvent] = useState(null);
 
-    // Set initial active ticket for desktop only
     useEffect(() => {
-        if (window.innerWidth > 1280) {
-            setActiveTicket(TICKETS[0]);
-        }
+        setActiveTicket(TICKETS[0]);
     }, []);
 
     // Helper to get events for a ticket
