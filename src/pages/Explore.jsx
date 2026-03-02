@@ -7,6 +7,8 @@ import ComingSoon from "../components/common/ComingSoon/ComingSoon";
 import ExploreTabs from "../components/explore/ExploreTabs";
 import Competitions from "../components/explore/competitions/Competitions";
 import FAQHint from "../components/ui/FAQHint";
+import { exploreData } from "../data/exploreData";
+import ExploreSection from "../components/explore/ExploreSection";
 
 const VALID_TABS = ["proShows", "competitions", "streetActivity"];
 
@@ -41,10 +43,10 @@ const Explore = () => {
         {activeTab === "competitions" ? (
           <Competitions />
         ) : (
-          // <ExploreSection
-          //     items={exploreData[activeTab]}
-          // />
-          <ComingSoon />
+          <ExploreSection
+              items={exploreData[activeTab]}
+          />
+          // <ComingSoon />
         )}
       </section>
       <FAQHint label="How registration works" />

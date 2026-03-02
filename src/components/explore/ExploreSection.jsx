@@ -31,6 +31,7 @@ const ExploreSection = ({ items }) => {
                             <ExploreImage
                                 src={item.image}
                                 alt={item.artistName}
+                                link={item.insta}
                             />
 
                             <ExploreCard

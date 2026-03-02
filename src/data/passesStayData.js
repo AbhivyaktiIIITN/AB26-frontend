@@ -17,12 +17,12 @@ export const passTemplates = [
         title: "THE MVP PASS",
         subtitle: "The full AB Experience",
         details: [
-            { label: "All-Access", text: "Registration fees for All competitions." },
-            { label: "The Big Nights", text: "Entry to all Pronites and Pro-shows (3 Days)" },
-            { label: "The Swag", text: "Official Abhivyakti '26 Limited Edition Merch." },
+            { label: "All-Access", text: "Includes participation entry for all competitions." },
+            { label: "The Big Nights", text: "Full access to all proshows and pronites throughout the fest." },
+            { label: "The Swag", text: "Get the Official Abhivyakti '26 Limited Edition Merch." },
             { label: "Best for", text: "The hardcore participants who want to own the stage and the nights." }
         ],
-        basePrice: "900",
+        basePrice: "1200",
         fallbackPrice: "₹---"
     },
     {
@@ -33,7 +33,7 @@ export const passTemplates = [
             { label: "The Big Nights", text: "Entry to all Pronites and Pro-shows (Concert, DJ Night, Comedy)" },
             { label: "Best for", text: "The vibe-seekers who are here for the energy and the artists." }
         ],
-        basePrice: "1199",
+        basePrice: "600",
         fallbackPrice: "₹---"
     }
 ];

@@ -19,29 +19,50 @@ const GuestsSpeakers = () => {
       name: "",
       designation: "",
       image:
-        "https://assets.2026.abhivyaktifest.in/images/guests/unknown-guest-card-v2.svg",
+        "https://assets.2026.abhivyaktifest.in/images/guests/samtani.png",
     },
     {
       id: 2,
       name: "",
       designation: "",
       image:
-        "https://assets.2026.abhivyaktifest.in/images/guests/unknown-guest-card-v2.svg",
+        "https://assets.2026.abhivyaktifest.in/images/guests/badlani.png",
     },
     {
       id: 3,
       name: "",
       designation: "",
       image:
-        "https://assets.2026.abhivyaktifest.in/images/guests/unknown-guest-card-v2.svg",
+        "https://assets.2026.abhivyaktifest.in/images/guests/rohit.png",
     },
     {
       id: 4,
       name: "",
       designation: "",
       image:
-        "https://assets.2026.abhivyaktifest.in/images/guests/unknown-guest-card-v2.svg",
+        "https://assets.2026.abhivyaktifest.in/images/guests/samtani.png",
     },
+    {
+      id: 5,
+      name: "",
+      designation: "",
+      image:
+        "https://assets.2026.abhivyaktifest.in/images/guests/badlani.png",
+    },
+    {
+      id: 6,
+      name: "",
+      designation: "",
+      image:
+        "https://assets.2026.abhivyaktifest.in/images/guests/rohit.png",
+    },
+    // {
+    //   id: 4,
+    //   name: "",
+    //   designation: "",
+    //   image:
+    //     "https://assets.2026.abhivyaktifest.in/images/guests/unknown-guest-card-v2.svg",
+    // },
   ];
 
   // ========================================

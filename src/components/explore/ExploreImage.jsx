@@ -2,7 +2,13 @@
 
 import styles from "./explore.module.css";
 
-const ExploreImage = ({ src, alt }) => {
+const ExploreImage = ({ src, alt, link }) => {
+    const handleClick = () => {
+        if (link) {
+            window.open(link, "_blank", "noopener,noreferrer");
+        }
+    };
+
     return (
         <div className={styles.imageWrapper}>
             <img
@@ -10,6 +16,8 @@ const ExploreImage = ({ src, alt }) => {
                 alt={alt}
                 className={styles.image}
                 loading="lazy"
+                onClick={handleClick}
+                style={{ cursor: link ? "pointer" : "default" }}
             />
         </div>
     );
