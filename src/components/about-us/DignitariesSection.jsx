@@ -70,18 +70,48 @@ const DignitariesSection = () => {
         },
         {
           name: "Dr. Kaushlendra Sharma",
-          role: "Technical Activities",
+          role: "SAC Faculty Coordinator",
           photo: "https://assets.2026.abhivyaktifest.in/clgdig/ta.png",
         },
         {
           name: "Dr. Rahul Semwal",
-          role: "Cultural Activities",
+          role: "SAC Faculty Coordinator",
           photo: "https://assets.2026.abhivyaktifest.in/clgdig/ca.png",
         },
         {
           name: "Dr. Rajanish Singh",
-          role: "Sports Activities",
+          role: "SAC Faculty Coordinator",
           photo: "https://assets.2026.abhivyaktifest.in/clgdig/sa.jpg",
+        },
+      ],
+    },
+    {
+      designation: "SAC FACULTY MEMBERS",
+      members: [
+        {
+          name: "Dr. Preeti",
+          role: "SAC Faculty Member",
+          photo: "https://assets.2026.abhivyaktifest.in/clgdig/preeti.jpg",
+        },
+        {
+          name: "Dr.Madhuri Tayade",
+          role: "SAC Faculty Member",
+          photo: "https://assets.2026.abhivyaktifest.in/clgdig/madhuri.png",
+        },
+        {
+          name: "Mrs. Ruchira Nitin Selote",
+          role: "SAC Faculty Member",
+          photo: "https://assets.2026.abhivyaktifest.in/clgdig/ruchira.png",
+        },
+        {
+          name: "Mrs. Varsha Kushwah",
+          role: "SAC Faculty Member",
+          photo: "https://assets.2026.abhivyaktifest.in/clgdig/varsha.png",
+        },
+        {
+          name: "Mr. Vikrant Dhenge",
+          role: "SAC Faculty Member",
+          photo: "https://assets.2026.abhivyaktifest.in/clgdig/vikrant.jpg",
         },
       ],
     },
