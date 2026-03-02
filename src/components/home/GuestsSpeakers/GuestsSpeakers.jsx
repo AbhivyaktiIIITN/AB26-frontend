@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./GuestsSpeakers.css";
+import { useNavigate } from "react-router-dom";
 
 const GuestsSpeakers = () => {
   // ========================================
@@ -73,6 +74,8 @@ const GuestsSpeakers = () => {
   const [cardsPerView, setCardsPerView] = useState(3);
   const [gapSize, setGapSize] = useState(130);
   const [isTransitioning, setIsTransitioning] = useState(true);
+
+  const navigate = useNavigate();
 
   const getCircularSpeakers = () => {
     if (speakers.length <= cardsPerView) return speakers;
@@ -220,6 +223,9 @@ const GuestsSpeakers = () => {
                         className="card-template-bg"
                         src={speaker.image}
                         alt={speaker.name}
+                        onClick={()=>{
+                          navigate("/events#proShows");
+                        }}
                       />
 
                       {/* <div className="speaker-photo-layer">
