@@ -113,7 +113,7 @@ function App() {
             <Route path="/policies" element={<RefundPolicies />} />
             <Route path="/myaccount" element={<UserData />} />
             <Route path="/register/abmun" element={<MUNRegistration />} />
-            {/* <Route path="/gallery" element={<Gallery />} /> */}
+            <Route path="/gallery" element={<Gallery />} />
           </Routes>
 
           <Footer />
