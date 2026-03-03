@@ -60,6 +60,7 @@ const UserData = () => {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [eventNames, setEventNames] = useState({});
   const [coDelegateRegs, setCoDelegateRegs] = useState([]);
+  const [statusTooltip, setStatusTooltip] = useState(false);
 
   // All effect hooks MUST be at the top, before any conditional returns
   useEffect(() => {
@@ -395,7 +396,36 @@ const UserData = () => {
                     <tr className="border-b border-gray-700">
                       <th className="px-4 py-3 text-sm text-gray-400">Event Name</th>
                       <th className="px-4 py-3 text-sm text-gray-400">Type</th>
-                      <th className="px-4 py-3 text-sm text-gray-400">Status</th>
+                      <th className="px-4 py-3 text-sm text-gray-400 relative !overflow-visible">
+                        <div className="flex items-center gap-1.5 relative">
+                          <span className="whitespace-nowrap">Status</span>
+                          <button
+                            type="button"
+                            className="text-gray-400 hover:text-yellow-500 transition-colors cursor-pointer flex items-center justify-center -mb-0.5"
+                            onMouseEnter={() => setStatusTooltip(true)}
+                            onMouseLeave={() => setStatusTooltip(false)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setStatusTooltip(!statusTooltip);
+                            }}
+                          >
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                          </button>
+
+                          {/* Rich Tooltip - Appearing BELOW to avoid clipping */}
+                          {statusTooltip && (
+                            <div className="absolute top-full left-0 mt-2 w-64 p-4 bg-gray-900 border border-gray-700 rounded-lg shadow-2xl z-[100] backdrop-blur-xl animate-in fade-in zoom-in-95 duration-200">
+                              <p className="text-[12px] leading-relaxed text-gray-200 font-normal">
+                                <span className="text-yellow-500 font-bold block mb-1.5 text-xs uppercase tracking-wider">Eligibility Requirement</span>
+                                Buy at least one pass to be eligible for these registered events and complete your team if it is incomplete.
+                              </p>
+                              <div className="absolute bottom-full left-4 border-8 border-transparent border-b-gray-900"></div>
+                            </div>
+                          )}
+                        </div>
+                      </th>
                       <th className="px-4 py-3 text-sm text-gray-400 text-right">Action</th>
                     </tr>
                   </thead>
@@ -413,9 +443,15 @@ const UserData = () => {
                           </span>
                         </td>
                         <td className="px-4 py-3">
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-green-900/50 text-green-400 border border-green-800 capitalize">
-                            {reg.status || "Active"}
-                          </span>
+                          {Array.isArray(passesData) && passesData.length > 0 ? (
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-green-900/50 text-green-400 border border-green-800 capitalize">
+                              {reg.status || "Active"}
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-red-900/40 text-red-500 border border-red-800 capitalize">
+                              Ineligible
+                            </span>
+                          )}
                         </td>
                         <td className="px-4 py-3 text-right">
                           {reg.type === "Team" ? (

@@ -143,8 +143,8 @@ const PrefBlock = ({
     committees,
     committee,
     onCommitteeChange,
-    portfolios,          // [string, string, string]
-    onPortfolioChange,   // (index, value) => void
+    portfolios,
+    onPortfolioChange,
     d2AbId,
     onD2Change,
     d2Lookup,
@@ -204,7 +204,7 @@ const PrefBlock = ({
                     {/* 3 separate portfolio/team fields */}
                     {[0, 1, 2].map((i) => {
                         const availableOptions = committeePortfolios.filter(
-                            (p) => !portfolios.includes(p) || portfolios[i] === p
+                            (p) => !portfolios.slice(0, 3).includes(p) || portfolios[i] === p
                         );
 
                         return (
@@ -233,6 +233,21 @@ const PrefBlock = ({
                             </div>
                         );
                     })}
+
+                    {/* Past Experience (4th entry in portfolios array) */}
+                    <div className={`mb-4 ${!committee ? "opacity-30 pointer-events-none" : ""}`}>
+                        <label className="block text-gray-400 text-sm mb-1.5">
+                            Past Experience <span className="text-[10px] text-gray-500 ml-1">(Optional)</span>
+                        </label>
+                        <textarea
+                            rows={2}
+                            value={portfolios[3] || ""}
+                            onChange={(e) => onPortfolioChange(3, e.target.value)}
+                            placeholder="Share your past participations, winnings and highlights..."
+                            disabled={submitting || !committee}
+                            className="w-full bg-gray-900 border border-gray-700 rounded px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-gray-500 transition-colors disabled:opacity-40 resize-none"
+                        />
+                    </div>
 
                     {/* Divider only required on mobile optionally, but we'll show it generally just before delegate */}
                     <div className="border-t border-gray-800 my-4" />
@@ -296,10 +311,10 @@ const MUNRegistration = () => {
     const [d1AbId, setD1AbId] = useState("");
 
     const [pref1, setPref1] = useState("");
-    const [portfolios1, setPortfolios1] = useState(["", "", ""]);
+    const [portfolios1, setPortfolios1] = useState(["", "", "", ""]);
 
     const [pref2, setPref2] = useState("");
-    const [portfolios2, setPortfolios2] = useState(["", "", ""]);
+    const [portfolios2, setPortfolios2] = useState(["", "", "", ""]);
 
     // Independent co-delegates
     const [d2AbId1, setD2AbId1] = useState("");
@@ -448,11 +463,12 @@ const MUNRegistration = () => {
     // ── Submit ──────────────────────────────────────────────────────────────────
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!pref1 || portfolios1.some((p) => !p)) {
+        // Validate preferences (skip 4th index as it's optional experience)
+        if (!pref1 || portfolios1.slice(0, 3).some((p) => !p)) {
             showToast("Fill in your 1st preference committee and all 3 portfolios", "error");
             return;
         }
-        if (!pref2 || portfolios2.some((p) => !p)) {
+        if (!pref2 || portfolios2.slice(0, 3).some((p) => !p)) {
             showToast("Fill in your 2nd preference committee and all 3 portfolios", "error");
             return;
         }
@@ -596,7 +612,7 @@ const MUNRegistration = () => {
                         committee={pref1}
                         onCommitteeChange={(val) => {
                             setPref1(val);
-                            setPortfolios1(["", "", ""]);
+                            setPortfolios1(["", "", "", ""]);
                         }}
                         portfolios={portfolios1}
                         onPortfolioChange={(idx, val) => {
@@ -617,7 +633,7 @@ const MUNRegistration = () => {
                         committee={pref2}
                         onCommitteeChange={(val) => {
                             setPref2(val);
-                            setPortfolios2(["", "", ""]);
+                            setPortfolios2(["", "", "", ""]);
                         }}
                         portfolios={portfolios2}
                         onPortfolioChange={(idx, val) => {

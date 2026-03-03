@@ -1024,7 +1024,7 @@ export const exploreData = {
             {
               id: "round_1",
               title: "On-Campus Presentation",
-              start_date: "19th March 2025",
+              start_date: "20th March 2025",
               end_date: "21th March 2025",
 
               description:
