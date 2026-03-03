@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthModal } from "../components/auth/ModalAuthLayout";
 import FAQHint from "../components/ui/FAQHint";
 import TeamModal from "../components/ui/TeamModal";
+import PassModal from "../components/ui/PassModal";
 import { useAuth } from "../contexts/AuthProvider";
 import { useToast } from "../contexts/ToastContext";
 import { serialIdToABID } from "../utils/abid-utils";
@@ -57,6 +58,16 @@ const UserData = () => {
   const [error, setError] = useState(null);
   const [showTeamModal, setShowTeamModal] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState(null);
+
+  // Modal state for Pass / Accommodation
+  const [showPassModal, setShowPassModal] = useState(false);
+  const [selectedPass, setSelectedPass] = useState(null);
+  const [passModalType, setPassModalType] = useState('pass'); // 'pass' or 'accommodation'
+
+  // Download state for hidden PassModal
+  const [downloadingPass, setDownloadingPass] = useState(null);
+  const [downloadingType, setDownloadingType] = useState(null);
+
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [eventNames, setEventNames] = useState({});
   const [coDelegateRegs, setCoDelegateRegs] = useState([]);
@@ -171,7 +182,7 @@ const UserData = () => {
             Please log in to access your profile and view your registrations.
           </p>
           <button
-            onClick={() => openAuth("signin")}
+            onClick={() => navigate("/signin")}
             className="bg-[#3C0919] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#5a0d29] transition-all duration-200 hover:shadow-lg"
           >
             Sign In
@@ -189,6 +200,22 @@ const UserData = () => {
   const handleCloseTeamModal = () => {
     setShowTeamModal(false);
     setSelectedTeam(null);
+  };
+
+  const handleOpenPassModal = (item, type) => {
+    setSelectedPass(item);
+    setPassModalType(type);
+    setShowPassModal(true);
+  };
+
+  const handleDownloadPdf = (item, type) => {
+    setDownloadingPass(item);
+    setDownloadingType(type);
+  };
+
+  const handleClosePassModal = () => {
+    setShowPassModal(false);
+    setSelectedPass(null);
   };
 
   if (error) {
@@ -257,27 +284,33 @@ const UserData = () => {
 
           {/* User Name and Details */}
           <div className="text-center pt-4 space-y-4">
-            <h2
-              className="text-3xl md:text-4xl font-semibold text-yellow-500"
-              style={{ fontFamily: "var(--font-aquila)" }}
-            >
-              {profileUser?.name || <SkeletonLoader />}
-            </h2>
+            {profileUser?.name ? (
+              <h2
+                className="text-3xl md:text-4xl font-semibold text-yellow-500"
+                style={{ fontFamily: "var(--font-aquila)" }}
+              >
+                {profileUser.name}
+              </h2>
+            ) : (
+              <SkeletonLoader />
+            )}
             <div className="flex items-center justify-center gap-4 flex-wrap">
               <div className="inline-flex items-center px-2 rounded-lg bg-black border border-red-600">
                 <span className="text-gray-400 text-sm mr-2">AB ID:</span>
-                <span className="text-red-500 font-bold text-lg">
+                <div className="text-red-500 font-bold text-lg flex items-center">
                   {profileUser?.serialId ? (
                     serialIdToABID(profileUser.serialId)
                   ) : (
                     <SkeletonLoader />
                   )}
-                </span>
+                </div>
               </div>
             </div>
-            <p className="text-gray-400">
-              {profileUser?.email || <SkeletonLoader />}
-            </p>
+            {profileUser?.email ? (
+              <p className="text-gray-400">{profileUser.email}</p>
+            ) : (
+              <SkeletonLoader />
+            )}
           </div>
         </div>
 
@@ -345,9 +378,23 @@ const UserData = () => {
                         {passesData.map((pass) => (
                           <div key={pass.id} className="flex items-center justify-between bg-gray-900 border border-gray-800 rounded px-3 py-2">
                             <span className="text-white text-sm font-medium">{pass.passType?.name || "N/A"}</span>
-                            <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium uppercase bg-green-900/50 text-green-400 border border-green-800">
-                              {pass.status || "Active"}
-                            </span>
+                            <div className="flex items-center gap-3">
+                              <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium uppercase bg-green-900/50 text-green-400 border border-green-800">
+                                {pass.status || "Active"}
+                              </span>
+                              <button
+                                className="px-3 py-1 text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded transition-all cursor-pointer"
+                                onClick={() => handleDownloadPdf(pass, 'pass')}
+                              >
+                                Download PDF
+                              </button>
+                              <button
+                                className="px-3 py-1 text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded transition-all cursor-pointer"
+                                onClick={() => handleOpenPassModal(pass, 'pass')}
+                              >
+                                View
+                              </button>
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -364,9 +411,23 @@ const UserData = () => {
                         {accommodationsData.map((booking) => (
                           <div key={booking.id} className="flex items-center justify-between bg-gray-900 border border-gray-800 rounded px-3 py-2">
                             <span className="text-white text-sm font-medium">{booking.accommodationType?.name || "N/A"}</span>
-                            <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium uppercase bg-green-900/50 text-green-400 border border-green-800">
-                              {booking.status || "Active"}
-                            </span>
+                            <div className="flex items-center gap-3">
+                              <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium uppercase bg-green-900/50 text-green-400 border border-green-800">
+                                {booking.status || "Active"}
+                              </span>
+                              <button
+                                className="px-3 py-1 text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded transition-all cursor-pointer"
+                                onClick={() => handleDownloadPdf(booking, 'accommodation')}
+                              >
+                                Download PDF
+                              </button>
+                              <button
+                                className="px-3 py-1 text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded transition-all cursor-pointer"
+                                onClick={() => handleOpenPassModal(booking, 'accommodation')}
+                              >
+                                View
+                              </button>
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -483,6 +544,24 @@ const UserData = () => {
           onSuccess={handleCloseTeamModal}
         />
       )}
+
+      {/* Pass / Accommodation Modal */}
+      <PassModal
+        isOpen={showPassModal}
+        onClose={handleClosePassModal}
+        passData={selectedPass}
+        type={passModalType}
+      />
+
+      {/* Hidden PassModal for download functionality */}
+      <PassModal
+        isOpen={!!downloadingPass}
+        onClose={() => { setDownloadingPass(null); setDownloadingType(null); }}
+        passData={downloadingPass}
+        type={downloadingType}
+        isDownloadMode={true}
+      />
+
       <FAQHint label="How to add team members" />
     </div>
   );
