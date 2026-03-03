@@ -16,6 +16,13 @@
   </url>
 
   <url>
+    <loc>https://abhivyaktifest.in/passes</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
     <loc>https://abhivyaktifest.in/about</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -38,6 +45,13 @@
 
   <url>
     <loc>https://abhivyaktifest.in/developers</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://abhivyaktifest.in/faq</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
