@@ -63,8 +63,15 @@ const PassModal = ({ isOpen, onClose, passData, type, isDownloadMode = false }) 
     const dateTime = formatDate(passData.created_at);
     const paymentMode = "Online"; // Defaulting to online since there's a Razorpay ID
 
-    // Create QR string (could be a specialized URL or just the token)
-    const qrValue = passData.qrToken || passData.id.toString();
+    // Create QR string formatted with type and token
+    // QR payload should be an object containing `type` ("pass" or "accomodation") and `qrToken`.
+    // Use the existing qrToken if available, otherwise fallback to ID string.
+    const rawToken = passData.qrToken || passData.id.toString();
+    const qrPayload = {
+        type,
+        qrToken: rawToken,
+    };
+    const qrValue = JSON.stringify(qrPayload);
 
     const handleDownloadPDF = () => {
         const element = document.getElementById('pass-invoice-content');
@@ -95,13 +102,13 @@ const PassModal = ({ isOpen, onClose, passData, type, isDownloadMode = false }) 
         <div
             className={isDownloadMode
                 ? "fixed top-[-9999px] left-[-9999px] opacity-0 pointer-events-none"
-                : "fixed inset-0 z-[100000000] bg-black/80 backdrop-blur-sm overflow-y-auto w-full h-full"
+                : "fixed inset-0 z-[100000000] bg-black/80 backdrop-blur-sm overflow-y-auto w-full h-full overscroll-none"
             }
             aria-labelledby="modal-title"
             role="dialog"
             aria-modal="true"
         >
-            <div className="flex min-h-screen items-center justify-center p-4 text-center">
+            <div className="flex min-h-full items-start md:items-center justify-center p-4 text-center">
                 {/* Modal Card */}
                 <div className="relative w-full max-w-4xl bg-[#f4f4f4] text-[#000000] text-left transform shadow-xl rounded-sm my-8" id="pass-invoice-content">
                     <div id="pass-action-buttons" className="absolute top-4 right-4 z-10 flex gap-2">
