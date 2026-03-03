@@ -27,14 +27,14 @@ const GuestsSpeakers = () => {
       name: "",
       designation: "",
       image:
-        "https://assets.2026.abhivyaktifest.in/images/guests/badlani.png",
+        "https://assets.2026.abhivyaktifest.in/images/guests/rohit.png",
     },
     {
       id: 3,
       name: "",
       designation: "",
       image:
-        "https://assets.2026.abhivyaktifest.in/images/guests/rohit.png",
+        "https://assets.2026.abhivyaktifest.in/images/guests/badlani.png",
     },
     {
       id: 4,
@@ -48,14 +48,14 @@ const GuestsSpeakers = () => {
       name: "",
       designation: "",
       image:
-        "https://assets.2026.abhivyaktifest.in/images/guests/badlani.png",
+        "https://assets.2026.abhivyaktifest.in/images/guests/rohit.png",
     },
     {
       id: 6,
       name: "",
       designation: "",
       image:
-        "https://assets.2026.abhivyaktifest.in/images/guests/rohit.png",
+        "https://assets.2026.abhivyaktifest.in/images/guests/badlani.png",
     },
     // {
     //   id: 4,
