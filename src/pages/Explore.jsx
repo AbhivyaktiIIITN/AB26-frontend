@@ -1,6 +1,6 @@
 // src/pages/Explore.jsx
 
-import { useEffect, useRef, useState } from "react";
+import { act, useEffect, useRef, useState } from "react";
 
 import ExploreHero from "@/components/explore/ExploreHero";
 import ComingSoon from "../components/common/ComingSoon/ComingSoon";
@@ -43,10 +43,10 @@ const Explore = () => {
         {activeTab === "competitions" ? (
           <Competitions />
         ) : (
-          <ExploreSection
+          activeTab === "proShows" ?
+            (<ExploreSection
               items={exploreData[activeTab]}
-          />
-          // <ComingSoon />
+            />) : (<ComingSoon />)
         )}
       </section>
       <FAQHint label="How registration works" />
