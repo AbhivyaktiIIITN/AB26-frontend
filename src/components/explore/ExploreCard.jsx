@@ -24,7 +24,7 @@ const ExploreCard = ({
                 <span className={styles.metaItem}>{time}</span>
             </div>
 
-            <Link to={buyLink} className={styles.button}>Buy Passes</Link>
+            {/* <Link to={buyLink} className={`${styles.button}`}>Buy Passes</Link> */}
         </article>
     );
 };
