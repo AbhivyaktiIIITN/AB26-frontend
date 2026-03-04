@@ -25,17 +25,17 @@ export const passTemplates = [
         basePrice: "1200",
         fallbackPrice: "₹---"
     },
-    {
-        id: 3,
-        title: "HEADLINERS PASS",
-        subtitle: "For the fans of the Big Stage",
-        details: [
-            { label: "The Big Nights", text: "Entry to all Pronites and Pro-shows (Concert, DJ Night, Comedy)" },
-            { label: "Best for", text: "The vibe-seekers who are here for the energy and the artists." }
-        ],
-        basePrice: "600",
-        fallbackPrice: "₹---"
-    }
+    // {
+    //     id: 3,
+    //     title: "HEADLINERS PASS",
+    //     subtitle: "For the fans of the Big Stage",
+    //     details: [
+    //         { label: "The Big Nights", text: "Entry to all Pronites and Pro-shows (Concert, DJ Night, Comedy)" },
+    //         { label: "Best for", text: "The vibe-seekers who are here for the energy and the artists." }
+    //     ],
+    //     basePrice: "600",
+    //     fallbackPrice: "₹---"
+    // }
 ];
 
 export const accommodationTemplates = [
