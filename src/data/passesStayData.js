@@ -1,17 +1,17 @@
 // Static design data for rendering nice details on passes and accommodations
 
 export const passTemplates = [
-    {
-        id: 1, // ID mapping to the backend database
-        title: "THE FLASH PASS",
-        subtitle: "Flexibility on the Go",
-        details: [
-            { label: "On the Fly", text: "Entry to specific on-spot events, fun zone activities, and mini-games." },
-            { label: "Best for", text: "The casual visitors looking for quick fun and impulsive challenges." }
-        ],
-        basePrice: "1199",
-        fallbackPrice: "₹---"
-    },
+    // {
+    //     id: 1, // ID mapping to the backend database
+    //     title: "THE FLASH PASS",
+    //     subtitle: "Flexibility on the Go",
+    //     details: [
+    //         { label: "On the Fly", text: "Entry to specific on-spot events, fun zone activities, and mini-games." },
+    //         { label: "Best for", text: "The casual visitors looking for quick fun and impulsive challenges." }
+    //     ],
+    //     basePrice: "1199",
+    //     fallbackPrice: "₹---"
+    // },
     {
         id: 2,
         title: "THE MVP PASS",

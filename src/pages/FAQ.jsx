@@ -14,7 +14,10 @@ const faqs = [
                         To participate in any event at Abhivyakti 2026, you must{" "}
                         <strong>first purchase at least one pass</strong> (MVP, Headliner,
                         or Flash) from the{" "}
-                        <Link to="/passes" className="text-yellow-400 underline underline-offset-2 hover:text-yellow-300 transition-colors">
+                        <Link
+                            to="/passes"
+                            className="text-yellow-400 underline underline-offset-2 hover:text-yellow-300 transition-colors"
+                        >
                             Passes & Stay page
                         </Link>
                         . Once you have a valid pass, event registrations are{" "}
@@ -27,17 +30,25 @@ const faqs = [
                 a: "No — event registrations are free. Your pass is what makes you eligible to participate. You can register for as many events as you like once you hold a valid pass.",
             },
             {
+                q: "Can I participate in multiple events?",
+                a: "Yes, you can register for multiple events using the general entry pass, provided their schedules do not clash.",
+            },
+            {
                 q: "How do team events work?",
                 a: (
                     <>
                         For team events, <strong>every team member</strong> must:
                         <ol className="list-decimal pl-5 mt-2 space-y-1">
                             <li>Create an account and log in on the website.</li>
-                            <li>Complete their profile to receive a unique <strong>AB ID</strong> (visible on the My Account page).</li>
+                            <li>
+                                Complete their profile to receive a unique{" "}
+                                <strong>AB ID</strong>.
+                            </li>
                             <li>Share their AB ID with the team leader.</li>
                         </ol>
                         <p className="mt-2">
-                            The <strong>team leader</strong> then fills out the registration form and enters the AB IDs of all members. Only the team leader needs to submit the form — members do not register separately for that event.
+                            The <strong>team leader</strong> then fills out the
+                            registration form and enters the AB IDs of all members.
                         </p>
                     </>
                 ),
@@ -46,36 +57,47 @@ const faqs = [
                 q: "Where do I find my AB ID?",
                 a: (
                     <>
-                        Your AB ID is generated automatically once your profile is complete. You can find it on your{" "}
-                        <Link to="/myaccount" className="text-yellow-400 underline underline-offset-2 hover:text-yellow-300 transition-colors">
-                            My Account.
+                        Your AB ID is generated automatically once your profile is
+                        complete. You can find it on your{" "}
+                        <Link
+                            to="/myaccount"
+                            className="text-yellow-400 underline underline-offset-2 hover:text-yellow-300 transition-colors"
+                        >
+                            My Account
                         </Link>
+                        .
                     </>
                 ),
             },
+            {
+                q: "Are on-spot registrations allowed?",
+                a: "No. On-spot registrations are not allowed.",
+            },
         ],
     },
+
     {
         category: "Accommodation",
         items: [
             {
                 q: "Is accommodation linked to event passes?",
-                a: "No — accommodation is completely standalone. You do not need to purchase a pass to book accommodation, and booking accommodation does not grant you event access. They are independent purchases.",
+                a: "No — accommodation is completely standalone. You do not need to purchase a pass to book accommodation, and booking accommodation does not grant you event access.",
             },
             {
                 q: "How does accommodation booking work?",
-                a: (
-                    <>
-                        Accommodation is available on a per-day basis. You can choose the specific days you need to stay. Tickets for your booked days will be provided and will be scanned at the entry point on your joining date.
-                    </>
-                ),
+                a: "Accommodation is available on a per-day basis. You can choose the specific days you need to stay. Tickets for your booked days will be provided and scanned at the entry point.",
+            },
+            {
+                q: "Is accommodation available for participants from outside Nagpur?",
+                a: "Yes, limited accommodation is available on a first-come, first-served basis. Advance booking is mandatory.",
             },
             {
                 q: "When will I receive my accommodation ticket?",
-                a: "Your accommodation ticket will be available digitally after a successful booking. It will be scanned on your joining date at the designated check-in point on campus.",
+                a: "Your accommodation ticket will be available digitally after a successful booking and will be scanned during check-in.",
             },
         ],
     },
+
     {
         category: "Passes & Tickets",
         items: [
@@ -83,47 +105,99 @@ const faqs = [
                 q: "What passes are available?",
                 a: (
                     <>
-                        We offer three types of passes — <strong>MVP</strong>, <strong>Headliner</strong>, and <strong>Flash</strong> — each with different access levels and inclusions. Visit the{" "}
-                        <Link to="/passes" className="text-yellow-400 underline underline-offset-2 hover:text-yellow-300 transition-colors">
+                        We offer three types of passes — <strong>MVP</strong>,{" "}
+                        <strong>Headliner</strong>, and <strong>Flash</strong>. Visit
+                        the{" "}
+                        <Link
+                            to="/passes"
+                            className="text-yellow-400 underline underline-offset-2 hover:text-yellow-300 transition-colors"
+                        >
                             Passes & Stay page
                         </Link>{" "}
-                        for full details and pricing.
+                        for details.
                     </>
                 ),
             },
             {
                 q: "How will I receive my pass ticket?",
-                a: "Your fest pass is digital. After a successful payment, your registration status and ticket will be accessible on the website. Physical entry tickets will be scanned at the gate during the fest days (March 19–21, 2026).",
+                a: "Your fest pass is digital and available on the website after successful payment. Entry tickets will be scanned at the gate during the fest days.",
             },
             {
                 q: "Can I transfer my pass to someone else?",
-                a: "No. Passes are non-transferable and are linked to the registered participant. They must be presented at the entry gate for validation by the registered individual.",
+                a: "No. Passes are non-transferable and linked to the registered participant.",
+            },
+            {
+                q: "I am a student from IIIT Nagpur. Do I need to buy a pass?",
+                a: "No. IIIT Nagpur students do not need to purchase a general entry pass. However, a pass may be required for event participation.",
             },
         ],
     },
+
     {
         category: "General",
         items: [
             {
                 q: "Who can participate in Abhivyakti 2026?",
-                a: "Abhivyakti 2026 is open to all bona fide students holding a valid college identity card. Some events may have specific eligibility criteria — check individual event details on the Events page.",
+                a: "Abhivyakti 2026 is open to all bona fide students holding a valid college identity card. Some events may have additional eligibility criteria.",
+            },
+            {
+                q: "What if my team size is less than the required number?",
+                a: "Teams must meet the minimum and maximum size criteria mentioned in the event rulebook.",
+            },
+            {
+                q: "Can I modify my team details after registration?",
+                a: "Team modifications may be allowed before the registration deadline. Contact the event coordinator.",
+            },
+            {
+                q: "What documents should I carry to the venue?",
+                a: "You must carry your college ID card, event registration confirmation, and pass.",
+            },
+            {
+                q: "What if I forget to carry my pass or AB ID on the event day?",
+                a: "Entry will only be granted after verification of your pass or AB ID.",
+            },
+            {
+                q: "Will certificates be provided?",
+                a: "Yes. Participation certificates will be provided to participants, and winners will receive merit certificates and prizes.",
+            },
+            {
+                q: "Is there any refund policy if I cannot attend?",
+                a: "Registration and pass fees are generally non-refundable unless the event is cancelled by the organizers.",
+            },
+            {
+                q: "Are there any dress codes for specific events?",
+                a: "Some events may have dress guidelines such as cultural attire for performances.",
+            },
+            {
+                q: "Will food be provided with the entry pass?",
+                a: "No. Food is not included with the entry pass.",
+            },
+            {
+                q: "What happens if an event is rescheduled or cancelled?",
+                a: "Participants will be informed through official communication channels and website updates.",
+            },
+            {
+                q: "How can I stay updated about announcements and schedules?",
+                a: "Follow the official Abhivyakti social media pages and check your registered email regularly.",
             },
             {
                 q: "I have more questions — who do I contact?",
                 a: (
                     <>
                         Reach out to us at{" "}
-                        <a href="mailto:support@abhivyaktifest.in" className="text-yellow-400 underline underline-offset-2 hover:text-yellow-300 transition-colors">
+                        <a
+                            href="mailto:support@abhivyaktifest.in"
+                            className="text-yellow-400 underline underline-offset-2 hover:text-yellow-300 transition-colors"
+                        >
                             support@abhivyaktifest.in
                         </a>{" "}
                         or call{" "}
-                        <a href="tel:+918109134887" className="text-yellow-400 underline underline-offset-2 hover:text-yellow-300 transition-colors">
+                        <a
+                            href="tel:+918109134887"
+                            className="text-yellow-400 underline underline-offset-2 hover:text-yellow-300 transition-colors"
+                        >
                             +91 8109134887
                         </a>
-                        . You can also visit our{" "}
-                        <Link to="/contact" className="text-yellow-400 underline underline-offset-2 hover:text-yellow-300 transition-colors">
-                            Contact page
-                        </Link>
                         .
                     </>
                 ),
