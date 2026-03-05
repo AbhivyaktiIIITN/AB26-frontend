@@ -201,7 +201,7 @@ export const exploreData = {
               id: "round_1",
               title: "Round 1: Nationwide Online Prelims",
               start_date: "1st February 2026",
-              end_date: "6th March 2026",
+              end_date: "12th March 2026",
 
               description:
                 "All participants are required to complete their registration within the given deadline to be considered for this round.",
@@ -400,7 +400,7 @@ export const exploreData = {
               id: "round_1",
               title: "Round 1: Online Prelims",
               start_date: "1st February 2026",
-              end_date: "4th March 2026 (Tentative)",
+              end_date: "12th March 2026 ",
 
               description:
                 "All participants are required to complete their registration within the given deadline to be considered for this round. Kindly ensure that you fill in all the required details accurately before submitting the form. Late or incomplete registrations may not be accepted. We encourage everyone to register at the earliest to avoid any last-minute issues. (No need to submit any video as an audition clip) ",
