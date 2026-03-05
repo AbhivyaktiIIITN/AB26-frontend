@@ -300,7 +300,7 @@ export const exploreData = {
               id: "round_1",
               title: "Round 1: Nationwide Online Prelims",
               start_date: "4th February 2026",
-              end_date: "6th March 2026",
+              end_date: "12th March 2026",
 
               // description:
               //   "Teams must submit a video showcasing their duo performance. This round will serve as an eliminator, with selected pairs advancing to the on-campus finale.",
