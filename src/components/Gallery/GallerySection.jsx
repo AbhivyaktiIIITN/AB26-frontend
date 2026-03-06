@@ -1,119 +1,103 @@
-import { useEffect, useRef, useState, useCallback } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Masonry from "./Masonry";
-
-gsap.registerPlugin(ScrollTrigger);
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const GallerySection = ({ title, items }) => {
-    const wrapperRef = useRef(null);
-    const viewportRef = useRef(null);
-    const contentRef = useRef(null);
-    const [masonryHeight, setMasonryHeight] = useState(0);
+    const [selectedImage, setSelectedImage] = useState(null);
 
-    // Update layout when Masonry reports its height
-    const updateLayout = useCallback((height) => {
-        setMasonryHeight(height);
-    }, []);
-
+    // Lock scroll when modal is open
     useEffect(() => {
-        const wrapper = wrapperRef.current;
-        const viewport = viewportRef.current;
-        const content = contentRef.current;
-
-        if (!wrapper || !viewport || !content || masonryHeight === 0) return;
-
-        // Refresh ScrollTrigger to ensure it knows about the new content dimensions
-        ScrollTrigger.refresh();
-
-        // The viewport height is fixed (e.g. 80vh).
-        // We scroll the content (masonryHeight) within this viewport.
-        const viewportHeight = viewport.offsetHeight;
-        const verticalScrollAmount = masonryHeight - viewportHeight + 100; // +100 padding
-
-        if (verticalScrollAmount <= 0) return;
-
-        // Pin the wrapper for a duration proportional to the content drift
-        const st = ScrollTrigger.create({
-            trigger: wrapper,
-            start: "top top",
-            end: `+=${verticalScrollAmount}`,
-            pin: true,
-            scrub: 1,
-            animation: gsap.to(content, {
-                y: -verticalScrollAmount,
-                ease: "none",
-            }),
-            invalidateOnRefresh: true,
-        });
-
-        return () => {
-            st.kill();
-        };
-    }, [masonryHeight]);
+        if (selectedImage && window.lenis) {
+            window.lenis.stop();
+        } else if (window.lenis) {
+            window.lenis.start();
+        }
+        return () => window.lenis?.start();
+    }, [selectedImage]);
 
     return (
-        <main className="bg-black relative z-0">
-            {/* <GalleryHero /> */}
-
-            {/* Wrapper that is pinned to the screen */}
-            <div
-                ref={wrapperRef}
-                className="relative w-full h-screen bg-black flex flex-col items-center justify-center overflow-hidden"
-            >
-                {/* Fixed Header (Positioned below Navbar) */}
-                <div className="absolute top-21.25 left-0 w-full z-20 bg-black/80 backdrop-blur-md border-b border-white/5 flex justify-center">
-                    <div className="flex items-center justify-center gap-4 py-6 px-0 w-full"> {/* Reduced py from 8 to 6 for compactness */}
-                        <div className="h-0.5 flex-1 bg-linear-to-r from-transparent to-[#611a14]" />
-                        <h1
-                            className="text-center text-4xl md:text-5xl lg:text-6xl text-[#F5F5F0] tracking-[0.15em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4"
-                            style={{ fontFamily: '"Besta Baru", serif' }}
-                        >
-                            {title}
-                        </h1>
-                        <div className="h-0.5 flex-1 bg-linear-to-l from-transparent to-[#611a14]" />
-                    </div>
+        <section className="bg-black py-20 px-4 md:px-10 lg:px-20 min-h-screen">
+            <div className="max-w-7xl mx-auto">
+                {/* Header */}
+                <div className="flex items-center justify-center gap-4 mb-16 px-4">
+                    <div className="h-0.5 flex-1 bg-gradient-to-r from-transparent to-[#611a14]" />
+                    <h2
+                        className="text-center text-4xl md:text-5xl lg:text-6xl text-[#F5F5F0] tracking-[0.15em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4"
+                        style={{ fontFamily: '"Besta Baru", serif' }}
+                    >
+                        {title}
+                    </h2>
+                    <div className="h-0.5 flex-1 bg-gradient-to-l from-transparent to-[#611a14]" />
                 </div>
 
-                {/* 
-            The "Viewport" - A fixed window through which we view the gallery 
-            Centered in the pinned section.
-        */}
+                {/* Simplified Grid / Masonry */}
                 <div
-                    ref={viewportRef}
-                    className="relative w-full max-w-350 h-[65vh] overflow-hidden mt-36" // Increased margin to clear Navbar + Header
+                    className="columns-2 sm:columns-3 lg:columns-4 gap-4 sm:gap-6 space-y-4 sm:space-y-6"
                 >
-                    {/* Top Gradient Mask */}
-                    <div className="absolute top-0 left-0 w-full h-20 bg-linear-to-b from-black to-transparent z-10 pointer-events-none" />
+                    {items.map((item, index) => (
+                        <div
+                            key={item.id}
+                            onClick={() => setSelectedImage(item.img)}
+                            className="relative break-inside-avoid group cursor-pointer rounded-2xl overflow-hidden shadow-2xl"
+                        >
+                            <motion.img
+                                src={item.img}
+                                alt=""
+                                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
+                                style={{
+                                    minHeight: "200px"
+                                }}
+                                loading="lazy"
+                            />
 
-                    {/* Moving Content Layer */}
-                    <div
-                        ref={contentRef}
-                        className="w-full px-4 will-change-transform"
-                    >
-                        <Masonry
-                            items={items}
-                            ease="power3.out"
-                            duration={0.6}
-                            stagger={0.05}
-                            animateFrom="bottom"
-                            scaleOnHover={true}
-                            hoverScale={0.95}
-                            blurToFocus={false}
-                            colorShiftOnHover={false}
-                            onHeightChange={updateLayout}
-                        />
-                    </div>
-
-                    {/* Bottom Gradient Mask */}
-                    <div className="absolute bottom-0 left-0 w-full h-20 bg-linear-to-t from-black to-transparent z-10 pointer-events-none" />
+                            {/* Premium Overlay */}
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                                <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-500">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                                        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 
+            {/* Lightbox / Expanded View */}
+            <AnimatePresence>
+                {selectedImage && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setSelectedImage(null)}
+                        className="fixed inset-0 z-999999 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
+                    >
+                        <motion.button
+                            className="absolute top-10 right-10 z-1000000 w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedImage(null);
+                            }}
+                        >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                                <path d="M18 6L6 18M6 6l12 12" />
+                            </svg>
+                        </motion.button>
 
-            {/* Spacer to Ensure correct unpinning behavior - minimal height */}
-            <div className="h-[10vh] bg-black"></div>
-        </main>
+                        <motion.img
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                            src={selectedImage}
+                            alt="Expanded"
+                            className="max-w-[92vw] max-h-[85vh] md:max-w-[80vw] md:max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/10"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </section>
     );
 };
 
