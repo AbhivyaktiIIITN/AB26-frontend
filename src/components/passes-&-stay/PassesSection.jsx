@@ -124,8 +124,34 @@ const PassesSection = () => {
 
     return (
         <div className={styles.section}>
+            <div style={{
+                textAlign: "center",
+                padding: "60px 20px",
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                borderRadius: "16px",
+                maxWidth: "800px",
+                margin: "0 auto",
+                backdropFilter: "blur(10px)"
+            }}>
+                <h2 style={{ color: "#d4af37", fontFamily: "var(--font-aquila)", fontSize: "2.5rem", marginBottom: "30px" }}>Under Maintenance</h2>
 
-            {/* COMBO PASSES */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                    <p style={{ color: "#fff", fontSize: "1.25rem", lineHeight: "1.6", margin: 0 }}>
+                        Hey! We're under maintenance, to buy passes in the meantime call us at <br />
+                        <a href="tel:+919799729577" style={{ color: "#ffdab9", fontWeight: "bold", fontSize: "1.5rem", textDecoration: "none" }}>+91 97997 29577</a>
+                    </p>
+
+                    <div style={{ width: "50px", height: "1px", background: "rgba(255,255,255,0.2)", margin: "0 auto" }}></div>
+
+                    <p style={{ color: "#fff", fontSize: "1.25rem", lineHeight: "1.6", margin: 0 }}>
+                        Hey! We're under maintenance, to book accomodation in the meantime call us at <br />
+                        <a href="tel:+919644361455" style={{ color: "#ffdab9", fontWeight: "bold", fontSize: "1.5rem", textDecoration: "none" }}>+91 96443 61455</a>
+                    </p>
+                </div>
+            </div>
+
+            {/* COMBO PASSES
             <div>
                 <div className={styles.headerGroup}>
                     <div className={styles.subLabel}>Combo Passes</div>
@@ -155,7 +181,7 @@ const PassesSection = () => {
                 </div>
             </div>
 
-            {/* ACCOMMODATION */}
+            ACCOMMODATION
             <div>
                 <div className={styles.headerGroup}>
                     <div className={styles.subLabel}>Accommodation</div>
@@ -177,6 +203,7 @@ const PassesSection = () => {
                     })}
                 </div>
             </div>
+            */}
 
         </div>
     );
