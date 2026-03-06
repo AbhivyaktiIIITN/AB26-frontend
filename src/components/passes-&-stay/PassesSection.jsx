@@ -142,14 +142,14 @@ const PassesSection = () => {
                     className={styles.cardShadow}
                     variants={{
                         rest: { x: 0, y: 0, opacity: 0 },
-                        hover: { x: 8, y: 8, opacity: 1, transition: { duration: 0.3, ease: "easeOut" } }
+                        hover: { x: 4, y: 4, opacity: 1, transition: { duration: 0.3, ease: "easeOut" } }
                     }}
                 />
                 <motion.div
                     className={`${styles.card} ${isAccommodation ? styles.accommodationCard : ""}`}
                     variants={{
                         rest: { x: 0, y: 0 },
-                        hover: { x: -8, y: -8, transition: { duration: 0.3, ease: "easeOut" } }
+                        hover: { x: -4, y: -4, transition: { duration: 0.3, ease: "easeOut" } }
                     }}
                 >
                     <h3 className={styles.cardTitle}>{template.title}</h3>
@@ -165,21 +165,24 @@ const PassesSection = () => {
 
                         {/* Capacity meter */}
                         <div style={{ marginTop: 'auto', paddingTop: '16px' }}>
-                            {template.gender && (
+                            {/* {template.gender && (
                                 <div style={{ marginBottom: "12px", color: "white", fontSize: "0.95rem" }}>
                                     {template.gender}
                                 </div>
-                            )}
-                            {isLive && (
+                            )} */}
+                            {isLive && !isSoldOut && apiItem.price && template.basePrice && apiItem.price < Number(template.basePrice) && (
                                 <div style={{ textAlign: 'center', fontSize: '0.95rem', color: '#ffdab9', fontWeight: 'bold', fontStyle: 'italic' }}>
-                                    {isSoldOut
-                                        // ? "Fully Sold Out"
-                                        // : `Hurry Up! Only ${available} Spots Remaining!`
-                                        ? "" : "Early Bird Offer !!"
-                                    }
+                                    Early Bird Offer !!
                                 </div>
+                                // ? "Fully Sold Out"
+                                // : `Hurry Up! Only ${available} Spots Remaining!`
                             )}
                         </div>
+                        {isAccommodation && (
+                            <div className={styles.priceNote}>
+                                * Prices are per day. You can choose the number of days on the payment page.
+                            </div>
+                        )}
                     </div>
 
                     <div className={styles.cardFooter}>
@@ -187,7 +190,9 @@ const PassesSection = () => {
                             {isLive && apiItem.price && template.basePrice && apiItem.price !== Number(template.basePrice) && (
                                 <span className={styles.oldPrice}>₹{template.basePrice}</span>
                             )}
-                            <span className={styles.priceDisplay}>{isLive && apiItem.price ? `₹${apiItem.price}` : template.fallbackPrice}</span>
+                            <span className={styles.priceDisplay}>
+                                {isLive && apiItem.price ? `₹${apiItem.price}${isAccommodation ? "/day" : ""}` : template.fallbackPrice}
+                            </span>
                         </div>
                         <button
                             className={styles.buyBtn}
@@ -213,10 +218,17 @@ const PassesSection = () => {
                     <h2 className={styles.mainTitle}><span className={styles.whiteText}>CHOOSE YOUR</span> <br /> EXPERIENCE</h2>
                 </div>
                 <div className={styles.cardsGrid}>
-                    {passTemplates.map((template) => {
-                        const apiItem = passes.find(p => p.id === template.id);
-                        return <Card key={`pass-${template.id}`} template={template} apiItem={apiItem} isAccommodation={false} />;
-                    })}
+                    {passTemplates
+                        .filter(template => {
+                            if (template.restrictedInternalOnly) {
+                                return user?.email?.toLowerCase().endsWith("@iiitn.ac.in");
+                            }
+                            return true;
+                        })
+                        .map((template) => {
+                            const apiItem = passes.find(p => p.id === template.id);
+                            return <Card key={`pass-${template.id}`} template={template} apiItem={apiItem} isAccommodation={false} />;
+                        })}
                 </div>
             </div>
 
@@ -224,7 +236,7 @@ const PassesSection = () => {
             <div>
                 <div className={styles.headerGroup}>
                     <div className={styles.subLabel}>Accommodation</div>
-                    <h2 className={styles.mainTitle}>ACCOMODATION</h2>
+                    <h2 className={styles.mainTitle}>ACCOMMODATION</h2>
                 </div>
                 <div className={styles.cardsGrid}>
                     {accommodationTemplates.map((template) => {
