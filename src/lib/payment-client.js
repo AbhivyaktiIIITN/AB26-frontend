@@ -1,13 +1,16 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
-export const createPaymentOrder = async ({ passTypeId, accommodationTypeId }) => {
+export const createPaymentOrder = async ({ passTypeId, accommodationTypeId, days }) => {
   if (passTypeId == null && accommodationTypeId == null) {
     throw new Error("At least one of passTypeId or accommodationTypeId must be provided.");
   }
 
   const body = {};
   if (passTypeId != null) body.passTypeId = passTypeId;
-  if (accommodationTypeId != null) body.accommodationTypeId = accommodationTypeId;
+  if (accommodationTypeId != null) {
+    body.accommodationTypeId = accommodationTypeId;
+    if (days) body.days = days;
+  }
 
   const response = await fetch(`${BACKEND_URL}/api/payment/create-order`, {
     method: "POST",

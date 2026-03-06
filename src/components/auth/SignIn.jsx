@@ -151,7 +151,7 @@ const SignIn = ({ onSwitchToSignUp, onSwitchToForgotPassword, onClose }) => {
               />
             </div>
 
-            <div className="flex justify-end items-center max-sm:-mt-2 text-sm">
+            {/* <div className="flex justify-end items-center max-sm:-mt-2 text-sm">
               <button
                 type="button" // Changed to type="button" to prevent form submit
                 onClick={onSwitchToForgotPassword}
@@ -159,7 +159,7 @@ const SignIn = ({ onSwitchToSignUp, onSwitchToForgotPassword, onClose }) => {
               >
                 Forgot Password?
               </button>
-            </div>
+            </div> */}
 
             <button
               type="submit"

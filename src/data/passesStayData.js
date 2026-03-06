@@ -64,7 +64,7 @@ export const accommodationTemplates = [
         ],
         gender: "Boys Only",
         basePrice: "1200",
-        fallbackPrice: "₹----/day"
+        fallbackPrice: "₹----"
     },
     {
         id: 2,
@@ -75,7 +75,7 @@ export const accommodationTemplates = [
         ],
         gender: "Boys Only",
         basePrice: "300",
-        fallbackPrice: "₹---/day"
+        fallbackPrice: "₹---"
     },
     {
         id: 3,
@@ -86,6 +86,6 @@ export const accommodationTemplates = [
         ],
         gender: "Girls Only",
         basePrice: "1200",
-        fallbackPrice: "₹----/day"
+        fallbackPrice: "₹----"
     }
 ];

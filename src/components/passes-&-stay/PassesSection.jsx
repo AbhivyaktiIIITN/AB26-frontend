@@ -53,7 +53,7 @@ const PassesSection = () => {
     }, [user?.id]);
 
 
-    const buildPaymentUrl = (baseLink, orderId) => {
+    const buildPaymentUrl = (baseLink, orderId, days) => {
         if (!baseLink) throw new Error("Payment link not available for this item.");
         let url;
         try {
@@ -66,6 +66,7 @@ const PassesSection = () => {
         url.searchParams.set('order_id', orderId);
         url.searchParams.set('ab_id', serialIdToABID(profileSerialId) || "");
         url.searchParams.set('email', user?.email || "");
+        if (days) url.searchParams.set('days', days);
 
         // Prefill data
         url.searchParams.set('name', user?.name || "");
@@ -98,7 +99,7 @@ const PassesSection = () => {
         }
     };
 
-    const handleBuyAccommodation = async (accommodation) => {
+    const handleBuyAccommodation = async (accommodation, days) => {
         setLoadingAccommodationId(accommodation.id);
         const canProceed = await requireCompleteProfile();
         if (!canProceed) {
@@ -107,105 +108,18 @@ const PassesSection = () => {
         }
 
         try {
-            const { order } = await createPaymentOrder({ accommodationTypeId: accommodation.id });
+            const { order } = await createPaymentOrder({
+                accommodationTypeId: accommodation.id,
+                days: days
+            });
             showToast("Redirecting to payment...", "success");
-            window.location.href = buildPaymentUrl(accommodation.paymentPageLink, order.id);
+            window.location.href = buildPaymentUrl(accommodation.paymentPageLink, order.id, days);
         } catch (error) {
             console.error("Error:", error);
             showToast(error.message || "Failed to create order", "error");
         } finally {
             setLoadingAccommodationId(null);
         }
-    };
-
-    const Card = ({ template, apiItem, isAccommodation }) => {
-        // Fallback UI mapped to DB
-        const isLive = !!apiItem;
-        const capacity = isLive ? apiItem.count : 0;
-        const bought = isLive ? (isAccommodation ? apiItem.countBooked : apiItem.countPurchased) : 0;
-        const available = Math.max(0, capacity - bought);
-        const ratio = capacity > 0 ? (bought / capacity) * 100 : 0;
-
-        const isSoldOut = isLive ? (capacity <= bought) : true;
-        const isLoading = isAccommodation ? loadingAccommodationId === template.id : loadingPassId === template.id;
-
-        const onBuy = () => isAccommodation ? handleBuyAccommodation(apiItem) : handleBuyPass(apiItem);
-
-        return (
-            <motion.div
-                className={styles.cardWrapper}
-                initial="rest"
-                whileHover="hover"
-                animate="rest"
-            >
-                <motion.div
-                    className={styles.cardShadow}
-                    variants={{
-                        rest: { x: 0, y: 0, opacity: 0 },
-                        hover: { x: 4, y: 4, opacity: 1, transition: { duration: 0.3, ease: "easeOut" } }
-                    }}
-                />
-                <motion.div
-                    className={`${styles.card} ${isAccommodation ? styles.accommodationCard : ""}`}
-                    variants={{
-                        rest: { x: 0, y: 0 },
-                        hover: { x: -4, y: -4, transition: { duration: 0.3, ease: "easeOut" } }
-                    }}
-                >
-                    <h3 className={styles.cardTitle}>{template.title}</h3>
-                    {template.subtitle && <p className={styles.cardSubtitle}>{template.subtitle}</p>}
-
-                    <div className={styles.cardContent}>
-                        {template.details?.map((detail, idx) => (
-                            <div key={idx} className={styles.infoRow} style={{ gridTemplateColumns: detail.label ? "80px 1fr" : "1fr" }}>
-                                {detail.label && <span className={styles.infoLabel}>{detail.label}</span>}
-                                <span className={styles.infoText} style={{ whiteSpace: "pre-line" }}>{detail.text}</span>
-                            </div>
-                        ))}
-
-                        {/* Capacity meter */}
-                        <div style={{ marginTop: 'auto', paddingTop: '16px' }}>
-                            {/* {template.gender && (
-                                <div style={{ marginBottom: "12px", color: "white", fontSize: "0.95rem" }}>
-                                    {template.gender}
-                                </div>
-                            )} */}
-                            {isLive && !isSoldOut && apiItem.price && template.basePrice && apiItem.price < Number(template.basePrice) && (
-                                <div style={{ textAlign: 'center', fontSize: '0.95rem', color: '#ffdab9', fontWeight: 'bold', fontStyle: 'italic' }}>
-                                    Early Bird Offer !!
-                                </div>
-                                // ? "Fully Sold Out"
-                                // : `Hurry Up! Only ${available} Spots Remaining!`
-                            )}
-                        </div>
-                        {isAccommodation && (
-                            <div className={styles.priceNote}>
-                                * Prices are per day. You can choose the number of days on the payment page.
-                            </div>
-                        )}
-                    </div>
-
-                    <div className={styles.cardFooter}>
-                        <div className={styles.priceContainer}>
-                            {isLive && apiItem.price && template.basePrice && apiItem.price !== Number(template.basePrice) && (
-                                <span className={styles.oldPrice}>₹{template.basePrice}</span>
-                            )}
-                            <span className={styles.priceDisplay}>
-                                {isLive && apiItem.price ? `₹${apiItem.price}${isAccommodation ? "/day" : ""}` : template.fallbackPrice}
-                            </span>
-                        </div>
-                        <button
-                            className={styles.buyBtn}
-                            onClick={onBuy}
-                            disabled={isLoading || !isLive || isSoldOut}
-                            style={{ opacity: (isLoading || !isLive || isSoldOut) ? 0.6 : 1, cursor: (isLoading || !isLive || isSoldOut) ? 'not-allowed' : 'pointer' }}
-                        >
-                            {isLoading ? "Redirecting..." : !isLive ? "Coming Soon" : isSoldOut ? (isAccommodation ? "Unavailable" : "Unavailable") : "Register"}
-                        </button>
-                    </div>
-                </motion.div>
-            </motion.div>
-        );
     };
 
     return (
@@ -227,7 +141,16 @@ const PassesSection = () => {
                         })
                         .map((template) => {
                             const apiItem = passes.find(p => p.id === template.id);
-                            return <Card key={`pass-${template.id}`} template={template} apiItem={apiItem} isAccommodation={false} />;
+                            return (
+                                <Card
+                                    key={`pass-${template.id}`}
+                                    template={template}
+                                    apiItem={apiItem}
+                                    isAccommodation={false}
+                                    onBuy={() => handleBuyPass(apiItem)}
+                                    isLoading={loadingPassId === apiItem?.id}
+                                />
+                            );
                         })}
                 </div>
             </div>
@@ -241,12 +164,137 @@ const PassesSection = () => {
                 <div className={styles.cardsGrid}>
                     {accommodationTemplates.map((template) => {
                         const apiItem = accommodations.find(a => a.id === template.id);
-                        return <Card key={`acc-${template.id}`} template={template} apiItem={apiItem} isAccommodation={true} />;
+                        return (
+                            <Card
+                                key={`acc-${template.id}`}
+                                template={template}
+                                apiItem={apiItem}
+                                isAccommodation={true}
+                                onBuy={(days) => handleBuyAccommodation(apiItem, days)}
+                                isLoading={loadingAccommodationId === apiItem?.id}
+                            />
+                        );
                     })}
                 </div>
             </div>
 
         </div>
+    );
+};
+
+const Card = ({ template, apiItem, isAccommodation, onBuy, isLoading }) => {
+    const [days, setDays] = useState(1);
+
+    // Fallback UI mapped to DB
+    const isLive = !!apiItem;
+    const capacity = isLive ? apiItem.count : 0;
+    const bought = isLive ? (isAccommodation ? apiItem.countBooked : apiItem.countPurchased) : 0;
+    const available = Math.max(0, capacity - bought);
+    const isSoldOut = isLive ? (capacity <= bought) : true;
+
+    const handleIncrement = (e) => {
+        e.stopPropagation();
+        if (days < 3) setDays(days + 1);
+    };
+
+    const handleDecrement = (e) => {
+        e.stopPropagation();
+        if (days > 1) setDays(days - 1);
+    };
+
+    const handleBuyClick = () => {
+        if (isAccommodation) {
+            onBuy(days);
+        } else {
+            onBuy();
+        }
+    };
+
+    return (
+        <motion.div
+            className={styles.cardWrapper}
+            initial="rest"
+            whileHover="hover"
+            animate="rest"
+        >
+            <motion.div
+                className={styles.cardShadow}
+                variants={{
+                    rest: { x: 0, y: 0, opacity: 0 },
+                    hover: { x: 4, y: 4, opacity: 1, transition: { duration: 0.3, ease: "easeOut" } }
+                }}
+            />
+            <motion.div
+                className={`${styles.card} ${isAccommodation ? styles.accommodationCard : ""}`}
+                variants={{
+                    rest: { x: 0, y: 0 },
+                    hover: { x: -4, y: -4, transition: { duration: 0.3, ease: "easeOut" } }
+                }}
+            >
+                <h3 className={styles.cardTitle}>{template.title}</h3>
+                {template.subtitle && <p className={styles.cardSubtitle}>{template.subtitle}</p>}
+
+                <div className={styles.cardContent}>
+                    {template.details?.map((detail, idx) => (
+                        <div key={idx} className={styles.infoRow} style={{ gridTemplateColumns: detail.label ? "80px 1fr" : "1fr" }}>
+                            {detail.label && <span className={styles.infoLabel}>{detail.label}</span>}
+                            <span className={styles.infoText} style={{ whiteSpace: "pre-line" }}>{detail.text}</span>
+                        </div>
+                    ))}
+
+                    <div style={{ marginTop: 'auto', paddingTop: '16px' }}>
+                        {isLive && !isSoldOut && apiItem.price && template.basePrice && apiItem.price < Number(template.basePrice) && (
+                            <div style={{ textAlign: 'center', fontSize: '0.95rem', color: '#ffdab9', fontWeight: 'bold', fontStyle: 'italic' }}>
+                                Early Bird Offer !!
+                            </div>
+                        )}
+                    </div>
+
+                    {isAccommodation && (
+                        <div className={styles.priceNote}>
+                            * Prices are as per day.
+                            Choose number of days below.
+                        </div>
+                    )}
+                </div>
+
+                <div className={styles.cardFooter}>
+                    <div className={styles.priceContainer}>
+                        {isLive && apiItem.price && template.basePrice && apiItem.price !== Number(template.basePrice) && (
+                            <span className={styles.oldPrice}>₹{Number(template.basePrice) * (isAccommodation ? days : 1)}</span>
+                        )}
+                        <span className={styles.priceDisplay}>
+                            {isLive && apiItem.price ? `₹${apiItem.price * (isAccommodation ? days : 1)}` : template.fallbackPrice}
+                        </span>
+                    </div>
+
+                    {isAccommodation && (
+                        <div className={styles.footerQuantity} style={{ opacity: (!isLive || isSoldOut) ? 0.6 : 1 }}>
+                            <button
+                                className={styles.footerQtyBtn}
+                                onClick={handleDecrement}
+                                disabled={days <= 1 || !isLive || isSoldOut}
+                            >-</button>
+                            <span className={styles.footerQtyValue}>{days} {days > 1 ? "Days" : "Day"}</span>
+                            <button
+                                className={styles.footerQtyBtn}
+                                onClick={handleIncrement}
+                                disabled={days >= 3 || !isLive || isSoldOut}
+                            >+</button>
+                        </div>
+                    )}
+
+                    <button
+                        className={styles.buyBtn}
+                        onClick={handleBuyClick}
+                        disabled={isLoading || !isLive || isSoldOut}
+                        style={{ opacity: (isLoading || !isLive || isSoldOut) ? 0.6 : 1, cursor: (isLoading || !isLive || isSoldOut) ? 'not-allowed' : 'pointer' }}
+                    >
+                        {isLoading ? "Redirecting..." : !isLive ? "Coming Soon" : isSoldOut ? "Unavailable" : "Register"}
+                    </button>
+                </div>
+            </motion.div>
+        </motion.div>
     );
 };
 
