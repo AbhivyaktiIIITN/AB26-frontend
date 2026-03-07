@@ -284,9 +284,59 @@ export const cancelTeamRegistration = async (registrationId, leaderId) => {
   }
 };
 
+export const submitIndividualRegistration = async (
+  registrationId,
+  submissionString = "",
+) => {
+  try {
+    if (!registrationId) {
+      return {
+        success: false,
+        error: "Missing required parameter: registrationId",
+      };
+    }
+
+    const response = await fetch(
+      `${BASE_URL}/api/registration/indv/${registrationId}/submit`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          submissionString: submissionString || "",
+        }),
+      },
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return {
+        success: false,
+        error: data.error || "Failed to update individual submission",
+      };
+    }
+
+    return {
+      success: true,
+      data: data.registration,
+      message: data.message || "Submission updated successfully",
+    };
+  } catch (error) {
+    console.error("Individual submission update error:", error);
+    return {
+      success: false,
+      error: error.message || "An error occurred during submission update",
+    };
+  }
+};
+
 export default {
   registerForIndividualEvent,
   submitTeamRegistration,
+  submitIndividualRegistration,
   isUserRegisteredForEvent,
   isTeamRegisteredForEvent,
   getUserRegistrations,

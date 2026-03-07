@@ -4,6 +4,7 @@ import { useAuthModal } from "../components/auth/ModalAuthLayout";
 import FAQHint from "../components/ui/FAQHint";
 import TeamModal from "../components/ui/TeamModal";
 import PassModal from "../components/ui/PassModal";
+import SubmissionModal from "../components/ui/SubmissionModal";
 import { useAuth } from "../contexts/AuthProvider";
 import { useToast } from "../contexts/ToastContext";
 import { serialIdToABID } from "../utils/abid-utils";
@@ -72,45 +73,47 @@ const UserData = () => {
   const [eventNames, setEventNames] = useState({});
   const [coDelegateRegs, setCoDelegateRegs] = useState([]);
   const [statusTooltip, setStatusTooltip] = useState(false);
+  const [showSubmissionModal, setShowSubmissionModal] = useState(false);
+  const [selectedReg, setSelectedReg] = useState(null);
 
   // All effect hooks MUST be at the top, before any conditional returns
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (!user?.id || !isAuthenticated) return;
+  const fetchUserData = async () => {
+    if (!user?.id || !isAuthenticated) return;
 
-      try {
-        setError(null);
+    try {
+      setError(null);
 
-        const [profile, reg, passesAcc] = await Promise.all([
-          getUserProfile(user.id),
-          getUserRegData(user.id),
-          getUserPassesAndAccommodations(user.id),
-        ]);
+      const [profile, reg, passesAcc] = await Promise.all([
+        getUserProfile(user.id),
+        getUserRegData(user.id),
+        getUserPassesAndAccommodations(user.id),
+      ]);
 
-        setProfileData(profile);
-        setRegData(reg);
-        setPassesAccData(passesAcc);
+      setProfileData(profile);
+      setRegData(reg);
+      setPassesAccData(passesAcc);
 
-        // Fetch co-delegate MUN registrations if they have an AB ID
-        if (profile?.user?.serialId) {
-          const abId = serialIdToABID(profile.user.serialId);
-          if (abId) {
-            try {
-              const munRes = await getMUNRegistrationByAbId(abId);
-              if (munRes?.success && munRes?.registration) {
-                setCoDelegateRegs([munRes.registration]);
-              }
-            } catch (munErr) {
-              console.error("Failed to fetch MUN co-delegate info:", munErr);
+      // Fetch co-delegate MUN registrations if they have an AB ID
+      if (profile?.user?.serialId) {
+        const abId = serialIdToABID(profile.user.serialId);
+        if (abId) {
+          try {
+            const munRes = await getMUNRegistrationByAbId(abId);
+            if (munRes?.success && munRes?.registration) {
+              setCoDelegateRegs([munRes.registration]);
             }
+          } catch (munErr) {
+            console.error("Failed to fetch MUN co-delegate info:", munErr);
           }
         }
-      } catch (err) {
-        console.error("Error fetching user data:", err);
-        setError(err.message || "Failed to fetch user data");
       }
-    };
+    } catch (err) {
+      console.error("Error fetching user data:", err);
+      setError(err.message || "Failed to fetch user data");
+    }
+  };
 
+  useEffect(() => {
     fetchUserData();
   }, [user?.id, isAuthenticated]);
 
@@ -217,6 +220,16 @@ const UserData = () => {
   const handleClosePassModal = () => {
     setShowPassModal(false);
     setSelectedPass(null);
+  };
+
+  const handleOpenSubmissionModal = (reg) => {
+    setSelectedReg(reg);
+    setShowSubmissionModal(true);
+  };
+
+  const handleCloseSubmissionModal = () => {
+    setShowSubmissionModal(false);
+    setSelectedReg(null);
   };
 
   if (error) {
@@ -457,7 +470,7 @@ const UserData = () => {
                     <tr className="border-b border-gray-700">
                       <th className="px-4 py-3 text-sm text-gray-400">Event Name</th>
                       <th className="px-4 py-3 text-sm text-gray-400">Type</th>
-                      <th className="px-4 py-3 text-sm text-gray-400 relative !overflow-visible">
+                      <th className="px-4 py-3 text-sm text-gray-400 relative overflow-visible!">
                         <div className="flex items-center gap-1.5 relative">
                           <span className="whitespace-nowrap">Status</span>
                           <button
@@ -477,7 +490,7 @@ const UserData = () => {
 
                           {/* Rich Tooltip - Appearing BELOW to avoid clipping */}
                           {statusTooltip && (
-                            <div className="absolute top-full left-0 mt-2 w-64 p-4 bg-gray-900 border border-gray-700 rounded-lg shadow-2xl z-[100] backdrop-blur-xl animate-in fade-in zoom-in-95 duration-200">
+                            <div className="absolute top-full left-0 mt-2 w-64 p-4 bg-gray-900 border border-gray-700 rounded-lg shadow-2xl z-100 backdrop-blur-xl animate-in fade-in zoom-in-95 duration-200">
                               <p className="text-[12px] leading-relaxed text-gray-200 font-normal">
                                 <span className="text-yellow-500 font-bold block mb-1.5 text-xs uppercase tracking-wider">Eligibility Requirement</span>
                                 Buy at least one pass to be eligible for these registered events and complete your team if it is incomplete.
@@ -531,6 +544,13 @@ const UserData = () => {
                             </button>
                           ) : reg.type === "MUN (Co-Delegate)" ? (
                             <span className="text-gray-500 font-mono text-xs">-</span>
+                          ) : reg.type === "Individual" ? (
+                            <button
+                              onClick={() => handleOpenSubmissionModal(reg)}
+                              className="px-3 py-1.5 text-xs bg-yellow-900/30 hover:bg-yellow-900/60 text-yellow-500 border border-yellow-700 rounded transition-all cursor-pointer"
+                            >
+                              {reg.submissionString ? "Edit Entry" : "Submit Entry"}
+                            </button>
                           ) : (
                             <span className="text-gray-500 font-mono text-xs">-</span>
                           )}
@@ -587,6 +607,8 @@ const UserData = () => {
         onClose={handleClosePassModal}
         passData={selectedPass}
         type={passModalType}
+        userName={profileUser?.name}
+        abId={serialIdToABID(profileUser?.serialId)}
       />
 
       {/* Hidden PassModal for download functionality */}
@@ -596,6 +618,18 @@ const UserData = () => {
         passData={downloadingPass}
         type={downloadingType}
         isDownloadMode={true}
+        userName={profileUser?.name}
+        abId={serialIdToABID(profileUser?.serialId)}
+      />
+
+      {/* Item Submission Modal */}
+      <SubmissionModal
+        isOpen={showSubmissionModal}
+        onClose={handleCloseSubmissionModal}
+        registrationId={selectedReg?.id}
+        eventName={selectedReg?.displayName || eventNames[selectedReg?.eventId] || selectedReg?.eventId}
+        initialSubmission={selectedReg?.submissionString}
+        onSuccess={fetchUserData}
       />
 
       <FAQHint label="How to add team members" />

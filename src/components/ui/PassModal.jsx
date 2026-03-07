@@ -2,7 +2,7 @@ import React from 'react';
 import QRCode from 'react-qr-code';
 import html2pdf from 'html2pdf.js';
 
-const PassModal = ({ isOpen, onClose, passData, type, isDownloadMode = false }) => {
+const PassModal = ({ isOpen, onClose, passData, type, isDownloadMode = false, userName, abId }) => {
     // Prevent background scrolling when modal is open (only when visible!)
     React.useEffect(() => {
         if (isOpen && !isDownloadMode) {
@@ -102,7 +102,7 @@ const PassModal = ({ isOpen, onClose, passData, type, isDownloadMode = false }) 
         <div
             className={isDownloadMode
                 ? "fixed top-[-9999px] left-[-9999px] opacity-0 pointer-events-none"
-                : "fixed inset-0 z-[100000000] bg-black/80 backdrop-blur-sm overflow-y-auto w-full h-full overscroll-none"
+                : "fixed inset-0 z-100000000 bg-black/80 backdrop-blur-sm overflow-y-auto w-full h-full overscroll-none"
             }
             aria-labelledby="modal-title"
             role="dialog"
@@ -126,7 +126,12 @@ const PassModal = ({ isOpen, onClose, passData, type, isDownloadMode = false }) 
                     <div className="p-8 md:p-10 border-2 border-[#000000] m-4 md:m-8 bg-[#ffffff]">
                         <div className="flex flex-col md:flex-row justify-between items-start gap-8">
                             <div className="flex-1">
-                                <div className="text-3xl font-bold mb-3">{title}</div>
+                                <div className="text-3xl font-bold mb-1">{title}</div>
+                                <hr className="border-[#5a0d29]" />
+                                <div className="my-6">
+                                    <div className="text-2xl font-medium uppercase text-gray-800">{userName}</div>
+                                    <div className="text-xl font-bold text-[#5a0d29] tracking-tight">{abId}</div>
+                                </div>
 
                                 {isPass && (
                                     <div className="text-sm mt-3">

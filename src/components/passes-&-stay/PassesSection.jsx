@@ -168,14 +168,14 @@ const PassesSection = () => {
                 <div className={styles.headerGroup}>
                     <div className={styles.subLabel}>Accommodation</div>
                     <h2 className={styles.mainTitle}>ACCOMMODATION</h2>
-                    {isMaintenanceMode && (
+                    {/* {isMaintenanceMode && (
                         <div style={{ marginTop: "15px", padding: "12px", background: "rgba(255,255,255,0.05)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)", maxWidth: "100%" }}>
                             <p style={{ color: "#ffdab9", fontSize: "1rem", margin: 0, lineHeight: "1.4" }}>
                                 Online registrations are temporarily suspended for maintenance. <br />
                                 To book accomodation call us at: <a href="tel:+919644361455" style={{ color: "#fff", fontWeight: "bold", textDecoration: "none", whiteSpace: "nowrap", display: "inline-block" }}>+91 96443 61455</a>
                             </p>
                         </div>
-                    )}
+                    )} */}
                 </div>
                 <div className={styles.cardsGrid}>
                     {accommodationTemplates.map((template) => {
