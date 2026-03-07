@@ -122,40 +122,22 @@ const PassesSection = () => {
         }
     };
 
+    const isMaintenanceMode = true;
+
     return (
         <div className={styles.section}>
-            <div style={{
-                textAlign: "center",
-                padding: "60px 20px",
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: "16px",
-                maxWidth: "800px",
-                margin: "0 auto",
-                backdropFilter: "blur(10px)"
-            }}>
-                <h2 style={{ color: "#d4af37", fontFamily: "var(--font-aquila)", fontSize: "2.5rem", marginBottom: "30px" }}>Under Maintenance</h2>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-                    <p style={{ color: "#fff", fontSize: "1.25rem", lineHeight: "1.6", margin: 0 }}>
-                        Hey! We're under maintenance, to buy passes in the meantime call us at <br />
-                        <a href="tel:+919799729577" style={{ color: "#ffdab9", fontWeight: "bold", fontSize: "1.5rem", textDecoration: "none" }}>+91 97997 29577</a>
-                    </p>
-
-                    <div style={{ width: "50px", height: "1px", background: "rgba(255,255,255,0.2)", margin: "0 auto" }}></div>
-
-                    <p style={{ color: "#fff", fontSize: "1.25rem", lineHeight: "1.6", margin: 0 }}>
-                        Hey! We're under maintenance, to book accomodation in the meantime call us at <br />
-                        <a href="tel:+919644361455" style={{ color: "#ffdab9", fontWeight: "bold", fontSize: "1.5rem", textDecoration: "none" }}>+91 96443 61455</a>
-                    </p>
-                </div>
-            </div>
-
-            {/* COMBO PASSES
             <div>
                 <div className={styles.headerGroup}>
                     <div className={styles.subLabel}>Combo Passes</div>
                     <h2 className={styles.mainTitle}><span className={styles.whiteText}>CHOOSE YOUR</span> <br /> EXPERIENCE</h2>
+                    {isMaintenanceMode && (
+                        <div style={{ marginTop: "15px", padding: "12px", background: "rgba(255,255,255,0.05)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)", maxWidth: "100%" }}>
+                            <p style={{ color: "#ffdab9", fontSize: "1rem", margin: 0, lineHeight: "1.4" }}>
+                                Online registrations are temporarily suspended for maintenance. <br />
+                                To buy passes call us at: <a href="tel:+919799729577" style={{ color: "#fff", fontWeight: "bold", textDecoration: "none", whiteSpace: "nowrap", display: "inline-block" }}>+91 97997 29577</a>
+                            </p>
+                        </div>
+                    )}
                 </div>
                 <div className={styles.cardsGrid}>
                     {passTemplates
@@ -175,17 +157,25 @@ const PassesSection = () => {
                                     isAccommodation={false}
                                     onBuy={() => handleBuyPass(apiItem)}
                                     isLoading={loadingPassId === apiItem?.id}
+                                    isMaintenanceMode={isMaintenanceMode}
                                 />
                             );
                         })}
                 </div>
             </div>
 
-            ACCOMMODATION
-            <div>
+            <div style={{ marginTop: "60px" }}>
                 <div className={styles.headerGroup}>
                     <div className={styles.subLabel}>Accommodation</div>
                     <h2 className={styles.mainTitle}>ACCOMMODATION</h2>
+                    {isMaintenanceMode && (
+                        <div style={{ marginTop: "15px", padding: "12px", background: "rgba(255,255,255,0.05)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)", maxWidth: "100%" }}>
+                            <p style={{ color: "#ffdab9", fontSize: "1rem", margin: 0, lineHeight: "1.4" }}>
+                                Online registrations are temporarily suspended for maintenance. <br />
+                                To book accomodation call us at: <a href="tel:+919644361455" style={{ color: "#fff", fontWeight: "bold", textDecoration: "none", whiteSpace: "nowrap", display: "inline-block" }}>+91 96443 61455</a>
+                            </p>
+                        </div>
+                    )}
                 </div>
                 <div className={styles.cardsGrid}>
                     {accommodationTemplates.map((template) => {
@@ -198,18 +188,18 @@ const PassesSection = () => {
                                 isAccommodation={true}
                                 onBuy={(days) => handleBuyAccommodation(apiItem, days)}
                                 isLoading={loadingAccommodationId === apiItem?.id}
+                                isMaintenanceMode={isMaintenanceMode}
                             />
                         );
                     })}
                 </div>
             </div>
-            */}
 
         </div>
     );
 };
 
-const Card = ({ template, apiItem, isAccommodation, onBuy, isLoading }) => {
+const Card = ({ template, apiItem, isAccommodation, onBuy, isLoading, isMaintenanceMode }) => {
     const [days, setDays] = useState(1);
 
     // Fallback UI mapped to DB
@@ -314,10 +304,15 @@ const Card = ({ template, apiItem, isAccommodation, onBuy, isLoading }) => {
                     <button
                         className={styles.buyBtn}
                         onClick={handleBuyClick}
-                        disabled={isLoading || !isLive || isSoldOut}
-                        style={{ opacity: (isLoading || !isLive || isSoldOut) ? 0.6 : 1, cursor: (isLoading || !isLive || isSoldOut) ? 'not-allowed' : 'pointer' }}
+                        disabled={isLoading || !isLive || isSoldOut || isMaintenanceMode}
+                        style={{
+                            opacity: (isLoading || !isLive || isSoldOut || isMaintenanceMode) ? 0.6 : 1,
+                            cursor: (isLoading || !isLive || isSoldOut || isMaintenanceMode) ? 'not-allowed' : 'pointer',
+                            background: isMaintenanceMode ? '#444' : undefined,
+                            border: isMaintenanceMode ? '1px solid #666' : undefined
+                        }}
                     >
-                        {isLoading ? "Redirecting..." : !isLive ? "Coming Soon" : isSoldOut ? "Unavailable" : "Register"}
+                        {isLoading ? "Redirecting..." : !isLive ? "Coming Soon" : isSoldOut ? "Unavailable" : isMaintenanceMode ? "Maintenance" : "Register"}
                     </button>
                 </div>
             </motion.div>
