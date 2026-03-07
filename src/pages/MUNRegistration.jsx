@@ -76,6 +76,12 @@ const COMMITTEES = [
         isDropdown: false,
         instaEmbed: "https://www.instagram.com/p/DU5xjxFDRVF/",
     },
+     {
+        id: "who",
+        label: "WHO",
+        isDropdown: false,
+        instaEmbed: "https://www.instagram.com/p/",
+    },
 ];
 
 // ─── Reusable custom select dropdown ──────────────────────────────────────────
