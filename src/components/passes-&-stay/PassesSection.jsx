@@ -122,7 +122,7 @@ const PassesSection = () => {
         }
     };
 
-    const isMaintenanceMode = true;
+    const isMaintenanceMode = false;
 
     return (
         <div className={styles.section}>
@@ -130,14 +130,14 @@ const PassesSection = () => {
                 <div className={styles.headerGroup}>
                     <div className={styles.subLabel}>Combo Passes</div>
                     <h2 className={styles.mainTitle}><span className={styles.whiteText}>CHOOSE YOUR</span> <br /> EXPERIENCE</h2>
-                    {isMaintenanceMode && (
+                    {/* {isMaintenanceMode && (
                         <div style={{ marginTop: "15px", padding: "12px", background: "rgba(255,255,255,0.05)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)", maxWidth: "100%" }}>
                             <p style={{ color: "#ffdab9", fontSize: "1rem", margin: 0, lineHeight: "1.4" }}>
                                 Online registrations are temporarily suspended for maintenance. <br />
                                 To buy passes call us at: <a href="tel:+919799729577" style={{ color: "#fff", fontWeight: "bold", textDecoration: "none", whiteSpace: "nowrap", display: "inline-block" }}>+91 97997 29577</a>
                             </p>
                         </div>
-                    )}
+                    )} */}
                 </div>
                 <div className={styles.cardsGrid}>
                     {passTemplates
