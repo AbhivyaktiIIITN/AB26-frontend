@@ -144,8 +144,8 @@ const TeamSection = () => {
     { name: "Pranay Chiraman", designation: "Co-Lead" },
   ];
 
-  const oratorTeam = [{ name: "Shreyam Prashar", designation: "Lead" },
-    {name : "Rutva Gandhi", designation: "Co-Lead"}
+  const oratorTeam = [
+    {name : "Shreyam Prashar", designation: "Co-Lead"}
   ];
 
   const probeTeam = [
