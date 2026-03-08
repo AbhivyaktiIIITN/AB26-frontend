@@ -260,9 +260,9 @@ const Card = ({ template, apiItem, isAccommodation, onBuy, isLoading, isMaintena
                     ))}
 
                     <div style={{ marginTop: 'auto', paddingTop: '16px' }}>
-                        {isLive && !isSoldOut && apiItem.price && template.basePrice && apiItem.price < Number(template.basePrice) && (
+                        {isLive && !isSoldOut && apiItem.price && template.basePrice && (apiItem.price < Number(template.basePrice) || template.restrictedInternalOnly) && (
                             <div style={{ textAlign: 'center', fontSize: '0.95rem', color: '#ffdab9', fontWeight: 'bold', fontStyle: 'italic' }}>
-                                Early Bird Offer !!
+                                {template.promoLabel} !!
                             </div>
                         )}
                     </div>

@@ -2,56 +2,65 @@
 
 export const passTemplates = [
     {
-        id: 1,
-        title: "THE IIITN PASS",
-        subtitle: "The full AB Experience",
+        id: 3,
+        title: "THE IIITN PASS (Basic)",
+        subtitle: "The Core IIITN Experience",
         details: [
-            { label: "All-Access", text: "Includes participation entry for all competitions." },
-            { label: "The Big Nights", text: "Proshows and pronites are free for IIITN Students." },
-            { label: "The Swag", text: "Get the Official Abhivyakti '26 Limited Edition Merch." },
-            { label: "Best for", text: "The hardcore participants who want to own the stage and the nights." }
+            { label: "Competitions", text: "Includes participation entry for all competitions across all 3 days." },
+            { label: "The Big Nights", text: "Access to all Pro-shows and Pronites is absolutely free for IIITN students." },
+            { label: "Merch", text: "Official merchandise is NOT included." },
+            { label: "", text: "Designed for IIITN students who want to focus purely on participating in the events." }
+        ],
+        basePrice: "300",
+        fallbackPrice: "₹300",
+        promoLabel: "SPECIAL PRICE",
+        restrictedInternalOnly: true
+    },
+    {
+        id: 1,
+        title: "THE IIITN+ PASS",
+        subtitle: "The Exclusive IIITN Experience",
+        details: [
+            { label: "Competitions", text: "Includes participation entry for all competitions across all 3 days." },
+            { label: "The Big Nights", text: "Access to all Pro-shows and Pronites is absolutely free for IIITN students." },
+            { label: "Merch", text: "Includes the Official Abhivyakti '26 Limited Edition Merch." },
+            { label: "", text: "Perfect for IIITN students who want to participate and represent the fest with official swag." }
+        ],
+        basePrice: "500",
+        fallbackPrice: "₹500",
+        promoLabel: "SPECIAL PRICE",
+        restrictedInternalOnly: true
+    },
+    {
+        id: 4,
+        title: "THE ONE DAY PASS",
+        subtitle: "Single Day Experience",
+        details: [
+            { label: "Competitions", text: "Includes participation entry for all competitions for any 1 day of your choice." },
+            { label: "The Big Nights", text: "Access to all Pro-shows and Pronites for that specific day." },
+            { label: "Merch", text: "Official merchandise is NOT included." },
+            { label: "", text: "This registration is for those exploring the fest for a single day; not applicable for MUN participants." }
         ],
         basePrice: "800",
-        fallbackPrice: "₹---",
-        restrictedInternalOnly: true
+        fallbackPrice: "₹800",
+        promoLabel: "EARLY BIRD OFFER!",
+        restrictedInternalOnly: false
     },
     {
         id: 2,
         title: "THE MVP PASS",
-        subtitle: "The full AB Experience",
+        subtitle: "The Full AB Experience",
         details: [
-            { label: "All-Access", text: "Includes participation entry for all competitions." },
-            { label: "The Big Nights", text: "Full access to all proshows and pronites throughout the fest." },
-            { label: "The Swag", text: "Get the Official Abhivyakti '26 Limited Edition Merch." },
-            { label: "Best for", text: "The hardcore participants who want to own the stage and the nights." }
+            { label: "Competitions", text: "Includes participation entry for all competitions across all 3 days." },
+            { label: "The Big Nights", text: "Full access to all Pro-shows and Pronites for all 3 days." },
+            { label: "Merch", text: "Includes the Official Abhivyakti '26 Limited Edition Merch." },
+            { label: "", text: "This registration is ideal for those participating in multi-day events like MUN or multiple competitions." }
         ],
         basePrice: "1200",
-        fallbackPrice: "₹---",
+        fallbackPrice: "₹1200",
+        promoLabel: "EARLY BIRD OFFER!",
         restrictedInternalOnly: false
     },
-    // {
-    //     id: 3,
-    //     title: "HEADLINERS PASS",
-    //     subtitle: "For the fans of the Big Stage",
-    //     details: [
-    //         { label: "The Big Nights", text: "Entry to all Pronites and Pro-shows (Concert, DJ Night, Comedy)" },
-    //         { label: "Best for", text: "The vibe-seekers who are here for the energy and the artists." }
-    //     ],
-    //     basePrice: "600",
-    //     fallbackPrice: "₹---"
-    // },
-
-    // {
-    //     id: 1, // ID mapping to the backend database
-    //     title: "THE FLASH PASS",
-    //     subtitle: "Flexibility on the Go",
-    //     details: [
-    //         { label: "On the Fly", text: "Entry to specific on-spot events, fun zone activities, and mini-games." },
-    //         { label: "Best for", text: "The casual visitors looking for quick fun and impulsive challenges." }
-    //     ],
-    //     basePrice: "1199",
-    //     fallbackPrice: "₹---"
-    // },
 ];
 
 export const accommodationTemplates = [
