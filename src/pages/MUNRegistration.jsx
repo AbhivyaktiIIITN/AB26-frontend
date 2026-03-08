@@ -76,11 +76,11 @@ const COMMITTEES = [
         isDropdown: false,
         instaEmbed: "https://www.instagram.com/p/DU5xjxFDRVF/",
     },
-     {
+    {
         id: "who",
         label: "WHO",
         isDropdown: false,
-        instaEmbed: "https://www.instagram.com/p/",
+        instaEmbed: "https://www.instagram.com/p/DVoXMU-DX7Z/",
     },
 ];
 

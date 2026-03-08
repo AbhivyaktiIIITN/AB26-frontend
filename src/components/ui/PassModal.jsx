@@ -59,7 +59,7 @@ const PassModal = ({ isOpen, onClose, passData, type, isDownloadMode = false, us
     const transactionId = passData.razorpayPaymentId || "N/A";
     const amountPaid = isPass
         ? (passData.passType?.price || "N/A")
-        : (passData.accommodationType?.price || "N/A");
+        : (passData.accommodationType?.price ? passData.accommodationType.price * (passData.days || 1) : "N/A");
     const dateTime = formatDate(passData.created_at);
     const paymentMode = "Online"; // Defaulting to online since there's a Razorpay ID
 
@@ -70,6 +70,7 @@ const PassModal = ({ isOpen, onClose, passData, type, isDownloadMode = false, us
     const qrPayload = {
         type,
         qrToken: rawToken,
+        ...(isPass ? {} : { days: passData.days || 1 })
     };
     const qrValue = JSON.stringify(qrPayload);
 
@@ -156,7 +157,9 @@ const PassModal = ({ isOpen, onClose, passData, type, isDownloadMode = false, us
 
                                 <div className="mt-6 text-sm leading-relaxed space-y-1">
                                     <div><strong className="inline-block w-36">Type:</strong> {passType}</div>
-                                    <div><strong className="inline-block w-36">ID:</strong> {passId}</div>
+                                    {!isPass && passData.days && (
+                                        <div><strong className="inline-block w-36">Days:</strong> {passData.days} {passData.days > 1 ? "Days" : "Day"}</div>
+                                    )}
                                     <div><strong className="inline-block w-36">Valid From:</strong> {validFrom}</div>
                                     <div><strong className="inline-block w-36">Valid Till:</strong> {validTill}</div>
                                     <div>
