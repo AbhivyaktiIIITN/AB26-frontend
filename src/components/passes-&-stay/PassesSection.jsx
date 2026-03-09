@@ -142,10 +142,11 @@ const PassesSection = () => {
                 <div className={styles.cardsGrid}>
                     {passTemplates
                         .filter(template => {
-                            if (template.restrictedInternalOnly) {
-                                return user?.email?.toLowerCase().endsWith("@iiitn.ac.in");
+                            const isIIITN = user?.email?.toLowerCase().endsWith("@iiitn.ac.in");
+                            if (isIIITN) {
+                                return template.restrictedInternalOnly === true;
                             }
-                            return true;
+                            return !template.restrictedInternalOnly;
                         })
                         .map((template) => {
                             const apiItem = passes.find(p => p.id === template.id);
@@ -164,11 +165,12 @@ const PassesSection = () => {
                 </div>
             </div>
 
-            <div style={{ marginTop: "60px" }}>
-                <div className={styles.headerGroup}>
-                    <div className={styles.subLabel}>Accommodation</div>
-                    <h2 className={styles.mainTitle}>ACCOMMODATION</h2>
-                    {/* {isMaintenanceMode && (
+            {!user?.email?.toLowerCase().endsWith("@iiitn.ac.in") && (
+                <div style={{ marginTop: "60px" }}>
+                    <div className={styles.headerGroup}>
+                        <div className={styles.subLabel}>Accommodation</div>
+                        <h2 className={styles.mainTitle}>ACCOMMODATION</h2>
+                        {/* {isMaintenanceMode && (
                         <div style={{ marginTop: "15px", padding: "12px", background: "rgba(255,255,255,0.05)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)", maxWidth: "100%" }}>
                             <p style={{ color: "#ffdab9", fontSize: "1rem", margin: 0, lineHeight: "1.4" }}>
                                 Online registrations are temporarily suspended for maintenance. <br />
@@ -176,24 +178,25 @@ const PassesSection = () => {
                             </p>
                         </div>
                     )} */}
+                    </div>
+                    <div className={styles.cardsGrid}>
+                        {accommodationTemplates.map((template) => {
+                            const apiItem = accommodations.find(a => a.id === template.id);
+                            return (
+                                <Card
+                                    key={`acc-${template.id}`}
+                                    template={template}
+                                    apiItem={apiItem}
+                                    isAccommodation={true}
+                                    onBuy={(days) => handleBuyAccommodation(apiItem, days)}
+                                    isLoading={loadingAccommodationId === apiItem?.id}
+                                    isMaintenanceMode={isMaintenanceMode}
+                                />
+                            );
+                        })}
+                    </div>
                 </div>
-                <div className={styles.cardsGrid}>
-                    {accommodationTemplates.map((template) => {
-                        const apiItem = accommodations.find(a => a.id === template.id);
-                        return (
-                            <Card
-                                key={`acc-${template.id}`}
-                                template={template}
-                                apiItem={apiItem}
-                                isAccommodation={true}
-                                onBuy={(days) => handleBuyAccommodation(apiItem, days)}
-                                isLoading={loadingAccommodationId === apiItem?.id}
-                                isMaintenanceMode={isMaintenanceMode}
-                            />
-                        );
-                    })}
-                </div>
-            </div>
+            )}
 
         </div>
     );

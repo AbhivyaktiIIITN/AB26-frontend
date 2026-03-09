@@ -43,7 +43,7 @@ export const passTemplates = [
         ],
         basePrice: "800",
         fallbackPrice: "₹800",
-        promoLabel: "EARLY BIRD OFFER!",
+        promoLabel: "EARLY BIRD OFFER",
         restrictedInternalOnly: false
     },
     {
@@ -58,7 +58,7 @@ export const passTemplates = [
         ],
         basePrice: "1200",
         fallbackPrice: "₹1200",
-        promoLabel: "EARLY BIRD OFFER!",
+        promoLabel: "EARLY BIRD OFFER",
         restrictedInternalOnly: false
     },
 ];
