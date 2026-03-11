@@ -1,4 +1,4 @@
-// Static design data for rendering nice details on passes and accommodations
+// do not change id of passes
 
 export const passTemplates = [
     {
@@ -28,6 +28,21 @@ export const passTemplates = [
         ],
         basePrice: "500",
         fallbackPrice: "₹500",
+        promoLabel: "SPECIAL PRICE",
+        restrictedInternalOnly: true
+    },
+    {
+        id: 6,
+        title: "IIITN GAMERS PASS",
+        subtitle: "The Core E-sports Experience",
+        details: [
+            { label: "Competitions", text: "Includes participation entry for E-sport's competitions only. Does not include any other events." },
+            { label: "The Big Nights", text: "Access to all Pro-shows and Pronites is absolutely free for IIITN students." },
+            { label: "Merch", text: "Official merchandise is NOT included." },
+            { label: "", text: "Designed for IIITN students who're elite gamers and want to focus purely on dominating the virtual arena" }
+        ],
+        basePrice: "100",
+        fallbackPrice: "₹100",
         promoLabel: "SPECIAL PRICE",
         restrictedInternalOnly: true
     },
