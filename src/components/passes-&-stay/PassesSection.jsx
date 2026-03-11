@@ -53,73 +53,95 @@ const PassesSection = () => {
     }, [user?.id]);
 
 
-    const buildPaymentUrl = (baseLink, orderId, days) => {
-        if (!baseLink) throw new Error("Payment link not available for this item.");
-        let url;
-        try {
-            url = new URL(baseLink);
-        } catch {
-            throw new Error("Invalid payment link received from server.");
+    /* 
+56:     const buildPaymentUrl = (baseLink, orderId, days) => {
+57:         if (!baseLink) throw new Error("Payment link not available for this item.");
+58:         let url;
+59:         try {
+60:             url = new URL(baseLink);
+61:         } catch {
+62:             throw new Error("Invalid payment link received from server.");
+63:         }
+64: 
+65:         // Add custom query params directly
+66:         url.searchParams.set('order_id', orderId);
+67:         url.searchParams.set('ab_id', serialIdToABID(profileSerialId) || "");
+68:         url.searchParams.set('email', user?.email || "");
+69:         if (days) url.searchParams.set('days', days);
+70: 
+71:         // Prefill data
+72:         url.searchParams.set('name', user?.name || "");
+73:         url.searchParams.set('email', user?.email || "");
+74: 
+75:         const rawPhone = user?.phoneNumber || "";
+76:         const phone = rawPhone.startsWith("+91") ? rawPhone : `+91${rawPhone}`;
+77:         url.searchParams.set('phone', phone);
+78: 
+79:         return url.toString();
+80:     };
+81:     */
+
+    const handlePayment = async (itemData, setLoading) => {
+        setLoading(true);
+        const canProceed = await requireCompleteProfile();
+        if (!canProceed) {
+            setLoading(false);
+            return;
         }
 
-        // Add custom query params directly
-        url.searchParams.set('order_id', orderId);
-        url.searchParams.set('ab_id', serialIdToABID(profileSerialId) || "");
-        url.searchParams.set('email', user?.email || "");
-        if (days) url.searchParams.set('days', days);
+        try {
+            const data = await createPaymentOrder(itemData);
+            if (!data.success) {
+                showToast(data.error || "Failed to initiate order", "error");
+                return;
+            }
 
-        // Prefill data
-        url.searchParams.set('name', user?.name || "");
-        url.searchParams.set('email', user?.email || "");
+            const { order, user: paymentUser } = data;
 
-        const rawPhone = user?.phoneNumber || "";
-        const phone = rawPhone.startsWith("+91") ? rawPhone : `+91${rawPhone}`;
-        url.searchParams.set('phone', phone);
+            const options = {
+                key: order.key,
+                amount: order.amount,
+                currency: order.currency,
+                name: "Abhivyakti Fest",
+                description: "Payment for " + (itemData.passTypeId ? "Pass" : "Accommodation"),
+                order_id: order.id,
+                prefill: {
+                    name: paymentUser.name,
+                    email: paymentUser.email,
+                    contact: paymentUser.phoneNumber ? (paymentUser.phoneNumber.startsWith("+91") ? paymentUser.phoneNumber : `+91${paymentUser.phoneNumber}`) : "",
+                },
+                readonly: {
+                    contact: false,
+                    email: true,
+                    name: true
+                },
+                theme: { color: "#5E1C1D" },
+                handler: function (response) {
+                    window.location.href = "/myaccount";
+                },
+                modal: {
+                    ondismiss: function () {
+                        console.log("User closed the payment modal");
+                    }
+                }
+            };
 
-        return url.toString();
+            const rzp = new window.Razorpay(options);
+            rzp.open();
+        } catch (error) {
+            console.error("Payment Error:", error);
+            showToast(error.message || "Something went wrong. Please try again.", "error");
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleBuyPass = async (pass) => {
-        setLoadingPassId(pass.id);
-        const canProceed = await requireCompleteProfile();
-        if (!canProceed) {
-            setLoadingPassId(null);
-            return;
-        }
-
-        try {
-            const { order } = await createPaymentOrder({ passTypeId: pass.id });
-            showToast("Redirecting to payment...", "success");
-            window.location.href = buildPaymentUrl(pass.paymentPageLink, order.id);
-        } catch (error) {
-            console.error("Error:", error);
-            showToast(error.message || "Failed to create order", "error");
-        } finally {
-            setLoadingPassId(null);
-        }
+        handlePayment({ passTypeId: pass.id }, (loading) => setLoadingPassId(loading ? pass.id : null));
     };
 
     const handleBuyAccommodation = async (accommodation, days) => {
-        setLoadingAccommodationId(accommodation.id);
-        const canProceed = await requireCompleteProfile();
-        if (!canProceed) {
-            setLoadingAccommodationId(null);
-            return;
-        }
-
-        try {
-            const { order } = await createPaymentOrder({
-                accommodationTypeId: accommodation.id,
-                days: days
-            });
-            showToast("Redirecting to payment...", "success");
-            window.location.href = buildPaymentUrl(accommodation.paymentPageLink, order.id, days);
-        } catch (error) {
-            console.error("Error:", error);
-            showToast(error.message || "Failed to create order", "error");
-        } finally {
-            setLoadingAccommodationId(null);
-        }
+        handlePayment({ accommodationTypeId: accommodation.id, days }, (loading) => setLoadingAccommodationId(loading ? accommodation.id : null));
     };
 
     const isMaintenanceMode = false;
@@ -315,7 +337,7 @@ const Card = ({ template, apiItem, isAccommodation, onBuy, isLoading, isMaintena
                             border: isMaintenanceMode ? '1px solid #666' : undefined
                         }}
                     >
-                        {isLoading ? "Redirecting..." : !isLive ? "Coming Soon" : isSoldOut ? "Unavailable" : isMaintenanceMode ? "Maintenance" : "Register"}
+                        {isLoading ? "Processing..." : !isLive ? "Coming Soon" : isSoldOut ? "Unavailable" : isMaintenanceMode ? "Maintenance" : "Register"}
                     </button>
                 </div>
             </motion.div>

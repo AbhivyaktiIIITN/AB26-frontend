@@ -397,10 +397,11 @@ const UserData = () => {
                                 {pass.status || "Active"}
                               </span>
                               <button
-                                className="px-3 py-1 text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded transition-all cursor-pointer"
+                                className="px-3 py-1 text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                                 onClick={() => handleDownloadPdf(pass, 'pass')}
+                                disabled={downloadingPass?.id === pass.id}
                               >
-                                Download PDF
+                                {downloadingPass?.id === pass.id ? "Processing..." : "Download PDF"}
                               </button>
                               <button
                                 className="px-3 py-1 text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded transition-all cursor-pointer"
@@ -430,10 +431,11 @@ const UserData = () => {
                                 {booking.status || "Active"}
                               </span>
                               <button
-                                className="px-3 py-1 text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded transition-all cursor-pointer"
+                                className="px-3 py-1 text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                                 onClick={() => handleDownloadPdf(booking, 'accommodation')}
+                                disabled={downloadingPass?.id === booking.id}
                               >
-                                Download PDF
+                                {downloadingPass?.id === booking.id ? "Processing..." : "Download PDF"}
                               </button>
                               <button
                                 className="px-3 py-1 text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded transition-all cursor-pointer"

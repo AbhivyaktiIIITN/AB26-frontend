@@ -24,7 +24,6 @@ import PassesStay from "./pages/PassesStay";
 import RefundPolicies from "./pages/RefundPolicies";
 import Sponsors from "./pages/Sponsors";
 import Teams from "./pages/Teams";
-import TestPay from "./pages/TestPay";
 import UserData from "./pages/UserData";
 import Gallery from "./pages/Gallery";
 
@@ -107,7 +106,6 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/passes" element={<PassesStay />} />
             <Route path="/contact" element={<Contact />} />
-            {/* <Route path="/testpay" element={<TestPay />} /> */}
             <Route path="/faq" element={<FAQ />} />
             <Route path="/legal" element={<LegalPolicies />} />
             <Route path="/policies" element={<RefundPolicies />} />
