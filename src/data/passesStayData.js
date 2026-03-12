@@ -71,7 +71,7 @@ export const passTemplates = [
             { label: "Merch", text: "Includes the Official Abhivyakti '26 Limited Edition Merch." },
             { label: "", text: "This registration is ideal for those participating in multi-day events like MUN or multiple competitions." }
         ],
-        basePrice: "1200",
+        basePrice: "900",
         fallbackPrice: "₹1200",
         promoLabel: "EARLY BIRD OFFER",
         restrictedInternalOnly: false
