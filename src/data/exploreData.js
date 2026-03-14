@@ -1532,8 +1532,9 @@ export const exploreData = {
             "https://assets.2026.abhivyaktifest.in/images/explore/events/abcentral.jpg",
 
           description: [
-            "Mr. & Ms. Abhivyakti is the flagship personality pageant of the Abhivyakti cultural fest. It goes beyond a conventional beauty contest and seeks the ultimate polymath—where charisma meets intellect and quick wit.",
-            "The competition celebrates versatility—participants who can embody the grace of cultural traditions and the bold confidence of western styles. From commanding the ramp to handling high-pressure Q&A sessions, this event crowns a well-rounded icon of expression, style, and stage presence.",
+            "Mr. & Ms. Abhivyakti is the flagship personality pageant of the Abhivyakti Cultural Fest. More than just a typical pageant, it is a search for individuals where charisma meets intellect, confidence, and strong stage presence.",
+            "With the theme GLAM (Western), participants are expected to step into the spotlight with style, attitude, and confidence. From owning the stage during the ramp walk to expressing themselves clearly in the Q&A round, the competition tests both personality and presence.",
+            "It is not just about appearance—it is about discovering a well-rounded representative of expression, confidence, and stage command who truly embodies the spirit of Abhivyakti."
           ],
 
           prizes: {
@@ -1547,72 +1548,53 @@ export const exploreData = {
           stages: [
             {
               id: "round_1",
-              title: "Round 1: Online Pre-Screening",
+              title: "Round 1: Online Screening",
               start_date: "12th March 2026",
-              end_date: "14th March 2026",
+              end_date: "16th March 2026",
 
               description: [
-                "Participants must complete registration by submitting required materials.",
-                "Selection will be based on photographic appeal and quality of responses.",
-                "Only 12 Boys and 12 Girls will advance to on-stage rounds.",
+                "Participants must complete their registration by 16th March.",
+                "Selection will be based on the quality of responses and photographic appeal.",
+                "Only the Top 5 Boys and Top 5 Girls will advance to the on-stage rounds."
               ],
 
               submission_requirements: [
-                "2–3 photographs",
-                "Short bio (maximum 100 words)",
-                "Answer to: 'Why should you be Mr./Ms. Abhivyakti?'",
+                "2–3 photos",
+                "A short bio (maximum 100 words)",
+                "A brief answer to “Why should you be Mr./Ms. Abhivyakti?”"
               ],
             },
             {
               id: "round_2",
-              title: "Round 2: Cultural Walk (Day 0)",
-              start_date: "19th March 2026",
-              end_date: "19th March 2026",
+              title: "Round 2: Ramp Walk (20th March | 6:00 PM – 8:00 PM | Amphitheatre)",
+              start_date: "20th March 2026",
+              end_date: "20th March 2026",
 
               description: [
-                "Theme: Traditional/Cultural Wear.",
-                "Participants will perform a ramp walk, introduce themselves, and execute one expressive pose/action at the ramp head.",
+                "Theme: GLAM (Western)",
+                "A total of 10 finalists (5 Boys + 5 Girls) will present their walk during this round."
               ],
 
               submission_requirements: [
-                "No props allowed.",
-                "No singing or performing arts allowed.",
-                "Purely walk and introduction.",
+                "Participants will perform a ramp walk",
+                "Give a short self-introduction",
+                "Execute one pose at the ramp head"
               ],
             },
             {
               id: "round_3",
-              title: "Round 3: Western Walk",
+              title: "Round 3: Q&A Round (Immediately After Ramp Walk)",
               start_date: "20th March 2026",
               end_date: "20th March 2026",
 
               description: [
-                "Theme: Western/Formal Wear.",
-                "Format similar to Round 2 but with higher stakes.",
-                "Scores from Day 0 and Day 1 will be combined.",
-                "Top 6 Boys and Top 6 Girls advance to the Grand Finale.",
+                "Following the ramp walk, all 10 finalists will participate in the Personality & Wit Q&A Round.",
+                "Questions will assess confidence, presence of mind, articulation, and personality"
               ],
 
               submission_requirements: [
-                "Ramp walk and self-introduction.",
-                "Strict adherence to reporting and stage instructions.",
-              ],
-            },
-            {
-              id: "round_4",
-              title: "Grand Finale: Personality & Wit Q&A",
-              start_date: "20th March 2026",
-              end_date: "20th March 2026",
-
-              description: [
-                "Finalists face a Q&A round testing confidence, spontaneity, and thought process.",
-                "Each finalist will answer 2–3 questions.",
-                "Time limit per answer: 20–30 seconds.",
-              ],
-
-              submission_requirements: [
-                "Finalists only (Top 6 Boys & Top 6 Girls).",
-                "Answers must be within 20–30 seconds.",
+                "Judges will ask 1–2 questions per finalist",
+                "Answer time: 45–60 seconds per question"
               ],
             },
           ],
@@ -1626,7 +1608,6 @@ export const exploreData = {
             "Access to green room is restricted to participants only.",
             "Use of fire, liquids, glass, glitter, or hazardous materials is strictly prohibited.",
             "Judges’ and Organizing Committee’s decisions are final and binding.",
-            "Scores from Cultural & Western Walk rounds will determine finalists.",
             "Final Q&A will be judged separately.",
           ],
 
