@@ -15,9 +15,14 @@ const Sponsors = () => {
     { name: "Sponsor 5", logo: null },
   ];
 
+  const travellingPartner = [
+    { name: "ABHI BUS", logo: "/sponsors/abhibus.jpeg" },
+  ];
+
   return (
     <main className="sponsorsPage bg-black">
       <HeroSection />
+      <SponsorsTierSection title="Travelling Partner" sponsors={travellingPartner} />
       {/* <SponsorsTierSection title="TITLE SPONSER" sponsors={tierOne} />
       <SponsorsTierSection title="PLATINUM SPONSORS" sponsors={tierTwo} />
       <SponsorsTierSection title="GOLD SPONSORS" sponsors={tierThree} /> */}
