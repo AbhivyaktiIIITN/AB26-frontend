@@ -69,10 +69,11 @@ export const passTemplates = [
             { label: "Competitions", text: "Includes participation entry for all competitions across all 3 days." },
             { label: "The Big Nights", text: "Full access to all Pro-shows and Pronites for all 3 days." },
             { label: "Merch", text: "Includes the Official Abhivyakti '26 Limited Edition Merch." },
+            { label: "Food", text: "Food not included." },
             { label: "", text: "This registration is ideal for those participating in multi-day events like MUN or multiple competitions." }
         ],
         basePrice: "900",
-        fallbackPrice: "₹1200",
+        fallbackPrice: "₹900",
         promoLabel: "EARLY BIRD OFFER",
         restrictedInternalOnly: false
     },
