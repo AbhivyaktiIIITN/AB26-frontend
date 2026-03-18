@@ -26,7 +26,6 @@ const Sponsors = () => {
       {/* <SponsorsTierSection title="TITLE SPONSER" sponsors={tierOne} />
       <SponsorsTierSection title="PLATINUM SPONSORS" sponsors={tierTwo} />
       <SponsorsTierSection title="GOLD SPONSORS" sponsors={tierThree} /> */}
-      <ComingSoon />
     </main>
   );
 };

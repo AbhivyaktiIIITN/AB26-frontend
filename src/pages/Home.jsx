@@ -35,10 +35,10 @@ const Home = () => {
           />
 
           {/* Top Fade (Black to Transparent) - Transition from About */}
-          <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black to-transparent z-0 pointer-events-none" />
+          <div className="absolute top-0 left-0 w-full h-64 bg-linear-to-b from-black to-transparent z-0 pointer-events-none" />
 
           {/* Bottom Fade (Transparent to Black) - Transition to Footer/End */}
-          <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-black to-transparent z-0 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-full h-64 bg-linear-to-t from-black to-transparent z-0 pointer-events-none" />
 
           <div className="relative z-10">
             <Explore />
