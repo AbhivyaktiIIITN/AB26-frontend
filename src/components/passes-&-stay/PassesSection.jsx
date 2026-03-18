@@ -144,7 +144,7 @@ const PassesSection = () => {
         handlePayment({ accommodationTypeId: accommodation.id, days }, (loading) => setLoadingAccommodationId(loading ? accommodation.id : null));
     };
 
-    const isMaintenanceMode = false;
+    const registrationsClosed = true;
 
     return (
         <div className={styles.section}>
@@ -180,7 +180,7 @@ const PassesSection = () => {
                                     isAccommodation={false}
                                     onBuy={() => handleBuyPass(apiItem)}
                                     isLoading={loadingPassId === apiItem?.id}
-                                    isMaintenanceMode={isMaintenanceMode}
+                                    registrationsClosed={registrationsClosed}
                                 />
                             );
                         })}
@@ -212,7 +212,7 @@ const PassesSection = () => {
                                     isAccommodation={true}
                                     onBuy={(days) => handleBuyAccommodation(apiItem, days)}
                                     isLoading={loadingAccommodationId === apiItem?.id}
-                                    isMaintenanceMode={isMaintenanceMode}
+                                    registrationsClosed={registrationsClosed}
                                 />
                             );
                         })}
@@ -224,7 +224,7 @@ const PassesSection = () => {
     );
 };
 
-const Card = ({ template, apiItem, isAccommodation, onBuy, isLoading, isMaintenanceMode }) => {
+const Card = ({ template, apiItem, isAccommodation, onBuy, isLoading, registrationsClosed }) => {
     const [days, setDays] = useState(1);
 
     // Fallback UI mapped to DB
@@ -311,17 +311,17 @@ const Card = ({ template, apiItem, isAccommodation, onBuy, isLoading, isMaintena
                     </div>
 
                     {isAccommodation && (
-                        <div className={styles.footerQuantity} style={{ opacity: (!isLive || isSoldOut) ? 0.6 : 1 }}>
+                        <div className={styles.footerQuantity} style={{ opacity: (!isLive || isSoldOut || registrationsClosed) ? 0.6 : 1 }}>
                             <button
                                 className={styles.footerQtyBtn}
                                 onClick={handleDecrement}
-                                disabled={days <= 1 || !isLive || isSoldOut}
+                                disabled={days <= 1 || !isLive || isSoldOut || registrationsClosed}
                             >-</button>
                             <span className={styles.footerQtyValue}>{days} {days > 1 ? "Days" : "Day"}</span>
                             <button
                                 className={styles.footerQtyBtn}
                                 onClick={handleIncrement}
-                                disabled={days >= 3 || !isLive || isSoldOut}
+                                disabled={days >= 3 || !isLive || isSoldOut || registrationsClosed}
                             >+</button>
                         </div>
                     )}
@@ -329,15 +329,15 @@ const Card = ({ template, apiItem, isAccommodation, onBuy, isLoading, isMaintena
                     <button
                         className={styles.buyBtn}
                         onClick={handleBuyClick}
-                        disabled={isLoading || !isLive || isSoldOut || isMaintenanceMode}
+                        disabled={isLoading || !isLive || isSoldOut || registrationsClosed}
                         style={{
-                            opacity: (isLoading || !isLive || isSoldOut || isMaintenanceMode) ? 0.6 : 1,
-                            cursor: (isLoading || !isLive || isSoldOut || isMaintenanceMode) ? 'not-allowed' : 'pointer',
-                            background: isMaintenanceMode ? '#444' : undefined,
-                            border: isMaintenanceMode ? '1px solid #666' : undefined
+                            opacity: (isLoading || !isLive || isSoldOut || registrationsClosed) ? 0.6 : 1,
+                            cursor: (isLoading || !isLive || isSoldOut || registrationsClosed) ? 'not-allowed' : 'pointer',
+                            background: registrationsClosed ? '#444' : undefined,
+                            border: registrationsClosed ? '1px solid #666' : undefined
                         }}
                     >
-                        {isLoading ? "Processing..." : !isLive ? "Coming Soon" : isSoldOut ? "Unavailable" : isMaintenanceMode ? "Maintenance" : "Register"}
+                        {isLoading ? "Processing..." : !isLive ? "Coming Soon" : isSoldOut ? "Unavailable" : registrationsClosed ? "Closed" : "Register"}
                     </button>
                 </div>
             </motion.div>
