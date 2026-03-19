@@ -145,6 +145,8 @@ const PassesSection = () => {
     };
 
     const registrationsClosed = true;
+    const activePassIds = [4];
+    const activeAccommodationIds = [];
 
     return (
         <div className={styles.section}>
@@ -166,7 +168,7 @@ const PassesSection = () => {
                         .filter(template => {
                             const isIIITN = user?.email?.toLowerCase().endsWith("@iiitn.ac.in");
                             if (isIIITN) {
-                                return template.restrictedInternalOnly === true;
+                                return template.restrictedInternalOnly === true || activePassIds.includes(template.id);
                             }
                             return !template.restrictedInternalOnly;
                         })
@@ -180,7 +182,7 @@ const PassesSection = () => {
                                     isAccommodation={false}
                                     onBuy={() => handleBuyPass(apiItem)}
                                     isLoading={loadingPassId === apiItem?.id}
-                                    registrationsClosed={registrationsClosed}
+                                    registrationsClosed={activePassIds.includes(template.id) ? false : registrationsClosed}
                                 />
                             );
                         })}
@@ -212,7 +214,7 @@ const PassesSection = () => {
                                     isAccommodation={true}
                                     onBuy={(days) => handleBuyAccommodation(apiItem, days)}
                                     isLoading={loadingAccommodationId === apiItem?.id}
-                                    registrationsClosed={registrationsClosed}
+                                    registrationsClosed={activeAccommodationIds.includes(template.id) ? false : registrationsClosed}
                                 />
                             );
                         })}
