@@ -145,7 +145,7 @@ const PassesSection = () => {
     };
 
     const registrationsClosed = true;
-    const activePassIds = [4];
+    const activePassIds = [4, 6];
     const activeAccommodationIds = [];
 
     return (
@@ -168,7 +168,8 @@ const PassesSection = () => {
                         .filter(template => {
                             const isIIITN = user?.email?.toLowerCase().endsWith("@iiitn.ac.in");
                             if (isIIITN) {
-                                return template.restrictedInternalOnly === true || activePassIds.includes(template.id);
+                                // return template.restrictedInternalOnly === true || activePassIds.includes(template.id);
+                                return template.restrictedInternalOnly === true;
                             }
                             return !template.restrictedInternalOnly;
                         })
