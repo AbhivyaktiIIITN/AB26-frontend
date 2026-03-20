@@ -145,7 +145,7 @@ const PassesSection = () => {
     };
 
     const registrationsClosed = true;
-    const activePassIds = [4, 6];
+    const activePassIds = [1, 3, 4, 6];
     const activeAccommodationIds = [];
 
     return (
