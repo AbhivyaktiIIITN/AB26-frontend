@@ -24,6 +24,8 @@ const SubmissionModal = ({ isOpen, onClose, registrationId, eventName, initialSu
     }, [isOpen]);
 
     const handleSubmit = async () => {
+        showToast("The fest has concluded. Submissions are no longer active.", "info");
+        /* Original logic
         if (!registrationId) {
             showToast("Registration ID not found", "error");
             return;
@@ -46,6 +48,7 @@ const SubmissionModal = ({ isOpen, onClose, registrationId, eventName, initialSu
         } finally {
             setIsSubmitting(false);
         }
+        */
     };
 
     if (!isOpen) return null;

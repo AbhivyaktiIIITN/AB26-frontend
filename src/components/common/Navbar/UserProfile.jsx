@@ -2,7 +2,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { serialIdToABID } from "../../../utils/abid-utils.js";
-import { getUserProfile } from "../../../lib/user-client";
+import { getUserProfile } from "../../../lib/user-client.js";
+import { useToast } from "../../../contexts/ToastContext.jsx";
 
 const UserProfile = ({ user, logout }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,7 @@ const UserProfile = ({ user, logout }) => {
   const [loading, setLoading] = useState(false);
   const timeoutRef = useRef(null);
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   useEffect(() => {
     setMounted(true);
@@ -54,6 +56,12 @@ const UserProfile = ({ user, logout }) => {
     }, 200);
   };
 
+  const handleProfileClick = () => {
+    showToast("The fest has concluded. Profile access is no longer active.", "info");
+    // Original Navigation Logic for reference
+    // navigate("/myaccount");
+  };
+
   return (
     <>
       <div
@@ -63,7 +71,7 @@ const UserProfile = ({ user, logout }) => {
       >
         {/* Profile Trigger */}
         <button
-          onClick={() => navigate("/myaccount")}
+          onClick={handleProfileClick}
           className="flex cursor-pointer items-center gap-3 focus:outline-none group"
           title={user?.firstName || "Profile"}
         >
@@ -106,11 +114,8 @@ const UserProfile = ({ user, logout }) => {
               {/* Action Buttons */}
               <div className="p-2 border-t border-white/10 bg-white/5 mt-2 space-y-2">
                 <button
-                  onClick={() => {
-                    navigate("/myaccount");
-                    setIsOpen(false);
-                  }}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white hover:text-white bg-white/10 hover:bg-white/15 rounded-lg transition-all duration-200 cursor-pointer"
+                  onClick={handleProfileClick}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-gray-400 bg-white/5 rounded-lg transition-all duration-200 cursor-not-allowed"
                 >
                   <svg
                     className="w-4 h-4"

@@ -14,11 +14,14 @@ const TABS = [
   { key: "contact", label: "Contact Organizers" },
 ];
 
+import { useToast } from "../../../contexts/ToastContext";
+
 const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
   const [activeTab, setActiveTab] = useState("description");
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const { requireCompleteProfile } = useProfileCheck();
+  const { showToast } = useToast();
   const navigate = useNavigate();
 
   // Lock body scroll and disable Lenis
@@ -374,17 +377,20 @@ const EventDetailsModal = ({ event, onClose, onOpenRegistration }) => {
 
           <div className={styles.actions}>
             <button
-              onClick={async () => {
+              onClick={() => {
+                showToast("The fest has concluded. Registrations are no longer active.", "info");
+
+                /* Original Registration Logic for reference
                 setIsChecking(true);
                 const canProceed = await requireCompleteProfile();
                 setIsChecking(false);
                 if (canProceed) setShowRegistrationModal(true);
+                */
               }}
-              disabled={isChecking}
               className={styles.actionButton}
-              style={{ opacity: isChecking ? 0.7 : 1, cursor: isChecking ? "not-allowed" : "pointer" }}
+              style={{ opacity: 0.6, cursor: "not-allowed", background: "#444" }}
             >
-              {isChecking ? "Checking..." : "Register Here"}
+              Registrations Closed
             </button>
           </div>
         </div>

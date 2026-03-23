@@ -286,13 +286,7 @@ const Navbar = () => {
 
             {/* Auth Buttons / Profile */}
             <div className="flex-1 flex items-center justify-end space-x-3 lg:space-x-4 text-sm lg:text-base xl:text-lg">
-              {isLoading ? (
-                // Loading Component
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-gray-600 animate-pulse"></div>
-                  <div className="h-4 w-16 bg-gray-600 rounded animate-pulse"></div>
-                </div>
-              ) : isAuthenticated ? (
+              {isAuthenticated ? (
                 // Authenticated User UI
                 <UserProfile user={user} logout={handleLogout} />
               ) : (
@@ -346,9 +340,7 @@ const Navbar = () => {
               </button>
             </div>
 
-            {isLoading ? (
-              <div className="w-8 h-8 rounded-full bg-gray-600 animate-pulse"></div>
-            ) : isAuthenticated ? (
+            {isAuthenticated ? (
               <button
                 onClick={() => navigate("/myaccount")}
                 className="w-8 h-8 rounded-full bg-linear-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-semibold cursor-pointer hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] transition-all duration-200 border border-white/20 hover:border-yellow-300"
@@ -491,12 +483,7 @@ const Navbar = () => {
 
 
               {/* Auth Buttons / Profile */}
-              {isLoading ? (
-                <div className="flex flex-col items-center gap-4 mt-8">
-                  <div className="w-12 h-12 rounded-full bg-gray-600 animate-pulse"></div>
-                  <div className="h-6 w-24 bg-gray-600 rounded animate-pulse"></div>
-                </div>
-              ) : isAuthenticated ? (
+              {isAuthenticated ? (
                 <div className="flex flex-col items-center gap-4 pt-8">
                   <button
                     onClick={() => {

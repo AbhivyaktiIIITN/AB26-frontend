@@ -82,6 +82,11 @@ const PassesSection = () => {
 81:     */
 
     const handlePayment = async (itemData, setLoading) => {
+        showToast("The fest has concluded. Registrations are no longer active.", "info");
+        setLoading(false);
+        return;
+
+        /* Original payment logic for reference
         setLoading(true);
         const canProceed = await requireCompleteProfile();
         if (!canProceed) {
@@ -134,6 +139,7 @@ const PassesSection = () => {
         } finally {
             setLoading(false);
         }
+        */
     };
 
     const handleBuyPass = async (pass) => {
@@ -145,7 +151,7 @@ const PassesSection = () => {
     };
 
     const registrationsClosed = true;
-    const activePassIds = [4, 6];
+    const activePassIds = [];
     const activeAccommodationIds = [];
 
     return (
@@ -340,7 +346,7 @@ const Card = ({ template, apiItem, isAccommodation, onBuy, isLoading, registrati
                             border: registrationsClosed ? '1px solid #666' : undefined
                         }}
                     >
-                        {isLoading ? "Processing..." : !isLive ? "Coming Soon" : isSoldOut ? "Unavailable" : registrationsClosed ? "Closed" : "Register"}
+                        {isLoading ? "Processing..." : !isLive ? "Closed" : isSoldOut ? "Unavailable" : "Register"}
                     </button>
                 </div>
             </motion.div>
