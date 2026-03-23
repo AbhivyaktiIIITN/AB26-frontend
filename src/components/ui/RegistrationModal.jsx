@@ -115,21 +115,36 @@ export default function RegistrationModal({ eventId, onClose, onSuccess, onMunPr
 
   // Handle individual registration
   const handleIndividualRegister = async () => {
-    showToast("The fest has concluded. Registrations are no longer active.", "info");
-    /* Original logic
     try {
       setRegistering(true);
-      const alreadyRegistered = await isUserRegisteredForEvent(user.id, eventId);
+
+      // Check if already registered
+      const alreadyRegistered = await isUserRegisteredForEvent(
+        user.id,
+        eventId,
+      );
       if (alreadyRegistered) {
         showToast("Already registered for this event", "error");
         setRegistering(false);
         return;
       }
-      const result = await registerForIndividualEvent(user.id, eventId, submissionString || "");
+
+      // Register (submission string is optional)
+      const result = await registerForIndividualEvent(
+        user.id,
+        eventId,
+        submissionString || "",
+      );
+
       if (result.success) {
         showToast("Successfully registered!", "success");
         if (onSuccess) onSuccess();
-        if (onMunProceed) { onMunProceed(); } else { setTimeout(() => onClose(), 800); }
+
+        if (onMunProceed) {
+          onMunProceed();
+        } else {
+          setTimeout(() => onClose(), 800);
+        }
       } else {
         showToast(result.error || "Registration failed", "error");
       }
@@ -139,30 +154,42 @@ export default function RegistrationModal({ eventId, onClose, onSuccess, onMunPr
     } finally {
       setRegistering(false);
     }
-    */
   };
 
   // Handle create team
   const handleCreateTeam = async () => {
-    showToast("The fest has concluded. Team creation is no longer active.", "info");
-    /* Original logic
     try {
       if (!teamName.trim()) {
         showToast("Please enter a team name", "error");
         return;
       }
+
       setRegistering(true);
-      const alreadyRegistered = await isUserRegisteredForEvent(user.id, eventId);
+
+      // Check if already registered
+      const alreadyRegistered = await isUserRegisteredForEvent(
+        user.id,
+        eventId,
+      );
       if (alreadyRegistered) {
         showToast("Already registered for this event", "error");
         setRegistering(false);
         return;
       }
-      const result = await createTeam({ userId: user.id, eventId, teamName: teamName.trim() });
+
+      // Create team
+      const result = await createTeam({
+        userId: user.id,
+        eventId,
+        teamName: teamName.trim(),
+      });
+
       if (result.success) {
         showToast("Success! Add Team members from the Profile", "success");
         onClose();
-        setTimeout(() => { navigate("/myaccount"); }, 500);
+        setTimeout(() => {
+          navigate("/myaccount");
+        }, 500);
         if (onSuccess) onSuccess();
       } else {
         showToast(result.error || "Team creation failed", "error");
@@ -173,24 +200,27 @@ export default function RegistrationModal({ eventId, onClose, onSuccess, onMunPr
     } finally {
       setRegistering(false);
     }
-    */
   };
 
   // Handle join team
   const handleJoinTeam = async () => {
-    showToast("The fest has concluded. Joining teams is no longer active.", "info");
-    /* Original logic
     try {
       if (!teamCode.trim()) {
         showToast("Please enter a team code", "error");
         return;
       }
+
       setRegistering(true);
+
+      // Join team
       const result = await joinTeam(user.id, teamCode.trim());
+
       if (result.success) {
         showToast("Successfully joined team!", "success");
         onClose();
-        setTimeout(() => { navigate("/myaccount"); }, 500);
+        setTimeout(() => {
+          navigate("/myaccount");
+        }, 500);
         if (onSuccess) onSuccess();
       } else {
         showToast(result.error || "Failed to join team", "error");
@@ -201,7 +231,6 @@ export default function RegistrationModal({ eventId, onClose, onSuccess, onMunPr
     } finally {
       setRegistering(false);
     }
-    */
   };
 
   // Loading state

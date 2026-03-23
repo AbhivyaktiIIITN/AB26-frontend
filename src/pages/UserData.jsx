@@ -165,16 +165,16 @@ const UserData = () => {
     }
   };
 
-  /*   // Wait for authentication state to be determined before rendering anything
-    if (authLoading) {
-      return (
-        <div className="min-h-screen bg-black p-4 md:p-8 flex items-center justify-center">
-          <div className="text-gray-400 text-center">
-            <div className="text-lg">Loading...</div>
-          </div>
+  // Wait for authentication state to be determined before rendering anything
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-black p-4 md:p-8 flex items-center justify-center">
+        <div className="text-gray-400 text-center">
+          <div className="text-lg">Loading...</div>
         </div>
-      );
-    } */
+      </div>
+    );
+  }
 
   // Show login prompt if not authenticated
   if (!isAuthenticated) {
@@ -182,14 +182,14 @@ const UserData = () => {
       <div className="min-h-screen bg-black p-4 md:p-8 flex items-center justify-center">
         <div className="bg-gray-900 border border-yellow-500/20 rounded-lg p-8 max-w-md text-center">
           <h2 className="text-3xl font-bold text-white mb-4">My Account</h2>
-          <p className="text-gray-400 text-lg mb-6">Logins and registrations are now closed.
-            <br />We hope you had an amazing experience!
+          <p className="text-gray-400 text-lg mb-6">
+            Please log in to access your profile and view your registrations.
           </p>
           <button
-            onClick={() => navigate("/")}
-            className="bg-[#3C0919] text-white cursor-pointer px-6 py-3 rounded-lg font-semibold hover:bg-[#5a0d29] transition-all duration-200 hover:shadow-lg"
+            onClick={() => navigate("/signin")}
+            className="bg-[#3C0919] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#5a0d29] transition-all duration-200 hover:shadow-lg"
           >
-            Go to Home
+            Sign In
           </button>
         </div>
       </div>
@@ -539,12 +539,8 @@ const UserData = () => {
                             </button>
                           ) : reg.type === "MUN" ? (
                             <button
-                              onClick={() => {
-                                showToast("The fest has concluded. Registration edits are no longer active.", "info");
-                                // Original edit logic for reference:
-                                // navigate("/register/abmun");
-                              }}
-                              className="px-3 py-1.5 text-xs bg-yellow-900/30 hover:bg-yellow-900/60 text-yellow-500 border border-yellow-700 rounded transition-all cursor-not-allowed opacity-70"
+                              onClick={() => navigate("/register/abmun")}
+                              className="px-3 py-1.5 text-xs bg-yellow-900/30 hover:bg-yellow-900/60 text-yellow-500 border border-yellow-700 rounded transition-all cursor-pointer"
                             >
                               Edit Entry
                             </button>
@@ -552,12 +548,8 @@ const UserData = () => {
                             <span className="text-gray-500 font-mono text-xs">-</span>
                           ) : reg.type === "Individual" ? (
                             <button
-                              onClick={() => {
-                                showToast("The fest has concluded. Entry submissions are no longer active.", "info");
-                                // Original submission logic for reference:
-                                // handleOpenSubmissionModal(reg);
-                              }}
-                              className="px-3 py-1.5 text-xs bg-yellow-900/30 hover:bg-yellow-900/60 text-yellow-500 border border-yellow-700 rounded transition-all cursor-not-allowed opacity-70"
+                              onClick={() => handleOpenSubmissionModal(reg)}
+                              className="px-3 py-1.5 text-xs bg-yellow-900/30 hover:bg-yellow-900/60 text-yellow-500 border border-yellow-700 rounded transition-all cursor-pointer"
                             >
                               {reg.submissionString ? "Edit Entry" : "Submit Entry"}
                             </button>

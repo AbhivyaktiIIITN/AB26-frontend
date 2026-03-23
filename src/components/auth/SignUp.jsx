@@ -278,73 +278,263 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
 
   const handleContinue = async (e) => {
     e.preventDefault();
-    showToast("The fest has concluded. Registrations are no longer active.", "info");
 
-    /* Original SignUp Logic for reference
-    const isValid = validateStep();
-    if (!isValid) return;
+    if (!validateStep()) {
+      return;
+    }
 
-    if (currentStep === 2) {
+    if (currentStep < 2) {
+      saveFormData();
+      nextStep();
+    } else if (currentStep === 2) {
+      setUserEmail(formData.email);
+      saveFormData();
+
       setIsLoading(true);
       try {
         await sendOTP(formData.email);
-        setUserEmail(formData.email);
         showToast("Verification code sent to your email", "success");
         nextStep();
       } catch (err) {
+        console.error("Send verification error:", err);
         showToast(getErrorMessage(err), "error");
       } finally {
         setIsLoading(false);
       }
+    } else if (currentStep === 3) {
+      await verifyOTPCode();
     } else if (currentStep === 4) {
       setIsLoading(true);
-      try {
-        const response = await signUp.email({
+      saveFormData();
+
+      await signUp.email(
+        {
           email: formData.email,
           password: formData.password,
+          name: `${formData.firstName} ${formData.lastName}`,
           firstName: formData.firstName,
-          middleName: formData.middleName,
           lastName: formData.lastName,
-          phoneNumber: formData.phoneNumber,
+          emailVerified: true,
           collegeName: formData.collegeName,
-          dateOfBirth: formData.dateOfBirth,
-        });
-
-        if (response.error) {
-          showToast(getErrorMessage(response.error), "error");
-        } else {
-          showToast("Account created successfully!", "success");
-          clearSavedData();
-          onSwitchToSignIn();
-        }
-      } catch (err) {
-        showToast(getErrorMessage(err), "error");
-      } finally {
-        setIsLoading(false);
-      }
-    } else {
-      nextStep();
+          phoneNumber: formData.phoneNumber,
+          authProvider: "local",
+        },
+        {
+          onRequest: () => {
+            setIsLoading(true);
+          },
+          onSuccess: (ctx) => {
+            setIsLoading(false);
+            clearSavedData();
+            showToast("Account created successfully!", "success");
+            onClose();
+          },
+          onError: (ctx) => {
+            setIsLoading(false);
+            clearSavedData();
+            console.error("SignUp error:", ctx.error);
+            showToast(getErrorMessage(ctx.error), "error");
+          },
+        },
+      );
     }
-    */
   };
 
   const handleGoogleSignUp = async (e) => {
     e.preventDefault();
-    showToast("The fest has concluded. Registrations are no longer active.", "info");
-
-    /* Original Google SignUp Logic for reference
-    if (isGoogleLoading) return;
     setIsGoogleLoading(true);
     try {
+      const currentOrigin =
+        window.location.origin || import.meta.env.VITE_FRONTEND_URL;
+
       await signIn.social({
         provider: "google",
+        callbackURL: `${currentOrigin}/`,
+        redirectTo: currentOrigin,
       });
     } catch (error) {
-      showToast("Could not connect to Google. Please try again.", "error");
-    } finally {
       setIsGoogleLoading(false);
+      console.error("Google signup error:", error);
+      showToast(getErrorMessage(error), "error");
     }
-    */
+  };
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                placeholder="First Name"
+                required
+                className="p-3 sm:p-4 border-2 border-gray-600 text-sm sm:text-base transition-all duration-200 focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951] placeholder-gray-400"
+              />
+              <input
+                type="text"
+                name="middleName"
+                value={formData.middleName}
+                onChange={handleChange}
+                placeholder="Middle Name (Optional)"
+                className="p-3 sm:p-4 border-2 border-gray-600 text-sm sm:text-base transition-all duration-200 focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951] placeholder-gray-400"
+              />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                placeholder="Last Name"
+                required
+                className="p-3 sm:p-4 border-2 border-gray-600 text-sm sm:text-base transition-all duration-200 focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951] placeholder-gray-400"
+              />
+              <div className="relative w-full">
+                <input
+                  type="date"
+                  name="dateOfBirth"
+                  value={formData.dateOfBirth}
+                  max="2020-12-31"
+                  onChange={handleChange}
+                  onClick={(e) => e.target.showPicker?.()}
+                  required
+                  className={`w-full p-3 sm:p-4 border-2 border-gray-600 rounded-none bg-transparent
+                  text-sm sm:text-base transition-all duration-200 cursor-pointer
+                  focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951]
+                  z-10 relative
+                  ${!formData.dateOfBirth ? "text-transparent" : "text-gray-900"} 
+                `}
+                />
+
+                {/* fake placeholder */}
+                {!formData.dateOfBirth && (
+                  <span className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm sm:text-base pointer-events-none z-0">
+                    Date of Birth
+                  </span>
+                )}
+              </div>
+            </div>
+          </>
+        );
+      case 2:
+        return (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                name="collegeName"
+                value={formData.collegeName}
+                onChange={handleChange}
+                placeholder="College Name"
+                required
+                className="p-3 sm:p-4 border-2 border-gray-600 text-sm sm:text-base transition-all duration-200 focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951] placeholder-gray-400"
+              />
+              <input
+                type="tel"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                pattern="[0-9]{10}"
+                onChange={handleChange}
+                placeholder="Phone Number (10 Digits)"
+                maxLength={10}
+                required
+                className="p-3 sm:p-4 border-2 border-gray-600 text-sm sm:text-base transition-all duration-200 focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951] placeholder-gray-400"
+              />
+            </div>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Your Email"
+              required
+              className="p-3 sm:p-4 border-2 border-gray-600 text-sm sm:text-base transition-all duration-200 focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951] placeholder-gray-400"
+            />
+          </>
+        );
+      case 3:
+        // OTP Verification Step
+        const isOtpComplete = otp.every((d) => d !== "");
+
+        return (
+          <>
+            <div className="mb-6 text-center">
+              <p className="text-gray-600 text-base mb-4">
+                We've sent a 6‑digit code to{" "}
+                <span className="font-semibold text-gray-800">{userEmail}</span>
+                . Enter it below.
+                <br />
+                <span className="text-sm text-gray-400 mt-2 block">Please check your spam or junk folder as well.</span>
+              </p>
+            </div>
+
+            <div className="flex justify-center gap-3 mb-6">
+              {otp.map((digit, idx) => (
+                <input
+                  key={idx}
+                  ref={(el) => (inputRefs.current[idx] = el)}
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={1}
+                  value={digit}
+                  onChange={(e) => handleOtpChange(e.target.value, idx)}
+                  onKeyDown={(e) => handleKeyDown(e, idx)}
+                  onPaste={idx === 0 ? handlePaste : undefined}
+                  className={`w-12 h-14 text-center text-xl font-semibold border-2 rounded-md transition-all duration-200 focus:outline-none ${digit
+                    ? "border-green-500 bg-green-50 text-green-800"
+                    : "border-gray-600 focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951]"
+                    }`}
+                  autoComplete="one-time-code"
+                />
+              ))}
+            </div>
+
+            <div className="text-center text-sm text-gray-500">
+              <p>
+                Didn't receive the code?{" "}
+                <button
+                  type="button"
+                  onClick={handleResendOTP}
+                  disabled={isResending}
+                  className="text-red-600 font-bold hover:text-red-800 hover:underline transition-colors bg-transparent border-none cursor-pointer disabled:opacity-50"
+                >
+                  {isResending ? "Resending..." : "Resend OTP"}
+                </button>
+              </p>
+            </div>
+          </>
+        );
+      case 4:
+        // Password Creation Step
+        return (
+          <>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Create a Password"
+              required
+              className="p-3 sm:p-4 border-2 border-gray-600 text-sm sm:text-base transition-all duration-200 focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951] placeholder-gray-400"
+            />
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder="Confirm Password"
+              required
+              className="p-3 sm:p-4 border-2 border-gray-600 text-sm sm:text-base transition-all duration-200 focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951] placeholder-gray-400"
+            />
+          </>
+        );
+      default:
+        return null;
+    }
   };
 
   return (
@@ -365,41 +555,91 @@ const SignUp = ({ onSwitchToSignIn, onClose }) => {
       <div className="w-full md:w-1/2 flex flex-col bg-white rounded-r-lg relative">
         <div className="flex items-center justify-center pt-14 p-6 flex-1">
           <div className="w-full">
-            <div className="mb-3 sm:mb-5 text-center">
+            {/* back button */}
+            {currentStep > 1 && (
+              <motion.button
+                initial={{ opacity: 0, x: 10 }} // Starts slightly to the left and invisible
+                animate={{ opacity: 1, x: 0 }} // Slides in and fades on
+                exit={{ opacity: 0, x: 10 }} // Slides out when going back to Step 1
+                transition={{ duration: 0.2 }}
+                onClick={prevStep}
+                className="absolute top-6 left-6 cursor-pointer text-gray-500 hover:text-[#3C0919] flex items-center gap-1 transition-colors text-sm font-medium z-20"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+                Back
+              </motion.button>
+            )}
+
+            <div className="mb-3 sm:mb-5">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900">
-                Fest Concluded
+                Create Your Account
               </h2>
               <p className="text-gray-500 text-sm sm:text-lg font-medium">
-                Thank you for being part of Abhivyakti'26!
+                Join Abhivyakti'26 and register for events, updates, and
+                participation.
               </p>
             </div>
-            <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg mb-6 text-amber-800 text-sm sm:text-base">
-              <p className="font-medium text-center">
-                The fest has concluded and registrations/logins are now closed.
-                We hope to see you next year!
-              </p>
+
+            {/* Progress Bar */}
+            <div className="w-full h-1.25 bg-gray-200 rounded-lg my-6">
+              <div
+                className="h-full bg-linear-to-r from-pink-500 to-red-600 transition-all duration-300 rounded-lg"
+                style={{ width: `${(currentStep / 4) * 100}%` }}
+              />
             </div>
+
             <form
               onSubmit={handleContinue}
-              className="flex flex-col gap-4 sm:gap-6 mt-8 opacity-60 pointer-events-none"
+              className="flex flex-col gap-4 sm:gap-6"
             >
-
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentStep}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.2, ease: "easeInOut" }}
+                  className="flex flex-col gap-4 sm:gap-6"
+                >
+                  {renderStepContent()}
+                </motion.div>
+              </AnimatePresence>
 
               <button
                 type="submit"
-                className="bg-[#3C0919] border-2 tracking-wider text-white border-none p-2 sm:p-3 text-lg sm:text-xl cursor-not-allowed mt-2"
-                disabled
+                className="bg-[#3C0919] border-2 text-white border-none p-2 sm:p-3 text-lg sm:text-xl font-medium cursor-pointer transition-all duration-200 mt-2 disabled:opacity-70 disabled:cursor-not-allowed hover:bg-[#5a0d29] hover:transform hover:shadow-lg"
+                disabled={isLoading || sessionLoading}
               >
-                Register
+                {isLoading
+                  ? "Processing..."
+                  : currentStep === 2
+                    ? "Send Verification"
+                    : currentStep === 3
+                      ? "Verify Email"
+                      : currentStep === 4
+                        ? "Create Account"
+                        : "Continue"}
               </button>
 
               <button
                 onClick={handleGoogleSignUp}
                 type="button"
-                className="p-2 sm:p-3 border-2 -mt-2 md:-mt-3 border-gray-600 text-lg sm:text-xl font-medium cursor-not-allowed"
-                disabled
+                className="p-2 sm:p-3 border-2 -mt-2 md:-mt-3 border-gray-600 text-lg sm:text-xl font-medium cursor-pointer transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed hover:bg-[#3c09191e]"
+                disabled={isLoading || isGoogleLoading || currentStep > 2}
               >
-                Google Registration
+                {isGoogleLoading ? "Processing..." : "Continue with Google"}
               </button>
             </form>
 

@@ -128,39 +128,50 @@ const TeamModal = ({ teamId, eventId, onClose, onSuccess }) => {
 
   // Search user by ABID
   const handleSearchUser = async () => {
-    showToast("The fest has concluded. Adding members is no longer active.", "info");
-    /* Original logic
     if (!abidInput.trim()) {
       showToast("Please enter an ABID", "error");
       return;
     }
+
     const serialId = abidToSerialId(abidInput);
     if (!serialId) {
       showToast("Invalid ABID format (use ABXXXXX)", "error");
       return;
     }
+
     try {
       setSearchingUser(true);
-      const BASE_URL = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_BACKEND_URL;
+      const BASE_URL =
+        import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_BACKEND_URL;
+
       const response = await fetch(`${BASE_URL}/api/user/serial/${serialId}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
       });
+
       const data = await response.json();
+
       if (!response.ok) {
         showToast(data.error || "User not found", "error");
         return;
       }
+
       const foundUser = data.user;
+
+      // Check if user already in team
       if (team?.members?.some((m) => m.userId === foundUser.id)) {
         showToast("User already in team", "error");
         return;
       }
+
+      // Check if already pending
       if (pendingMembers.some((m) => m.id === foundUser.id)) {
         showToast("User already in pending list", "error");
         return;
       }
+
+      // Add to pending members
       setPendingMembers([...pendingMembers, foundUser]);
       setAbidInput("");
       showToast("User added to pending list", "success");
@@ -169,7 +180,6 @@ const TeamModal = ({ teamId, eventId, onClose, onSuccess }) => {
     } finally {
       setSearchingUser(false);
     }
-    */
   };
 
   // Remove from pending (before joining)
@@ -179,15 +189,18 @@ const TeamModal = ({ teamId, eventId, onClose, onSuccess }) => {
 
   // Add member to team (join team)
   const handleAddMember = async (userId, teamCode) => {
-    showToast("The fest has concluded. Adding members is no longer active.", "info");
-    /* Original logic
     try {
       setApprovingMemberId(userId);
       const result = await joinTeam(userId, teamCode);
+
       if (result.success) {
         setPendingMembers(pendingMembers.filter((m) => m.id !== userId));
+
+        // Refresh team data
         const teamRes = await getTeam(teamId);
-        if (teamRes.success) { setTeam(teamRes.team); }
+        if (teamRes.success) {
+          setTeam(teamRes.team);
+        }
         showToast("Member added successfully", "success");
       } else {
         showToast(result.error || "Failed to add member", "error");
@@ -197,19 +210,20 @@ const TeamModal = ({ teamId, eventId, onClose, onSuccess }) => {
     } finally {
       setApprovingMemberId(null);
     }
-    */
   };
 
   // Remove member from team
   const handleRemoveMember = async (memberId) => {
-    showToast("The fest has concluded. Removing members is no longer active.", "info");
-    /* Original logic
     try {
       setRemovingMemberId(memberId);
       const result = await removeMember(currentUser?.id, teamId, memberId);
+
       if (result.success) {
+        // Refresh team data
         const teamRes = await getTeam(teamId);
-        if (teamRes.success) { setTeam(teamRes.team); }
+        if (teamRes.success) {
+          setTeam(teamRes.team);
+        }
         showToast("Member removed successfully", "success");
       } else {
         showToast(result.error || "Failed to remove member", "error");
@@ -219,16 +233,14 @@ const TeamModal = ({ teamId, eventId, onClose, onSuccess }) => {
     } finally {
       setRemovingMemberId(null);
     }
-    */
   };
 
   // Leave team (current user)
   const handleLeaveTeam = async () => {
-    showToast("The fest has concluded. Leaving teams is no longer active.", "info");
-    /* Original logic
     try {
       setLeavingTeam(true);
       const result = await leaveTeam(teamId, currentUser?.id);
+
       if (result.success) {
         showToast("Left team successfully", "success");
         setTimeout(() => onClose(), 1000);
@@ -240,20 +252,23 @@ const TeamModal = ({ teamId, eventId, onClose, onSuccess }) => {
     } finally {
       setLeavingTeam(false);
     }
-    */
   };
 
   // Submit team submission string
   const handleSubmitTeam = async () => {
-    showToast("The fest has concluded. Team submissions are no longer active.", "info");
-    /* Original logic
     if (!registrationId) {
       showToast("Registration ID not found", "error");
       return;
     }
+
     try {
       setSubmittingSubmission(true);
-      const result = await submitTeamRegistration(registrationId, submissionString || "");
+
+      const result = await submitTeamRegistration(
+        registrationId,
+        submissionString || "",
+      );
+
       if (result.success) {
         showToast("Team submission updated successfully!", "success");
         if (onSuccess) onSuccess();
@@ -267,7 +282,6 @@ const TeamModal = ({ teamId, eventId, onClose, onSuccess }) => {
     } finally {
       setSubmittingSubmission(false);
     }
-    */
   };
 
   if (loading) {

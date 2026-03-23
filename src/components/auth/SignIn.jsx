@@ -44,48 +44,57 @@ const SignIn = ({ onSwitchToSignUp, onSwitchToForgotPassword, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    showToast("The fest has concluded. Logins are no longer active.", "info");
-
-    /* Original Login Logic for reference
-    if (isLoading) return;
     setIsLoading(true);
-    try {
-      const response = await signIn.email({
-        email: formData.email,
-        password: formData.password,
-      });
 
-      if (response.error) {
-        showToast(getErrorMessage(response.error), "error");
-      } else {
-        showToast("Welcome back!", "success");
-        onClose();
-      }
-    } catch (error) {
-      showToast(getErrorMessage(error), "error");
-    } finally {
+    try {
+      await signIn.email(
+        {
+          email: formData.email,
+          password: formData.password,
+        },
+        {
+          onSuccess: () => {
+            setIsLoading(false);
+            showToast("Login successful", "success");
+            onClose();
+          },
+          onError: (ctx) => {
+            setIsLoading(false);
+            const errorMsg = getErrorMessage(ctx.error);
+            showToast(errorMsg, "error");
+          },
+        },
+      );
+    } catch (err) {
       setIsLoading(false);
+      if (err.name !== "AbortError") {
+        const errorMsg = getErrorMessage(err);
+        showToast(errorMsg, "error");
+      }
     }
-    */
   };
 
   const handleGoogleSubmit = async (e) => {
     e.preventDefault();
-    showToast("The fest has concluded. Logins are no longer active.", "info");
-
-    /* Original Google Login Logic for reference
-    if (isGoogleLoading) return;
     setIsGoogleLoading(true);
+
     try {
+      const frontendUrl =
+        import.meta.env.VITE_FRONTEND_URL || window.location.origin;
+
       await signIn.social({
         provider: "google",
+        callbackURL: `${frontendUrl}`,
+        redirectTo: frontendUrl,
       });
-    } catch (error) {
-      showToast("Could not connect to Google. Please try again.", "error");
-    } finally {
+    } catch (err) {
       setIsGoogleLoading(false);
+
+      if (err.name !== "AbortError") {
+        const errorMsg = getErrorMessage(err);
+        showToast(errorMsg, "error");
+      }
     }
-    */
   };
 
   return (
@@ -103,25 +112,18 @@ const SignIn = ({ onSwitchToSignUp, onSwitchToForgotPassword, onClose }) => {
 
       <div className="w-full md:w-1/2 flex items-center justify-center pt-8 p-6 bg-white rounded-r-lg">
         <div className="w-full">
-          <div className="mb-6 sm:mb-8 text-center">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 ">
-              Fest Concluded
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-3xl sm:text-4xl font-semibold text-gray-900 ">
+              LOGIN
             </h2>
-            <p className="text-gray-500 text-sm sm:text-lg font-medium mt-2">
-              Thank you for being part of Abhivyakti'26!
-            </p>
-          </div>
-
-          <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg mb-6 text-amber-800 text-sm sm:text-base">
-            <p className="font-medium text-center">
-              The fest has concluded and registrations/logins are now closed.
-              We hope to see you next year!
+            <p className="text-gray-500 text-md sm:text-lg font-medium ">
+              Sign in to your account
             </p>
           </div>
 
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col gap-4 sm:gap-6 opacity-60 pointer-events-none"
+            className="flex flex-col gap-4 sm:gap-6"
           >
             <div className="flex flex-col">
               <input
@@ -130,9 +132,9 @@ const SignIn = ({ onSwitchToSignUp, onSwitchToForgotPassword, onClose }) => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                disabled
+                required
                 placeholder="Your Email"
-                className="p-3 sm:p-4 border-2 border-gray-600 text-sm sm:text-base transition-all duration-200 focus:outline-none placeholder-gray-400"
+                className="p-3 sm:p-4 border-2 border-gray-600 text-sm sm:text-base transition-all duration-200 focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951] placeholder-gray-400"
               />
             </div>
 
@@ -143,26 +145,36 @@ const SignIn = ({ onSwitchToSignUp, onSwitchToForgotPassword, onClose }) => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                disabled
+                required
                 placeholder="Password"
-                className="p-3 sm:p-4 border-2 border-gray-600 text-sm sm:text-base transition-all duration-200 focus:outline-none placeholder-gray-400"
+                className="p-3 sm:p-4 border-2 border-gray-600 text-sm sm:text-base transition-all duration-200 focus:outline-none focus:border-[#3C0919] focus:ring-2 focus:ring-[#3c091951] placeholder-gray-400"
               />
             </div>
 
+            {/* <div className="flex justify-end items-center max-sm:-mt-2 text-sm">
+              <button
+                type="button" // Changed to type="button" to prevent form submit
+                onClick={onSwitchToForgotPassword}
+                className="text-red-600 no-underline font-medium hover:text-red-800 transition-colors bg-transparent border-none cursor-pointer"
+              >
+                Forgot Password?
+              </button>
+            </div> */}
+
             <button
               type="submit"
-              className="bg-[#3C0919] border-2 tracking-wider text-white border-none p-2 sm:p-3 text-lg sm:text-xl cursor-not-allowed mt-2"
-              disabled
+              className="bg-[#3C0919] border-2 tracking-wider text-white border-none p-2 sm:p-3 text-lg sm:text-xl cursor-pointer transition-all duration-200 mt-2 disabled:opacity-70 disabled:cursor-not-allowed hover:bg-[#5a0d29] hover:transform hover:shadow-lg"
+              disabled={isLoading || isGoogleLoading}
             >
-              Sign In
+              {isLoading ? "Signing In..." : "Continue"}
             </button>
             <button
               onClick={handleGoogleSubmit}
               type="button"
-              className="p-2 sm:p-3 border-2 -mt-2 md:-mt-3 tracking-wider border-gray-600 text-lg sm:text-xl font-medium cursor-not-allowed"
-              disabled
+              className="p-2 sm:p-3 border-2 -mt-2 md:-mt-3 tracking-wider border-gray-600 text-lg sm:text-xl font-medium cursor-pointer transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed hover:bg-[#3c09191e]"
+              disabled={isLoading || isGoogleLoading}
             >
-              Google Login
+              {isGoogleLoading ? "Signing In..." : "Continue with Google"}
             </button>
           </form>
 
