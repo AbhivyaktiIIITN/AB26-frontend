@@ -56,39 +56,34 @@ export default function ProfileCompletionModal({ onClose, onSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    showToast("The fest has concluded. Profile updates are no longer active.", "info");
 
+    /* Original logic
     try {
       if (!collegeName.trim()) {
         showToast("Please enter your college name", "error");
         return;
       }
-
       if (!phoneNumber.trim()) {
         showToast("Please enter your phone number", "error");
         return;
       }
-
       const phoneRegex = /^[0-9]{10}$/;
       if (!phoneRegex.test(phoneNumber.replace(/\D/g, ""))) {
         showToast("Please enter a valid 10-digit phone number", "error");
         return;
       }
-
       if (!dateOfBirth) {
         showToast("Please enter your date of birth", "error");
         return;
       }
-
       setLoading(true);
-
       const profileData = {
         collegeName: collegeName.trim(),
         phoneNumber: phoneNumber.trim(),
         dateOfBirth: new Date(dateOfBirth),
       };
-
       const result = await updateUserProfile(user.id, profileData);
-
       if (result.success) {
         showToast("Profile completed successfully!", "success");
         localStorage.removeItem("profileCompletionData");
@@ -103,6 +98,7 @@ export default function ProfileCompletionModal({ onClose, onSuccess }) {
     } finally {
       setLoading(false);
     }
+    */
   };
 
   return (

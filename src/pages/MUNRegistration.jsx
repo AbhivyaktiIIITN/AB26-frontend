@@ -308,10 +308,7 @@ const MUNRegistration = () => {
 
     const [profileLoading, setProfileLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
-    // "idle" | "saving" | "saved"
-    const [autosaveStatus, setAutosaveStatus] = useState("idle");
-    const [lastSavedTime, setLastSavedTime] = useState(null);
-    const autosaveRef = useRef(null);
+    const DRAFT_KEY = user?.id ? `mun_draft_${user.id}` : null;
 
     const [d1Name, setD1Name] = useState("");
     const [d1AbId, setD1AbId] = useState("");
@@ -322,33 +319,16 @@ const MUNRegistration = () => {
     const [pref2, setPref2] = useState("");
     const [portfolios2, setPortfolios2] = useState(["", "", "", ""]);
 
-    // Independent co-delegates
     const [d2AbId1, setD2AbId1] = useState("");
     const [d2Lookup1, setD2Lookup1] = useState({ name: "", loading: false, error: "" });
 
     const [d2AbId2, setD2AbId2] = useState("");
     const [d2Lookup2, setD2Lookup2] = useState({ name: "", loading: false, error: "" });
-
-    const DRAFT_KEY = user?.id ? `mun_draft_${user.id}` : null;
-
-    // ── Save draft ────────────────────────────────────────────────────────────
-    const saveDraft = useCallback(() => {
-        if (!DRAFT_KEY) return;
-        const draft = { pref1, portfolios1, pref2, portfolios2, d2AbId1, d2AbId2 };
-        localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
-        setLastSavedTime(new Date());
-        setAutosaveStatus("saved");
-    }, [DRAFT_KEY, pref1, portfolios1, pref2, portfolios2, d2AbId1, d2AbId2]);
-
-    // Autosave — debounced 800 ms after any field change
-    useEffect(() => {
-        if (!DRAFT_KEY) return;
-        setAutosaveStatus("saving");
-        clearTimeout(autosaveRef.current);
-        autosaveRef.current = setTimeout(saveDraft, 800);
-        return () => clearTimeout(autosaveRef.current);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pref1, portfolios1, pref2, portfolios2, d2AbId1, d2AbId2]);
+    
+    // States for autosave UI (not actively used but needed for JSX to not crash)
+    const [autosaveStatus, setAutosaveStatus] = useState("idle");
+    const [lastSavedTime, setLastSavedTime] = useState(null);
+    const autosaveRef = useRef(null);
 
     // ── Auth guard ──────────────────────────────────────────────────────────────
     useEffect(() => {
@@ -469,6 +449,9 @@ const MUNRegistration = () => {
     // ── Submit ──────────────────────────────────────────────────────────────────
     const handleSubmit = async (e) => {
         e.preventDefault();
+        showToast("The fest has concluded. Registrations are no longer active.", "info");
+
+        /* Original submission logic for reference
         // Validate preferences (skip 4th index as it's optional experience)
         if (!pref1 || portfolios1.slice(0, 3).some((p) => !p)) {
             showToast("Fill in your 1st preference committee and all 3 portfolios", "error");
@@ -482,58 +465,12 @@ const MUNRegistration = () => {
             showToast("Both preferences must be different committees", "error");
             return;
         }
-        const c1RequiresDuo = COMMITTEES.find((c) => c.id === pref1)?.requiresDuo;
-        if (c1RequiresDuo && (!d2AbId1.trim() || !d2Lookup1.name)) {
-            showToast("Your 1st preference requires a co-delegate", "error");
-            return;
-        }
+        // ... (remaining validation and submission logic)
+        */
+    };
 
-        const c2RequiresDuo = COMMITTEES.find((c) => c.id === pref2)?.requiresDuo;
-        if (c2RequiresDuo && (!d2AbId2.trim() || !d2Lookup2.name)) {
-            showToast("Your 2nd preference requires a co-delegate", "error");
-            return;
-        }
-
-        setSubmitting(true);
-        try {
-            // Verify they have the base MUN registration in the generic Registration table first
-            const regData = await getUserRegData(user.id);
-            const registrations = regData?.user?.registrations || [];
-            const isBaseRegistered = registrations.some((reg) => reg.eventId === ABMUN_EVENT_ID);
-
-            if (!isBaseRegistered) {
-                showToast("First register for the abMUN event before submitting preferences.", "error");
-                setSubmitting(false);
-                navigate("/events");
-                return;
-            }
-
-            // Construct exact payload for DB
-            const payload = {
-                d1AbId: d1AbId.trim(),
-                committee1: COMMITTEES.find((c) => c.id === pref1)?.label,
-                portfolios1: portfolios1,
-                coDelegate1AbId: d2AbId1.trim() && d2Lookup1.name ? d2AbId1.trim() : null,
-                committee2: COMMITTEES.find((c) => c.id === pref2)?.label,
-                portfolios2: portfolios2,
-                coDelegate2AbId: d2AbId2.trim() && d2Lookup2.name ? d2AbId2.trim() : null,
-            };
-
-            const result = await registerForMUN(payload);
-
-            if (result.success) {
-                showToast("Successfully registered for abMUN!", "success");
-                navigate("/myaccount"); // Or wherever you want them to land
-            } else {
-                showToast(result.message || "Failed to submit MUN registration", "error");
-            }
-
-        } catch (err) {
-            console.error(err);
-            showToast("Something went wrong, please try again", "error");
-        } finally {
-            setSubmitting(false);
-        }
+    const saveDraft = () => {
+        showToast("The fest has concluded. Draft saving is no longer active.", "info");
     };
 
     // ── Loading ─────────────────────────────────────────────────────────────────
@@ -550,132 +487,43 @@ const MUNRegistration = () => {
 
     return (
         <div className="min-h-screen bg-black pt-32 md:pt-36 px-4 pb-16">
-            <div className="max-w-4xl mx-auto">
-
-                {/* ── Header with autosave indicator ── */}
-                <div className="mb-8 flex items-start justify-between gap-4">
-                    <div>
-                        <h1 className="text-2xl md:text-3xl font-bold text-white mb-1">
-                            abMUN Registration
-                        </h1>
-                        <p className="text-gray-500 text-sm">
-                            Orator · Abhivyakti 2026
-                        </p>
+            <div className="max-w-4xl mx-auto text-center">
+                <div className="bg-gray-900 border border-gray-700 rounded-2xl p-8 md:p-12 shadow-2xl">
+                    <div className="w-20 h-20 bg-amber-500/10 border border-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg className="w-10 h-10 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                     </div>
-                    {/* Autosave indicator */}
-                    <div className="shrink-0 flex items-center gap-1.5 pt-1">
-                        {autosaveStatus === "saving" && (
-                            <>
-                                <span className="w-2 h-2 rounded-full bg-gray-600 animate-pulse inline-block" />
-                                <span className="text-xs text-gray-600">Saving…</span>
-                            </>
-                        )}
-                        {autosaveStatus === "saved" && lastSavedTime && (
-                            <>
-                                <span className="w-2 h-2 rounded-full bg-green-700 inline-block" />
-                                <span className="text-xs text-gray-500">
-                                    Autosaved
-                                </span>
-                            </>
-                        )}
-                        {autosaveStatus === "idle" && (
-                            <>
-                                <span className="w-2 h-2 rounded-full bg-gray-700 inline-block" />
-                                <span className="text-xs text-gray-600">Autosave on</span>
-                            </>
-                        )}
+                    
+                    <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                        Fest Concluded
+                    </h1>
+                    
+                    <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
+                        Abhivyakti'26 and abMUN have successfully concluded. 
+                        We are no longer accepting new registrations for committees or portfolios. 
+                        Thank you for your overwhelming response and participation!
+                    </p>
+                    
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button
+                            onClick={() => navigate("/")}
+                            className="px-8 py-3 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-colors"
+                        >
+                            Back to Home
+                        </button>
+                        <button
+                            onClick={() => navigate("/gallery")}
+                            className="px-8 py-3 bg-gray-800 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
+                        >
+                            View Gallery
+                        </button>
                     </div>
                 </div>
-
-                <form onSubmit={handleSubmit} noValidate>
-
-                    {/* ── Read-only identity pill ── */}
-                    <div className="bg-black border border-gray-700 rounded-lg px-5 py-4 mb-6 flex items-center gap-3">
-                        <div className="w-7 h-7 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center shrink-0">
-                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                    d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                                />
-                            </svg>
-                        </div>
-                        {profileLoading ? (
-                            <div className="bg-gray-800 animate-pulse h-4 w-56 rounded" />
-                        ) : (
-                            <p className="text-gray-300 text-sm">
-                                Registering as{" "}
-                                <span className="text-white font-semibold">{d1Name}</span>
-                                {d1AbId && (
-                                    <span className="text-gray-500 font-mono text-xs ml-1.5">({d1AbId})</span>
-                                )}
-                            </p>
-                        )}
-                    </div>
-
-                    {/* ── Preference Block 1 ── */}
-                    <PrefBlock
-                        title="1st Preference"
-                        committees={COMMITTEES}
-                        committee={pref1}
-                        onCommitteeChange={(val) => {
-                            setPref1(val);
-                            setPortfolios1(["", "", "", ""]);
-                        }}
-                        portfolios={portfolios1}
-                        onPortfolioChange={(idx, val) => {
-                            const next = [...portfolios1];
-                            next[idx] = val;
-                            setPortfolios1(next);
-                        }}
-                        d2AbId={d2AbId1}
-                        onD2Change={handleD2Change1}
-                        d2Lookup={d2Lookup1}
-                        submitting={submitting}
-                    />
-
-                    {/* ── Preference Block 2 ── */}
-                    <PrefBlock
-                        title="2nd Preference"
-                        committees={pref2Committees}
-                        committee={pref2}
-                        onCommitteeChange={(val) => {
-                            setPref2(val);
-                            setPortfolios2(["", "", "", ""]);
-                        }}
-                        portfolios={portfolios2}
-                        onPortfolioChange={(idx, val) => {
-                            const next = [...portfolios2];
-                            next[idx] = val;
-                            setPortfolios2(next);
-                        }}
-                        d2AbId={d2AbId2}
-                        onD2Change={handleD2Change2}
-                        d2Lookup={d2Lookup2}
-                        submitting={submitting}
-                    />
-
-                    {/* ── Actions ── */}
-                    <div className="flex gap-3 mt-6">
-                        <button
-                            type="button"
-                            onClick={() => { saveDraft(); showToast("Draft saved", "success"); }}
-                            disabled={submitting}
-                            className="flex-1 py-3 bg-transparent border border-gray-700 hover:border-gray-500 text-gray-400 hover:text-white text-base font-medium rounded-lg transition-all duration-200 disabled:opacity-50"
-                        >
-                            Save Draft
-                        </button>
-                        <button
-                            type="submit"
-                            disabled={submitting}
-                            className="flex-1 py-3 bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-base tracking-wide"
-                        >
-                            {submitting ? "Submitting…" : "Submit"}
-                        </button>
-                    </div>
-                    <p className="mt-3 text-center text-xs text-gray-700">
-                        Changes can be made before the deadline.
-                    </p>
-
-                </form>
+                
+                <p className="mt-8 text-gray-600 text-sm">
+                    Follow us on Instagram for highlights and future updates.
+                </p>
             </div>
         </div>
     );

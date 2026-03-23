@@ -12,7 +12,7 @@ export const passTemplates = [
             { label: "", text: "Designed for IIITN students who want to focus purely on participating in the events." }
         ],
         basePrice: "300",
-        fallbackPrice: "₹300",
+        fallbackPrice: "₹---",
         promoLabel: "SPECIAL PRICE",
         restrictedInternalOnly: true
     },
@@ -27,7 +27,7 @@ export const passTemplates = [
             { label: "", text: "Perfect for IIITN students who want to participate and represent the fest with official swag." }
         ],
         basePrice: "500",
-        fallbackPrice: "₹500",
+        fallbackPrice: "₹---",
         promoLabel: "SPECIAL PRICE",
         restrictedInternalOnly: true
     },
@@ -42,7 +42,7 @@ export const passTemplates = [
             { label: "", text: "Designed for IIITN students who're elite gamers and want to focus purely on dominating the virtual arena" }
         ],
         basePrice: "100",
-        fallbackPrice: "₹100",
+        fallbackPrice: "₹---",
         promoLabel: "SPECIAL PRICE",
         restrictedInternalOnly: true
     },
@@ -57,7 +57,7 @@ export const passTemplates = [
             { label: "", text: "This registration is for those exploring the fest for a single day; not applicable for MUN participants." }
         ],
         basePrice: "800",
-        fallbackPrice: "₹800",
+        fallbackPrice: "₹---",
         promoLabel: "EARLY BIRD OFFER",
         restrictedInternalOnly: false
     },
@@ -72,7 +72,7 @@ export const passTemplates = [
             { label: "", text: "This registration is ideal for those participating in multi-day events like MUN (Does not include food) or multiple competitions." }
         ],
         basePrice: "900",
-        fallbackPrice: "₹900",
+        fallbackPrice: "₹---",
         promoLabel: "EARLY BIRD OFFER",
         restrictedInternalOnly: false
     },
