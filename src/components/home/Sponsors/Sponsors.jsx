@@ -8,9 +8,32 @@ const sectionConfig = {
 };
 
 const Sponsors = () => {
-  const topSponsors = Array(8).fill({ logo: "/sponsors/abhibus.jpeg", alt: "ABHI BUS" });
+  const topSponsors = [
+  { logo: "/sponsors/dabtofab.jpeg", alt: "Dab to Fab" },
+  { logo: "/sponsors/woodhouse.jpeg", alt: "Woodhouse" },
+  { logo: "/sponsors/vlcc.png", alt: "VLCC" },
+  { logo: "/sponsors/skechers.png", alt: "Skechers" },
+  { logo: "/sponsors/abhibus.jpeg", alt: "AbhiBus" },
+  { logo: "/sponsors/papasinstant.jpeg", alt: "Papa’s Instantly Tasty" },
+  { logo: "/sponsors/wildcup.png", alt: "Wildcup" },
+  { logo: "/sponsors/snackzilla.jpeg", alt: "Snackzilla" },
+  { logo: "/sponsors/summarise.jpeg", alt: "Summarise" },
+  { logo: "/sponsors/blastix.png", alt: "Blastix" },
+  { logo: "/sponsors/bluntly.jpg", alt: "Bluntly" },
+];
 
-  const bottomSponsors = Array(8).fill({ logo: "/sponsors/abhibus.jpeg", alt: "ABHI BUS" });
+  const bottomSponsors = [
+    { logo: "/sponsors/woodhouse.jpeg", alt: "Woodhouse" },
+    { logo: "/sponsors/vlcc.png", alt: "VLCC" },
+    { logo: "/sponsors/skechers.png", alt: "Skechers" },
+    { logo: "/sponsors/abhibus.jpeg", alt: "AbhiBus" },
+    { logo: "/sponsors/papasinstant.jpeg", alt: "Papa’s Instantly Tasty" },
+    { logo: "/sponsors/wildcup.png", alt: "Wildcup" },
+    { logo: "/sponsors/snackzilla.jpeg", alt: "Snackzilla" },
+    { logo: "/sponsors/summarise.jpeg", alt: "Summarise" },
+    { logo: "/sponsors/blastix.png", alt: "Blastix" },
+    { logo: "/sponsors/bluntly.jpg", alt: "Bluntly" },
+  ];
 
   return (
     <div className="px-3 pb-15 md:pb-40 md:px-15">
@@ -29,8 +52,8 @@ const Sponsors = () => {
           <span className="text-[#FDB931]">SPONSORS</span>
         </h1>
       </div>
-      <ComingSoon />
-      {/* <div className="relative z-10 w-full flex flex-col gap-4 sm:gap-8 mt-6 md:mt-10">
+      {/* <ComingSoon /> */}
+      <div className="relative z-10 w-full flex flex-col gap-4 sm:gap-8 mt-6 md:mt-10">
         <div className="w-full overflow-hidden">
           <div className="flex gap-4 sm:gap-8 w-max animate-[marquee-right_30s_linear_infinite]">
             {[...topSponsors, ...topSponsors].map((s, i) => (
@@ -49,7 +72,7 @@ const Sponsors = () => {
             ))}
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
